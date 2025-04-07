@@ -25,6 +25,6 @@ func input_changed() -> void:
 		groundtip_2.text = "A to Jump"
 		groundtip_3.text = "RIGHT BUMPER/TRIGGER TO THROW PICK\nLEFT BUMPER/TRIGGER TO BLOCK BULLETS\nA TO JUMP ON ENEMIES"
 	elif InputMode.is_keyboard():
-		groundtip_1.text = "WASD or ARROWS to Move\nSHIFT to Sprint"
+		groundtip_1.text = "WASD or ARROWS to Move\nSHIFT/Middle Mouse to Sprint"
 		groundtip_2.text = "SPACE to Jump"
 		groundtip_3.text = "LEFT CLICK TO THROW PICK\nRIGHT CLICK TO BLOCK BULLETS\nSPACE TO JUMP ON ENEMIES"

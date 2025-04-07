@@ -51,7 +51,7 @@ texture = ExtResource("5_1yldg")
 [node name="Platform" parent="." node_paths=PackedStringArray("near_player", "near_cart") instance=ExtResource("6_5yij4")]
 z_index = 1
 position = Vector2(432, 400)
-diamond_requirement = 10
+diamond_requirement = 40
 near_player = NodePath("Player")
 near_cart = NodePath("Cart")
 

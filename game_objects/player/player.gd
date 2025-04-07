@@ -41,6 +41,11 @@ var knockback_vector : Vector2 = Vector2.ZERO
 
 func _ready():
 	light_active = false
+	if not is_node_ready():
+		await ready
+	var poof = poof_particle_scene.instantiate()
+	object_spawn_layer.add_child(poof)
+	poof.global_position = global_position
 
 
 func _input(event):

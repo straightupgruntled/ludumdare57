@@ -14,6 +14,7 @@ var entering : bool = false
 
 
 func _ready():
+	Global.intro_completed = false
 	EventBus.intro_finished.connect(intro_completed)
 
 

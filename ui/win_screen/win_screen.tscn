@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7oon056pu151"]
+[gd_scene load_steps=9 format=3 uid="uid://c7oon056pu151"]
 
 [ext_resource type="Script" uid="uid://cs0ruudn77k7l" path="res://ui/win_screen/win_screen.gd" id="1_dcw1d"]
 [ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_vii5q"]
+[ext_resource type="AudioStream" uid="uid://glr462vggrr4" path="res://assets/audio/music/DiamondMarch.wav" id="3_oklgd"]
 
 [sub_resource type="Animation" id="Animation_vii5q"]
 resource_name = "win_animation"
@@ -164,5 +165,10 @@ text = "YOU GATHERED SO MANY DIAMONDS THAT YOU WILL BE RICH FOREVER!"
 label_settings = SubResource("LabelSettings_oklgd")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_oklgd")
+pitch_scale = 0.7
+autoplay = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
