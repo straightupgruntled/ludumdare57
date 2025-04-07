@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjb6uehdnxdvv"]
+
+[ext_resource type="Texture2D" uid="uid://c81x4q8mkmqw4" path="res://assets/sprites/poof_particles/large_poof.png" id="1_cpfcl"]
+[ext_resource type="Script" uid="uid://bgy8mbm6rv7h5" path="res://game_objects/particles/small_poof_particles.gd" id="2_wiqxo"]
+
+[sub_resource type="Gradient" id="Gradient_atyx3"]
+offsets = PackedFloat32Array(0, 0.567376, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wiqxo"]
+gradient = SubResource("Gradient_atyx3")
+
+[sub_resource type="Curve" id="Curve_atyx3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.443114, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.35777, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wiqxo"]
+curve = SubResource("Curve_atyx3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_atyx3"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+angle_min = -180.0
+angle_max = 180.0
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -500.0
+linear_accel_max = -250.0
+scale_min = 0.25
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_wiqxo")
+color_ramp = SubResource("GradientTexture1D_wiqxo")
+
+[node name="PoofParticles" type="GPUParticles2D"]
+emitting = false
+amount = 30
+texture = ExtResource("1_cpfcl")
+interp_to_end = 0.02
+one_shot = true
+explosiveness = 0.95
+randomness = 0.75
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_atyx3")
+script = ExtResource("2_wiqxo")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

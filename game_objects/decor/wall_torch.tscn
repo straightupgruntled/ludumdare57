@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://chrrapfo80hh6"]
+
+[ext_resource type="Texture2D" uid="uid://c213rts6rh0iw" path="res://assets/sprites/wall_torch.png" id="1_fo0jk"]
+[ext_resource type="Texture2D" uid="uid://btmbxeu4q8ov1" path="res://assets/sprites/light_mask.png" id="2_dkidj"]
+
+[node name="WallTorch" type="Node2D"]
+z_index = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
+rotation = -1.5708
+texture = ExtResource("1_fo0jk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(23, 0)
+color = Color(1, 0.52549, 0.0784314, 1)
+energy = 0.6
+texture = ExtResource("2_dkidj")
+texture_scale = 0.3

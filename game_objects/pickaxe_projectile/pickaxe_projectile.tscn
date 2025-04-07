@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0qrrn7plhuy5"]
+
+[ext_resource type="Script" uid="uid://b253itvcb0kwt" path="res://game_objects/pickaxe_projectile/pickaxe_projectile.gd" id="1_7dpqa"]
+[ext_resource type="Texture2D" uid="uid://cb30ditsrgje4" path="res://assets/sprites/pickaxe.png" id="1_dinug"]
+[ext_resource type="PackedScene" uid="uid://ct3m32sucqcnq" path="res://components/combat/hitbox.tscn" id="3_ivnte"]
+[ext_resource type="AudioStream" uid="uid://cy01y7mq56djd" path="res://assets/audio/sfx/pickaxe_bounce.wav" id="4_h58cq"]
+[ext_resource type="AudioStream" uid="uid://bd52if8tf2305" path="res://assets/audio/sfx/pickaxe_impact.wav" id="5_fug4a"]
+[ext_resource type="AudioStream" uid="uid://ckmp5uhixyqku" path="res://assets/audio/sfx/pickaxe_move.wav" id="6_1svi5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dpqa"]
+radius = 11.0
+
+[node name="PickaxeProjectile" type="CharacterBody2D"]
+collision_layer = 64
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_7dpqa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7dpqa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_dinug")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_ivnte")]
+type = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_7dpqa")
+
+[node name="BounceSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_h58cq")
+bus = &"SFX"
+
+[node name="ImpactSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_fug4a")
+bus = &"SFX"
+
+[node name="MoveSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_1svi5")
+volume_db = 10.0
+autoplay = true
+max_distance = 500.0
+attenuation = 2.21914
+bus = &"SFX"
+
+[connection signal="hit_hurtbox" from="Hitbox" to="." method="_on_hitbox_hit_hurtbox"]
+[connection signal="hit_hurtbox" from="Hitbox" to="." method="return_to_player"]

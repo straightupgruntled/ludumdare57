@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bggqyl06ydkmq"]
+
+[ext_resource type="Script" uid="uid://c5o0c6hamrvrb" path="res://ui/player_health_bar/player_health_bar.gd" id="1_3p05j"]
+[ext_resource type="Texture2D" uid="uid://dgtmlmyjmfpep" path="res://assets/sprites/player_health.png" id="1_ewi7k"]
+
+[node name="PlayerHealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3p05j")
+
+[node name="Heart1" type="Sprite2D" parent="."]
+texture = ExtResource("1_ewi7k")
+centered = false
+region_enabled = true
+region_rect = Rect2(86, 0, 86, 83)
+
+[node name="Heart2" type="Sprite2D" parent="."]
+position = Vector2(88, 0)
+texture = ExtResource("1_ewi7k")
+centered = false
+region_enabled = true
+region_rect = Rect2(86, 0, 86, 83)
+
+[node name="Heart3" type="Sprite2D" parent="."]
+position = Vector2(176, 0)
+texture = ExtResource("1_ewi7k")
+centered = false
+region_enabled = true
+region_rect = Rect2(86, 0, 86, 83)

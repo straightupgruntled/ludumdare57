@@ -5,6 +5,7 @@ var intro_completed : bool = false
 
 var time_scale : float = 1.0
 var target_time_scale : float = 1.0
+var enemies_killed : int = 0
 
 
 func _ready() -> void:

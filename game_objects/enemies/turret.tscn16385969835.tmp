@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://oj3bumx0baby"]
+
+[ext_resource type="Texture2D" uid="uid://cpac17lf2xq84" path="res://assets/sprites/turret_base.png" id="1_4tqfo"]
+[ext_resource type="Script" uid="uid://bibehmlyo6i4t" path="res://game_objects/enemies/turret.gd" id="1_fouej"]
+[ext_resource type="Texture2D" uid="uid://c8mr0gtx3w16c" path="res://assets/sprites/turret_top.png" id="2_fouej"]
+[ext_resource type="PackedScene" uid="uid://drg63185jbmfj" path="res://game_objects/enemy_bullet/enemy_bullet.tscn" id="2_wiaf6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4tqfo"]
+radius = 20.025
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fouej"]
+radius = 339.094
+
+[node name="Turret" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_fouej")
+bullet_scene = ExtResource("2_wiaf6")
+
+[node name="Base" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_4tqfo")
+
+[node name="Gun" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fouej")
+offset = Vector2(10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4tqfo")
+
+[node name="ObjectDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetector"]
+shape = SubResource("CircleShape2D_fouej")
+
+[node name="ShootTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+autostart = true
+
+[connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
+[connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

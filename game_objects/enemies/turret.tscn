@@ -1,0 +1,150 @@
+[gd_scene load_steps=17 format=3 uid="uid://oj3bumx0baby"]
+
+[ext_resource type="Texture2D" uid="uid://cpac17lf2xq84" path="res://assets/sprites/turret_base.png" id="1_4tqfo"]
+[ext_resource type="Script" uid="uid://bibehmlyo6i4t" path="res://game_objects/enemies/turret.gd" id="1_fouej"]
+[ext_resource type="Texture2D" uid="uid://c8mr0gtx3w16c" path="res://assets/sprites/turret_top.png" id="2_fouej"]
+[ext_resource type="PackedScene" uid="uid://drg63185jbmfj" path="res://game_objects/enemy_bullet/enemy_bullet.tscn" id="2_wiaf6"]
+[ext_resource type="Shader" uid="uid://bg3m4bftlrp3n" path="res://resources/shader/hitflash.gdshader" id="3_0esbn"]
+[ext_resource type="PackedScene" uid="uid://fotywb17fqn7" path="res://game_objects/markers/danger_marker.tscn" id="6_k585p"]
+[ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="7_gmgcq"]
+[ext_resource type="PackedScene" uid="uid://dj2xsgwh5x21t" path="res://components/health/health_component.tscn" id="7_u1eh7"]
+[ext_resource type="AudioStream" uid="uid://dxgrntb1ukqxo" path="res://assets/audio/sfx/turret_aim.wav" id="9_u1eh7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k585p"]
+resource_local_to_scene = true
+shader = ExtResource("3_0esbn")
+shader_parameter/hit_color = Color(1, 1, 1, 1)
+shader_parameter/intensity = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4tqfo"]
+radius = 20.025
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fouej"]
+radius = 427.095
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iiuq7"]
+radius = 19.105
+
+[sub_resource type="Animation" id="Animation_5ao2x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x5y7b"]
+resource_name = "hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_djh21"]
+_data = {
+&"RESET": SubResource("Animation_5ao2x"),
+&"hit": SubResource("Animation_x5y7b")
+}
+
+[node name="Turret" type="StaticBody2D"]
+collision_layer = 10
+collision_mask = 0
+script = ExtResource("1_fouej")
+bullet_scene = ExtResource("2_wiaf6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_k585p")
+rotation = -6.28318
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_4tqfo")
+
+[node name="Gun" type="Sprite2D" parent="Sprite2D"]
+use_parent_material = true
+rotation = 3.14159
+texture = ExtResource("2_fouej")
+offset = Vector2(10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4tqfo")
+
+[node name="ShootTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 3.0
+autostart = true
+
+[node name="ObjectDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetector"]
+shape = SubResource("CircleShape2D_fouej")
+
+[node name="DangerMarker" parent="." instance=ExtResource("6_k585p")]
+z_index = 2
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_u1eh7")]
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_gmgcq")]
+health_component = NodePath("../HealthComponent")
+cooldown_time = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_iiuq7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_djh21")
+}
+
+[node name="AimSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_u1eh7")
+volume_db = -3.0
+bus = &"SFX"
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
+[connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_lost" from="HealthComponent" to="." method="take_damage"]
+[connection signal="damage_taken" from="Hurtbox" to="." method="take_damage"]

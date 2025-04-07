@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://byw5rlu277t3r"]
+
+[ext_resource type="Script" uid="uid://w1jiak1yxuhu" path="res://game_objects/player/player.gd" id="1_jcgnw"]
+[ext_resource type="Texture2D" uid="uid://c0yw0tinvfaag" path="res://assets/sprites/player_temp.png" id="1_l3qw1"]
+[ext_resource type="PackedScene" uid="uid://b0qrrn7plhuy5" path="res://game_objects/pickaxe_projectile/pickaxe_projectile.tscn" id="2_b08t1"]
+[ext_resource type="Texture2D" uid="uid://btmbxeu4q8ov1" path="res://assets/sprites/light_mask.png" id="3_gnf7o"]
+[ext_resource type="PackedScene" uid="uid://b0dvamfsywjvu" path="res://game_objects/bullet_shield/bullet_shield.tscn" id="4_f4exj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jcgnw"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gnf7o"]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_na85j"]
+radius = 22.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visuals")]
+collision_layer = 4
+collision_mask = 25
+motion_mode = 1
+script = ExtResource("1_jcgnw")
+pickaxe_scene = ExtResource("2_b08t1")
+visuals = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 6
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_l3qw1")
+
+[node name="HoldMarker" type="Marker2D" parent="Sprite2D"]
+position = Vector2(-0.0010136, 280)
+
+[node name="BulletShield" parent="Sprite2D" instance=ExtResource("4_f4exj")]
+position = Vector2(74.2857, 2.38419e-07)
+scale = Vector2(2, 2)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jcgnw")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.868188, 0.786326, 0.69518, 1)
+energy = 1.3
+texture = ExtResource("3_gnf7o")
+texture_scale = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.6, 1.6)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="CartDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CartDetector"]
+shape = SubResource("CircleShape2D_gnf7o")
+debug_color = Color(0.999582, 0, 0.110188, 0.42)
+
+[node name="GroundDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetector"]
+shape = SubResource("CircleShape2D_jcgnw")
+
+[node name="PickaxeGrabber" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickaxeGrabber"]
+shape = SubResource("CircleShape2D_na85j")
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="CartDetector" to="." method="_on_cart_detector_body_entered"]
+[connection signal="body_exited" from="CartDetector" to="." method="_on_cart_detector_body_exited"]
+[connection signal="area_entered" from="PickaxeGrabber" to="." method="_on_pickaxe_grabber_area_entered"]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://cr8v58l6qfp32"]
+
+[ext_resource type="Script" uid="uid://do7yfg1wdvsk1" path="res://game_objects/cash_in_platform/platform.gd" id="1_8ynsn"]
+[ext_resource type="Texture2D" uid="uid://ekxa5x418vk8" path="res://assets/sprites/cash_in_platform.png" id="1_lljtu"]
+[ext_resource type="Texture2D" uid="uid://7y2cn5srr4be" path="res://assets/sprites/diamond_icon.png" id="3_h3ia6"]
+[ext_resource type="Texture2D" uid="uid://bekqo4rkibj48" path="res://assets/sprites/square_light_mask.png" id="3_h7hcp"]
+[ext_resource type="FontFile" uid="uid://cf7pwort5hh46" path="res://assets/fonts/patrick_hand_regular.ttf" id="4_njqju"]
+[ext_resource type="AudioStream" uid="uid://bc1gtn1pf5kj3" path="res://assets/audio/sfx/platform_moving.wav" id="6_njqju"]
+[ext_resource type="AudioStream" uid="uid://e32gkjpfh82b" path="res://assets/audio/sfx/platform_lockin.wav" id="7_pind4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lljtu"]
+size = Vector2(160, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7hcp"]
+size = Vector2(108, 108)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h3ia6"]
+font = ExtResource("4_njqju")
+font_size = 38
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Platform" type="StaticBody2D"]
+collision_layer = 258
+collision_mask = 0
+script = ExtResource("1_8ynsn")
+diamond_requirement = 102
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lljtu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_lljtu")
+
+[node name="ObjectDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetector"]
+shape = SubResource("RectangleShape2D_h7hcp")
+
+[node name="FixedPivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="FixedPivot"]
+modulate = Color(0, 0.682586, 0.821081, 1)
+z_index = -1
+position = Vector2(0, 1)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("3_h3ia6")
+
+[node name="DiamondCountLabel" type="Label" parent="FixedPivot"]
+offset_left = -31.0
+offset_top = -36.0
+offset_right = 31.0
+offset_bottom = 30.0
+text = "0"
+label_settings = SubResource("LabelSettings_h3ia6")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WeightLight" type="PointLight2D" parent="."]
+energy = 0.0
+texture = ExtResource("3_h7hcp")
+texture_scale = 0.9
+
+[node name="WeightCheckTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DescentSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_njqju")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="LockInSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_pind4")
+volume_db = -4.0
+bus = &"SFX"
+
+[connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
+[connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]
+[connection signal="timeout" from="WeightCheckTimer" to="." method="_on_weight_check_timer_timeout"]

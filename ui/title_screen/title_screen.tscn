@@ -1,0 +1,152 @@
+[gd_scene load_steps=16 format=3 uid="uid://crxmwxwyc10ot"]
+
+[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_4kwlo"]
+[ext_resource type="Script" uid="uid://svud5lxk3yj2" path="res://ui/title_screen/title_screen.gd" id="1_ffat2"]
+[ext_resource type="Texture2D" uid="uid://cehijw2vtqm75" path="res://assets/sprites/cave_background.png" id="2_kp51c"]
+[ext_resource type="Texture2D" uid="uid://d3jh4meoqoa1e" path="res://assets/sprites/diamond.png" id="2_rhiq2"]
+[ext_resource type="PackedScene" uid="uid://bh5tfquq6tow0" path="res://ui/intro_overlay/intro_overlay.tscn" id="3_72buf"]
+[ext_resource type="Texture2D" uid="uid://b7345aerdqap4" path="res://assets/sprites/title_cart_and_player.png" id="4_2er51"]
+[ext_resource type="Texture2D" uid="uid://x4cbsel367uc" path="res://assets/sprites/ludum_dare_logo.png" id="5_ca08b"]
+[ext_resource type="AudioStream" uid="uid://glr462vggrr4" path="res://assets/audio/music/DiamondMarch.wav" id="8_lgnx5"]
+[ext_resource type="Texture2D" uid="uid://r02ihevh0e6w" path="res://assets/sprites/speaker_button.png" id="9_gwpbi"]
+[ext_resource type="Texture2D" uid="uid://dw4463334dtel" path="res://assets/sprites/mute_speaker_button.png" id="10_dk1uc"]
+
+[sub_resource type="Curve" id="Curve_ca08b"]
+_data = [Vector2(0, 0.359551), 0.0, 0.0, 0, 0, Vector2(0.491018, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.404494), -3.48475, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lgnx5"]
+curve = SubResource("Curve_ca08b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kp51c"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(960, 1, 1)
+angle_min = -100.0
+angle_max = 100.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -400.0
+angular_velocity_max = -100.0
+gravity = Vector3(0, 300, 0)
+scale_min = 0.75
+scale_max = 2.25
+scale_curve = SubResource("CurveTexture_lgnx5")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffat2"]
+font = ExtResource("1_4kwlo")
+font_size = 240
+outline_size = 45
+outline_color = Color(0.0948004, 0.191602, 0.346263, 1)
+shadow_size = 96
+shadow_color = Color(0, 0, 0, 0.847059)
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_72buf"]
+font = ExtResource("1_4kwlo")
+font_size = 100
+outline_size = 35
+outline_color = Color(0.0941176, 0.192157, 0.345098, 1)
+shadow_size = 65
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(1, 4)
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ffat2")
+level_scene_file = "uid://5l3dg75qbig5"
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundSprite" type="Sprite2D" parent="Background"]
+position = Vector2(960, 541)
+texture = ExtResource("2_kp51c")
+
+[node name="CartPlayerSprite" type="Sprite2D" parent="Background/BackgroundSprite"]
+z_index = 1
+position = Vector2(-15, 508)
+texture = ExtResource("4_2er51")
+offset = Vector2(0, -120)
+
+[node name="DiamondParticles" type="GPUParticles2D" parent="Background"]
+modulate = Color(0.47, 0.47, 0.47, 1)
+position = Vector2(986, -82)
+amount = 500
+texture = ExtResource("2_rhiq2")
+lifetime = 3.0
+preprocess = 3.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_kp51c")
+
+[node name="ColorRect2" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0348, 0.06604, 0.12, 0.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(1773, 994)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_ca08b")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -587.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 245)
+text = "DIAMOND DIVERS"
+label_settings = SubResource("LabelSettings_ffat2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 413.0
+offset_bottom = -174.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 245)
+text = "Enter to Start"
+label_settings = SubResource("LabelSettings_72buf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IntroOverlay" parent="." instance=ExtResource("3_72buf")]
+visible = false
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lgnx5")
+pitch_scale = 0.8
+autoplay = true
+bus = &"Music"
+
+[node name="CheckButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1773.0
+offset_top = 6.0
+offset_right = 1906.0
+offset_bottom = 134.0
+focus_mode = 0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("9_gwpbi")
+texture_pressed = ExtResource("10_dk1uc")
+
+[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]

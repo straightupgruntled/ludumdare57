@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0dvamfsywjvu"]
+
+[ext_resource type="Texture2D" uid="uid://c6q1w6l8ndwfq" path="res://assets/sprites/shield.png" id="1_h46og"]
+[ext_resource type="Script" uid="uid://d2bs1bj5rqpkp" path="res://game_objects/bullet_shield/bullet_shield.gd" id="1_r2h2v"]
+[ext_resource type="AudioStream" uid="uid://c478yjrg08keo" path="res://assets/audio/sfx/deflect_bullet.wav" id="3_lho4v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2h2v"]
+size = Vector2(16, 47)
+
+[node name="BulletShield" type="Area2D"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("1_r2h2v")
+active = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h46og")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -0.5)
+shape = SubResource("RectangleShape2D_r2h2v")
+
+[node name="DeflectSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_lho4v")
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

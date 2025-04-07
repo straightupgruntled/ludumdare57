@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://byw5rlu277t3r"]
+
+[ext_resource type="Script" uid="uid://w1jiak1yxuhu" path="res://game_objects/player/player.gd" id="1_jcgnw"]
+[ext_resource type="Texture2D" uid="uid://c0yw0tinvfaag" path="res://assets/sprites/player_temp.png" id="1_l3qw1"]
+[ext_resource type="Texture2D" uid="uid://btmbxeu4q8ov1" path="res://assets/sprites/light_mask.png" id="3_gnf7o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jcgnw"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gnf7o"]
+radius = 17.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 9
+motion_mode = 1
+script = ExtResource("1_jcgnw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_l3qw1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_jcgnw")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+texture = ExtResource("3_gnf7o")
+texture_scale = 0.2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 14.0
+
+[node name="GroundDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetector"]
+shape = SubResource("CircleShape2D_gnf7o")
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+shape = SubResource("CircleShape2D_gnf7o")
+debug_color = Color(0.999582, 0, 0.110188, 0.42)
+
+[node name="RespawnTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

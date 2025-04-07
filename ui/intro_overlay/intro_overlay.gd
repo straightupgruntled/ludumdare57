@@ -20,10 +20,12 @@ func _input(event):
 		animation_player.stop()
 		finished.emit()
 		Global.intro_completed = true
+		EventBus.intro_finished.emit()
 		self.queue_free()
 
 
 func _on_animation_player_animation_finished(anim_name):
 	finished.emit()
 	Global.intro_completed = true
+	EventBus.intro_finished.emit()
 	self.queue_free()

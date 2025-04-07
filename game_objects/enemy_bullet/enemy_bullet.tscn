@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://drg63185jbmfj"]
+
+[ext_resource type="Script" uid="uid://doeaqlih5a0ro" path="res://game_objects/enemy_bullet/enemy_bullet.gd" id="1_s438n"]
+[ext_resource type="Texture2D" uid="uid://bs3d4urjcpugk" path="res://assets/sprites/enemy_bullet.png" id="1_weor4"]
+[ext_resource type="PackedScene" uid="uid://b8dxl17fafso5" path="res://game_objects/particles/little_poof_particles.tscn" id="2_excac"]
+[ext_resource type="Texture2D" uid="uid://bntqvodtawxyd" path="res://assets/sprites/player_bullet.png" id="3_vki8l"]
+[ext_resource type="PackedScene" uid="uid://ct3m32sucqcnq" path="res://components/combat/hitbox.tscn" id="4_2f1ok"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2f1ok"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s438n"]
+radius = 11.0
+
+[node name="EnemyBullet" type="CharacterBody2D"]
+collision_layer = 32
+script = ExtResource("1_s438n")
+poof_particle_scene = ExtResource("2_excac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_weor4")
+
+[node name="PlayerBulletSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_vki8l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2f1ok")
+
+[node name="Hitbox" parent="." instance=ExtResource("4_2f1ok")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_s438n")
+
+[connection signal="hit_hurtbox" from="Hitbox" to="." method="_on_hitbox_hit_hurtbox"]

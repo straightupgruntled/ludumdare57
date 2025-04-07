@@ -1,0 +1,115 @@
+[gd_scene load_steps=12 format=3 uid="uid://gle1as0pok8k"]
+
+[ext_resource type="Texture2D" uid="uid://b86mkwdv1qlj3" path="res://assets/sprites/rock.png" id="1_fi6s8"]
+[ext_resource type="Script" uid="uid://cjx7hikfv6w3w" path="res://game_objects/rock/rock.gd" id="1_qtftb"]
+[ext_resource type="PackedScene" uid="uid://c0kpo3qloqa7y" path="res://game_objects/collectables/diamond.tscn" id="2_4sksh"]
+[ext_resource type="Shader" uid="uid://bg3m4bftlrp3n" path="res://resources/shader/hitflash.gdshader" id="3_x5y7b"]
+[ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="6_djh21"]
+[ext_resource type="Script" uid="uid://cacmw8a416j6f" path="res://components/health/health_component.gd" id="7_b2qeq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ao2x"]
+resource_local_to_scene = true
+shader = ExtResource("3_x5y7b")
+shader_parameter/hit_color = Color(1, 1, 1, 1)
+shader_parameter/intensity = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qtftb"]
+radius = 34.0147
+
+[sub_resource type="Animation" id="Animation_5ao2x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x5y7b"]
+resource_name = "hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_djh21"]
+_data = {
+&"RESET": SubResource("Animation_5ao2x"),
+&"hit": SubResource("Animation_x5y7b")
+}
+
+[node name="Rock" type="StaticBody2D"]
+collision_layer = 10
+collision_mask = 0
+script = ExtResource("1_qtftb")
+diamond_scene = ExtResource("2_4sksh")
+metadata/_edit_horizontal_guides_ = [-56.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5ao2x")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("1_fi6s8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qtftb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_djh21")
+}
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_djh21")]
+type = 2
+health_component = NodePath("../HealthComponent")
+cooldown_time = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_qtftb")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_b2qeq")
+max_health = 8
+metadata/_custom_type_script = "uid://cacmw8a416j6f"
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_lost" from="HealthComponent" to="." method="health_lost"]

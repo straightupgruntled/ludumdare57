@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://df5rj5pvwvak4"]
+
+[ext_resource type="PackedScene" uid="uid://cqernqcxvmf5t" path="res://assets/models/gridmap.blend" id="1_4ym4k"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4ym4k"]
+points = PackedVector3Array(-1, -5, -1, -1, -5, 1, -1, 1, -1, 1, -5, -1, 1, -5, 1, -1, 1, 1, 1, 1, -1, 1, 1, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ldswn"]
+points = PackedVector3Array(-1, -5, -1, -1, -5, 1, -1, 5, -1, 1, -5, -1, 1, -5, 1, -1, 5, 1, 1, 5, -1, 1, 5, 1)
+
+[node name="Gridmap" instance=ExtResource("1_4ym4k")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_4ym4k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_ldswn")

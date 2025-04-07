@@ -1,0 +1,177 @@
+[gd_scene load_steps=24 format=3 uid="uid://byw5rlu277t3r"]
+
+[ext_resource type="Script" uid="uid://w1jiak1yxuhu" path="res://game_objects/player/player.gd" id="1_jcgnw"]
+[ext_resource type="Texture2D" uid="uid://c0yw0tinvfaag" path="res://assets/sprites/player_temp.png" id="1_l3qw1"]
+[ext_resource type="PackedScene" uid="uid://b0qrrn7plhuy5" path="res://game_objects/pickaxe_projectile/pickaxe_projectile.tscn" id="2_b08t1"]
+[ext_resource type="Shader" uid="uid://bg3m4bftlrp3n" path="res://resources/shader/hitflash.gdshader" id="3_0msq5"]
+[ext_resource type="PackedScene" uid="uid://bjb6uehdnxdvv" path="res://game_objects/particles/small_poof_particles.tscn" id="3_2xxf6"]
+[ext_resource type="Texture2D" uid="uid://btmbxeu4q8ov1" path="res://assets/sprites/light_mask.png" id="3_gnf7o"]
+[ext_resource type="Texture2D" uid="uid://y7mpvnwpeotb" path="res://assets/sprites/cone_light_mask.png" id="4_b08t1"]
+[ext_resource type="PackedScene" uid="uid://b0dvamfsywjvu" path="res://game_objects/bullet_shield/bullet_shield.tscn" id="4_f4exj"]
+[ext_resource type="PackedScene" uid="uid://dovkunoq4hlre" path="res://components/height_controller/height_controller.tscn" id="6_b08t1"]
+[ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="7_kt652"]
+[ext_resource type="Script" uid="uid://cacmw8a416j6f" path="res://components/health/health_component.gd" id="8_kke0l"]
+[ext_resource type="PackedScene" uid="uid://ct3m32sucqcnq" path="res://components/combat/hitbox.tscn" id="10_kt652"]
+[ext_resource type="AudioStream" uid="uid://dlkvauabf31kp" path="res://assets/audio/sfx/player_jump.wav" id="13_o7l5b"]
+[ext_resource type="AudioStream" uid="uid://btb68psea4xrv" path="res://assets/audio/sfx/land.wav" id="14_cuamp"]
+[ext_resource type="AudioStream" uid="uid://d100l1j0i8yq7" path="res://assets/audio/sfx/throw_pickaxe.wav" id="15_cuamp"]
+[ext_resource type="AudioStream" uid="uid://c7ei0wsy13p47" path="res://assets/audio/sfx/catch_pickaxe.wav" id="16_3g2qd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jcgnw"]
+radius = 17.0294
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xxf6"]
+shader = ExtResource("3_0msq5")
+shader_parameter/hit_color = Color(1, 1, 1, 1)
+shader_parameter/intensity = 0.0
+
+[sub_resource type="Animation" id="Animation_o7l5b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:material:shader_parameter/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kc3ei"]
+resource_name = "hurt"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:material:shader_parameter/intensity")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cuamp"]
+_data = {
+&"RESET": SubResource("Animation_o7l5b"),
+&"hurt": SubResource("Animation_kc3ei")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kt652"]
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gnf7o"]
+radius = 17.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 9
+motion_mode = 1
+script = ExtResource("1_jcgnw")
+pickaxe_scene = ExtResource("2_b08t1")
+poof_particle_scene = ExtResource("3_2xxf6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jcgnw")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture_filter = 6
+material = SubResource("ShaderMaterial_2xxf6")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_l3qw1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cuamp")
+}
+
+[node name="Flashlight" type="PointLight2D" parent="."]
+position = Vector2(160, 2)
+rotation = -1.57079
+color = Color(0.924042, 0.873677, 0.818099, 1)
+energy = 1.2
+texture = ExtResource("4_b08t1")
+
+[node name="CircleLight" type="PointLight2D" parent="."]
+rotation = -1.57079
+color = Color(0.816918, 0.786484, 0.760285, 1)
+energy = 0.5
+texture = ExtResource("3_gnf7o")
+texture_scale = 0.1
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("8_kke0l")
+max_health = 6
+metadata/_custom_type_script = "uid://cacmw8a416j6f"
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_kt652")]
+type = 1
+health_component = NodePath("../HealthComponent")
+cooldown_time = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_kt652")
+
+[node name="StompHitbox" parent="." instance=ExtResource("10_kt652")]
+type = 1
+damage_amount = 3
+active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompHitbox"]
+shape = SubResource("CircleShape2D_jcgnw")
+
+[node name="BulletShield" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_f4exj")]
+visible = false
+position = Vector2(26, 8.34467e-08)
+scale = Vector2(0.7, 0.7)
+active = false
+player = NodePath("..")
+
+[node name="ObjectDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetector"]
+shape = SubResource("CircleShape2D_gnf7o")
+debug_color = Color(0.999582, 0, 0.110188, 0.42)
+
+[node name="HeightController" parent="." node_paths=PackedStringArray("body", "visuals") instance=ExtResource("6_b08t1")]
+body = NodePath("..")
+visuals = NodePath("../BodySprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeightController"]
+shape = SubResource("CircleShape2D_jcgnw")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_o7l5b")
+bus = &"SFX"
+
+[node name="LandSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_cuamp")
+pitch_scale = 0.85
+bus = &"SFX"
+
+[node name="PickThrowSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_cuamp")
+bus = &"SFX"
+
+[node name="PickCatchSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_3g2qd")
+bus = &"SFX"
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_lost" from="HealthComponent" to="." method="_on_health_component_health_lost"]
+[connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
+[connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]
+[connection signal="fell_into_pit" from="HeightController" to="." method="_on_height_controller_fell_into_pit"]
+[connection signal="in_air_started" from="HeightController" to="." method="_on_height_controller_in_air_started"]
+[connection signal="landed_on_ground" from="HeightController" to="." method="landed_on_ground"]

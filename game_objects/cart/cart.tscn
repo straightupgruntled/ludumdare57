@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://ebote4etxu2p"]
+
+[ext_resource type="Script" uid="uid://bq45e3f6xh4jn" path="res://game_objects/cart/cart.gd" id="1_4at20"]
+[ext_resource type="Texture2D" uid="uid://dlfnq4e8dd2gk" path="res://assets/sprites/cart_vector.png" id="2_df6ov"]
+[ext_resource type="Texture2D" uid="uid://7y2cn5srr4be" path="res://assets/sprites/diamond_icon.png" id="3_da272"]
+[ext_resource type="FontFile" uid="uid://cf7pwort5hh46" path="res://assets/fonts/patrick_hand_regular.ttf" id="3_df6ov"]
+[ext_resource type="PackedScene" uid="uid://dovkunoq4hlre" path="res://components/height_controller/height_controller.tscn" id="5_50xmb"]
+[ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="6_88ld3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_da272"]
+font = ExtResource("3_df6ov")
+font_size = 32
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be307"]
+size = Vector2(71, 62)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50xmb"]
+radius = 17.0294
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6aag"]
+size = Vector2(52, 53)
+
+[node name="Cart" type="CharacterBody2D"]
+collision_layer = 10
+collision_mask = 9
+motion_mode = 1
+script = ExtResource("1_4at20")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_df6ov")
+offset = Vector2(-12, 0)
+
+[node name="FixedPivot" type="Node2D" parent="Visuals"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals/FixedPivot"]
+modulate = Color(0, 0.682586, 0.821081, 1)
+position = Vector2(0, 1)
+texture = ExtResource("3_da272")
+
+[node name="DiamondCountLabel" type="Label" parent="Visuals/FixedPivot"]
+offset_left = -31.0
+offset_top = -34.0
+offset_right = 31.0
+offset_bottom = 31.0
+text = "0"
+label_settings = SubResource("LabelSettings_da272")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_be307")
+
+[node name="HeightController" parent="." node_paths=PackedStringArray("body", "visuals", "ground_exceptions") instance=ExtResource("5_50xmb")]
+body = NodePath("..")
+visuals = NodePath("../Visuals")
+ground_exceptions = [NodePath("..")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeightController"]
+shape = SubResource("CircleShape2D_50xmb")
+
+[node name="CollectableDetector" type="Area2D" parent="."]
+rotation = -0.000914105
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableDetector"]
+position = Vector2(-4, -0.00365642)
+shape = SubResource("RectangleShape2D_be307")
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_88ld3")]
+type = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_n6aag")
+
+[connection signal="fell_into_pit" from="HeightController" to="." method="_on_fell_into_pit"]
+[connection signal="body_entered" from="CollectableDetector" to="." method="_on_collectable_detector_body_entered"]
+[connection signal="damage_taken" from="Hurtbox" to="." method="take_damage"]
