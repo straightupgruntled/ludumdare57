@@ -2,12 +2,11 @@ extends Control
 
 @export_file() var level_scene_file : String
 
-@onready var title = $Title
-
 var time : float = 0.0
 var can_start : bool = false
 var entering : bool = false
 
+@onready var title = $Title
 @onready var hint = $Hint
 @onready var background_sprite = $Background/BackgroundSprite
 @onready var cart_player_sprite = $Background/BackgroundSprite/CartPlayerSprite
@@ -20,8 +19,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("skip_intro") and can_start:
-		if is_instance_valid(hint):
-			hint.hide()
+		hint.hide()
 		TransitionManager.transition_to_file_scene(level_scene_file)
 		entering = true
 		can_start = false
