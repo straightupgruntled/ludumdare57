@@ -25,7 +25,7 @@ func _physics_process(delta):
 		if distance_to_player < 10.0:
 			player_ref.return_pickaxe(self)
 		elif distance_to_player < 100.0:
-			scale = scale.lerp(Vector2.ONE, .2)
+			scale = scale.lerp(player_ref.global_scale, .2)
 		else:
 			scale = scale.lerp(Vector2.ONE * 1.75, .1)
 		rotation -= 4 * PI * delta

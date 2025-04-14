@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwh5y35yebbmu"]
+
+[ext_resource type="Script" uid="uid://chesvivfonub7" path="res://game_objects/cart/cart_attachments/cart_attachment.gd" id="1_c2urr"]
+
+[node name="CartAttachment" type="Node2D"]
+script = ExtResource("1_c2urr")

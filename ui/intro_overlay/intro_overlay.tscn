@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://bh5tfquq6tow0"]
 
 [ext_resource type="Script" uid="uid://cmo74h53pywqe" path="res://ui/intro_overlay/intro_overlay.gd" id="1_w4iag"]
-[ext_resource type="Texture2D" uid="uid://dc2qir7ghywf5" path="res://assets/sprites/intro_logos/gruntled_games_logo.png" id="2_vqjr5"]
-[ext_resource type="Texture2D" uid="uid://cxnudeetj8awy" path="res://assets/sprites/intro_logos/white_godot_logo.png" id="3_pyaq3"]
+[ext_resource type="Texture2D" uid="uid://ctw3f2okhmsuo" path="res://assets/sprites/intro_logos/gruntled_games_logo.png" id="2_vqjr5"]
+[ext_resource type="Texture2D" uid="uid://c3wt0w87x6r6b" path="res://assets/sprites/intro_logos/white_godot_logo.png" id="3_pyaq3"]
 [ext_resource type="FontFile" uid="uid://cf7pwort5hh46" path="res://assets/fonts/patrick_hand_regular.ttf" id="4_jxp6w"]
 [ext_resource type="AudioStream" uid="uid://ngc67y1g84ek" path="res://assets/audio/sfx/intro_logo.wav" id="5_geuw5"]
 [ext_resource type="AudioStream" uid="uid://j1uhwwv0gq82" path="res://assets/audio/sfx/intro_bleep.wav" id="6_6sqpq"]
@@ -248,7 +248,6 @@ z_index = 4096
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 0
-mouse_filter = 2
 script = ExtResource("1_w4iag")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -263,7 +262,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
 [node name="GruntledLogo" type="TextureRect" parent="."]

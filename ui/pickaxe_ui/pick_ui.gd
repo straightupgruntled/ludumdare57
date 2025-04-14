@@ -5,14 +5,15 @@ extends HBoxContainer
 
 
 func _ready():
-	if pick_count < 5:
-		for i in 5 - pick_count:
-			get_child(0).queue_free()
-			await get_tree().process_frame
+	update_pick_count(2, 2)
 
 
-func update_pick_count(count : int) -> void:
+func update_pick_count(count : int, max_picks : int) -> void:
 	var id : int = 0
+	for child in get_children():
+		child.hide()
+	for i in max_picks:
+		get_child(i).show()
 	for child in get_children():
 		if id < count:
 			child.modulate = Color.WHITE

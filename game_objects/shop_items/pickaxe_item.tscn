@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://8h6b1t7bl0hi"]
+
+[ext_resource type="Script" uid="uid://otep8vvcmo0e" path="res://game_objects/shop_items/pickaxe_item.gd" id="1_jvywd"]
+[ext_resource type="PackedScene" uid="uid://b8dxl17fafso5" path="res://game_objects/particles/little_poof_particles.tscn" id="2_hqra2"]
+[ext_resource type="Texture2D" uid="uid://brypamjlffy6r" path="res://assets/sprites/pickaxe_icon.png" id="3_6kqee"]
+[ext_resource type="PackedScene" uid="uid://dxb7o428afhsd" path="res://components/interaction/interactable.tscn" id="4_6bruh"]
+[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="6_hqra2"]
+[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="6_w1reb"]
+[ext_resource type="Texture2D" uid="uid://djw2kh4se2c46" path="res://assets/sprites/light_mask.png" id="7_hqra2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rbu4q"]
+radius = 31.0161
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_twj3g"]
+radius = 78.0064
+
+[sub_resource type="LabelSettings" id="LabelSettings_3w8ud"]
+font = ExtResource("6_w1reb")
+font_size = 32
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PickaxeItem" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_jvywd")
+item_name = "PICKAXE"
+diamond_cost = 25
+poof_particle_scene = ExtResource("2_hqra2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.81, 1.81)
+texture = ExtResource("3_6kqee")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rbu4q")
+
+[node name="Interactable" parent="." instance=ExtResource("4_6bruh")]
+position = Vector2(0, 16)
+message = "PICKAXE"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_twj3g")
+
+[node name="ActiveLight" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = ExtResource("7_hqra2")
+texture_scale = 0.22
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.203922, 0.584314, 0.909804, 1)
+position = Vector2(0, -60)
+scale = Vector2(1.17, 1.17)
+texture = ExtResource("6_hqra2")
+
+[node name="DiamondCountLabel" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -90.0
+offset_right = 31.0
+offset_bottom = -28.0
+pivot_offset = Vector2(31, 31)
+text = "10"
+label_settings = SubResource("LabelSettings_3w8ud")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="entered" from="Interactable" to="." method="_on_interactable_entered"]
+[connection signal="exited" from="Interactable" to="." method="_on_interactable_exited"]
+[connection signal="interaction_triggered" from="Interactable" to="." method="_on_interactable_interaction_triggered"]

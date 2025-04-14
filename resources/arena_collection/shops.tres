@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArenaCollection" load_steps=2 format=3 uid="uid://fyjpl8460b2p"]
+
+[ext_resource type="Script" uid="uid://bm5wjjjx8nhox" path="res://resources/arena_collection/arena_collection.gd" id="1_la6bl"]
+
+[resource]
+script = ExtResource("1_la6bl")
+arena_scene_files = Array[String](["uid://k0l7dobsqx27"])
+metadata/_custom_type_script = "uid://bm5wjjjx8nhox"

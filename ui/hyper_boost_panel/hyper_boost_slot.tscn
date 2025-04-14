@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgohslr01ltcd"]
+
+[ext_resource type="Script" uid="uid://il0pu15ajnat" path="res://ui/hyper_boost_panel/hyper_boost_slot.gd" id="1_caa03"]
+[ext_resource type="Texture2D" uid="uid://bien8r30vspp8" path="res://assets/sprites/hyper_boost_button.png" id="1_t3h2f"]
+[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="2_caa03"]
+[ext_resource type="Texture2D" uid="uid://ba3a4rwgjqoyf" path="res://assets/sprites/hyper_boost_button_use.png" id="3_13tr8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_13tr8"]
+font = ExtResource("2_caa03")
+font_size = 24
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HyperBoostSlot" type="Control"]
+custom_minimum_size = Vector2(66, 74)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 66.0
+offset_bottom = 74.0
+pivot_offset = Vector2(33, 33)
+script = ExtResource("1_caa03")
+
+[node name="Backing" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(33, 33)
+texture = ExtResource("1_t3h2f")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="BackingUsed" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(33, 33)
+texture = ExtResource("3_13tr8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -22.0
+offset_right = 17.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Prompt" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_13tr8")
+horizontal_alignment = 1
+vertical_alignment = 2
+justification_flags = 162

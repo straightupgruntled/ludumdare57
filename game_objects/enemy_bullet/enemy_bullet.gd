@@ -14,6 +14,7 @@ var wall_bounced : bool = false
 
 
 func _ready():
+	scale = Vector2.ZERO
 	player_bullet_sprite.hide()
 	move_dir = Vector2.RIGHT.rotated(rotation)
 
@@ -28,7 +29,9 @@ func _physics_process(delta):
 		else:
 			impact()
 	if wall_bounced:
-		scale = scale.move_toward(Vector2(0.6, 0.6), 0.075)
+		scale = scale.move_toward(Vector2(0.75, 0.75), 0.075)
+	else:
+		scale = scale.move_toward(Vector2.ONE, 0.3)
 
 
 func player_claim() -> void:
@@ -40,7 +43,7 @@ func player_claim() -> void:
 
 func impact() -> void:
 	var poof = poof_particle_scene.instantiate()
-	get_parent().add_child(poof)
+	get_parent().call_deferred("add_child", poof)
 	poof.global_position = global_position
 	self.queue_free()
 

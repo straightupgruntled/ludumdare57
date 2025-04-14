@@ -1,13 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://bggqyl06ydkmq"]
 
 [ext_resource type="Script" uid="uid://c5o0c6hamrvrb" path="res://ui/player_health_bar/player_health_bar.gd" id="1_3p05j"]
-[ext_resource type="Texture2D" uid="uid://dgtmlmyjmfpep" path="res://assets/sprites/player_health.png" id="1_ewi7k"]
+[ext_resource type="Texture2D" uid="uid://sb0k5d54de00" path="res://assets/sprites/player_health.png" id="1_ewi7k"]
 
 [node name="PlayerHealthBar" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1658.0
+offset_bottom = -994.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3p05j")

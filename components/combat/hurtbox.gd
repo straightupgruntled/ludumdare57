@@ -18,16 +18,17 @@ var cooldown_timer : float = 0.0
 
 
 func _ready():
+	set_process(false)
 	if health_component:
 		damage_taken.connect(health_component.take_damage)
 
 
 func _process(delta):
-	if invinsible:
-		cooldown_timer += delta
-		if cooldown_timer >= cooldown_time:
-			invinsible = false
-			cooldown_timer = 0.0
+	cooldown_timer += delta
+	if cooldown_timer >= cooldown_time:
+		invinsible = false
+		set_process(false)
+		cooldown_timer = 0.0
 
 
 func recieve_damage(amount : int) -> void:
@@ -36,6 +37,7 @@ func recieve_damage(amount : int) -> void:
 	damage_taken.emit(amount)
 	if cooldown_time > 0.0:
 		invinsible = true
+		set_process(true)
 
 
 func _set_active(value : bool) -> void:

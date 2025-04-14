@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuqr1tj6ddkgm"]
+[gd_scene load_steps=8 format=3 uid="uid://cuqr1tj6ddkgm"]
 
 [ext_resource type="Script" uid="uid://dkbrtyakl1ht" path="res://game_objects/spawner/spawner.gd" id="1_s6gf1"]
-[ext_resource type="Texture2D" uid="uid://dd6tyn2ew874c" path="res://assets/sprites/circle.png" id="1_yp8kn"]
+[ext_resource type="Texture2D" uid="uid://ciy0f18wspw5q" path="res://assets/sprites/circle.png" id="1_yp8kn"]
 [ext_resource type="PackedScene" uid="uid://gle1as0pok8k" path="res://game_objects/rock/rock.tscn" id="2_5lm3y"]
 [ext_resource type="FontFile" uid="uid://cf7pwort5hh46" path="res://assets/fonts/patrick_hand_regular.ttf" id="2_s6gf1"]
 
@@ -13,10 +13,12 @@ font = ExtResource("2_s6gf1")
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5lm3y"]
+radius = 103.005
+
 [node name="Spawner" type="Area2D"]
-visible = false
-collision_layer = 0
-collision_mask = 413
+collision_layer = 4096
+collision_mask = 4245
 script = ExtResource("1_s6gf1")
 object_scene = ExtResource("2_5lm3y")
 
@@ -24,6 +26,7 @@ object_scene = ExtResource("2_5lm3y")
 shape = SubResource("CircleShape2D_yog7w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.298039, 0.243137)
 scale = Vector2(0.095, 0.095)
 texture = ExtResource("1_yp8kn")
 
@@ -46,4 +49,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
 shape = SubResource("CircleShape2D_yog7w")
 
-[connection signal="timeout" from="SpawnTimer" to="." method="attempt_to_spawn"]
+[node name="ObjectDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetector"]
+shape = SubResource("CircleShape2D_5lm3y")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

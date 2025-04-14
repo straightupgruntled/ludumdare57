@@ -1,0 +1,2 @@
+class_name CartAttachment
+extends Node2D

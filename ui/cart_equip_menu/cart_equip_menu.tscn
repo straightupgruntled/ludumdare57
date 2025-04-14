@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0wx7xiwitxfr"]
+
+[ext_resource type="PackedScene" uid="uid://l2kx06e30f18" path="res://ui/cart_equip_menu/cart_equipment_cursor.tscn" id="1_3x5tw"]
+[ext_resource type="Script" uid="uid://bpqqtws6lbw63" path="res://ui/cart_equip_menu/cart_equip_menu.gd" id="1_flp63"]
+[ext_resource type="Resource" uid="uid://ckmqqcot2f1v7" path="res://resources/minecart_equipment/collectable_magnet.tres" id="3_2k8qt"]
+[ext_resource type="Texture2D" uid="uid://bil2vy6t48a0k" path="res://assets/sprites/cart_vector.png" id="3_dtrq8"]
+[ext_resource type="PackedScene" uid="uid://dpn6w60w1hcv2" path="res://ui/cart_equip_menu/cart_equipment_snap_point_ui.tscn" id="3_flp63"]
+[ext_resource type="PackedScene" uid="uid://5kouea3b6nk1" path="res://game_objects/particles/small_poof_paticles_ui.tscn" id="4_wr36f"]
+[ext_resource type="Resource" uid="uid://bkyjnemvbm4ks" path="res://resources/minecart_equipment/bounce_shield.tres" id="5_8f1ma"]
+
+[node name="CartEquipMenu" type="Control"]
+process_mode = 3
+process_priority = 1
+process_physics_priority = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_flp63")
+item_equipment_1 = ExtResource("5_8f1ma")
+item_equipment_2 = ExtResource("3_2k8qt")
+poof_scene = ExtResource("4_wr36f")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3, 0.17175, 0.165, 0.529412)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 550)
+scale = Vector2(2, 2)
+texture = ExtResource("3_dtrq8")
+
+[node name="CartEquipmentSnapPointUI" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(74.5, 1)
+cart_equipment = ExtResource("5_8f1ma")
+
+[node name="CartEquipmentSnapPointUI2" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(12, -61)
+rotation = -1.5708
+point_direction = 1
+
+[node name="CartEquipmentSnapPointUI3" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(12, 62.5)
+rotation = 1.5708
+point_direction = 2
+
+[node name="CartEquipmentSnapPointUI4" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(75, 62.5)
+rotation = 0.785395
+point_direction = 4
+
+[node name="CartEquipmentSnapPointUI5" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(75, -60.5)
+rotation = -0.785395
+point_direction = 3
+
+[node name="CartEquipmentSnapPointUI6" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(-48.5, 62.5)
+rotation = 2.3562
+point_direction = 6
+
+[node name="CartEquipmentSnapPointUI7" parent="Sprite2D" instance=ExtResource("3_flp63")]
+process_mode = 0
+show_behind_parent = true
+position = Vector2(-48.5, -60.5)
+rotation = -2.3562
+point_direction = 5
+
+[node name="CartEquipmentCursor" parent="." instance=ExtResource("1_3x5tw")]
+process_mode = 0
+position = Vector2(984, 573)
+scale = Vector2(2, 2)
+cart_equipment = ExtResource("5_8f1ma")
+
+[connection signal="place_equipment" from="CartEquipmentCursor" to="." method="_on_cart_equipment_cursor_place_equipment"]

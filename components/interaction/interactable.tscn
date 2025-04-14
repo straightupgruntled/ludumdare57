@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxb7o428afhsd"]
+
+[ext_resource type="Script" uid="uid://cvjm6eucisbew" path="res://components/interaction/interactable.gd" id="1_3rpiu"]
+[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="2_2i016"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5jgo2"]
+font = ExtResource("2_2i016")
+font_size = 32
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Interactable" type="Area2D"]
+z_index = 10
+z_as_relative = false
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_3rpiu")
+
+[node name="TooltipLabel" type="Label" parent="."]
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.5
+offset_right = 20.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "E"
+label_settings = SubResource("LabelSettings_5jgo2")
+horizontal_alignment = 1
+vertical_alignment = 1

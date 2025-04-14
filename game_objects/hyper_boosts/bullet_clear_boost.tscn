@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://du4fp3p5ra6ql"]
+
+[ext_resource type="Script" uid="uid://dm64biv5mchc5" path="res://game_objects/hyper_boosts/bullet_clear_boost.gd" id="1_srknw"]
+[ext_resource type="Texture2D" uid="uid://ch0cjwe5h8qd6" path="res://assets/sprites/player_bullet.png" id="2_srknw"]
+
+[sub_resource type="Gradient" id="Gradient_srknw"]
+colors = PackedColorArray(1, 1, 1, 1, 0.712129, 0.712129, 0.712129, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ddswi"]
+gradient = SubResource("Gradient_srknw")
+
+[sub_resource type="Curve" id="Curve_pq1jf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.157303), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5f7ny"]
+curve = SubResource("Curve_pq1jf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vem0e"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 550.0
+initial_velocity_max = 650.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -200.0
+linear_accel_max = -200.0
+scale_min = 0.3
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_5f7ny")
+color_ramp = SubResource("GradientTexture1D_ddswi")
+
+[node name="BulletClearBoost" type="Node2D"]
+script = ExtResource("1_srknw")
+
+[node name="ClearParticles" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+emitting = false
+amount = 400
+texture = ExtResource("2_srknw")
+lifetime = 1.8
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_vem0e")
+
+[connection signal="finished" from="ClearParticles" to="." method="_on_clear_particles_finished"]

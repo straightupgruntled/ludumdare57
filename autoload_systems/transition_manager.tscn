@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://duyqv2wjbi6c2"]
+[gd_scene load_steps=7 format=3 uid="uid://duyqv2wjbi6c2"]
 
 [ext_resource type="Script" uid="uid://bqfo1p7j5sco7" path="res://autoload_systems/transition_manager.gd" id="1_vf7lo"]
+[ext_resource type="AudioStream" uid="uid://glr462vggrr4" path="res://assets/audio/music/DiamondMarch.wav" id="2_25oyp"]
 
 [sub_resource type="Animation" id="Animation_25oyp"]
 length = 0.001
@@ -19,6 +20,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_vf7lo"]
 resource_name = "fade_into_scene"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -26,7 +28,7 @@ tracks/0/path = NodePath("ScreenCover:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
@@ -34,6 +36,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_trgwv"]
 resource_name = "fade_out_scene"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,7 +44,7 @@ tracks/0/path = NodePath("ScreenCover:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
@@ -55,10 +58,12 @@ _data = {
 }
 
 [node name="TransitionManager" type="CanvasLayer"]
+process_mode = 3
 layer = 10
 script = ExtResource("1_vf7lo")
 
 [node name="ScreenCover" type="ColorRect" parent="."]
+process_mode = 3
 z_index = 10
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,10 +72,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_25tws")
 }
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_25oyp")
+volume_db = 2.0
+bus = &"Music"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

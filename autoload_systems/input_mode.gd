@@ -9,7 +9,6 @@ enum InputType{
 	KEYBOARD,
 	GAMEPAD
 }
-
 var cooldown_timer : float = 0
 var current_type : InputType = InputType.KEYBOARD
 

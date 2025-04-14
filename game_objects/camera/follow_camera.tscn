@@ -3,8 +3,14 @@
 [ext_resource type="Script" uid="uid://dh2u0q24yxbto" path="res://game_objects/camera/follow_camera.gd" id="1_bobsn"]
 
 [node name="FollowCamera" type="Camera2D"]
-zoom = Vector2(1.75, 1.75)
+ignore_rotation = false
+zoom = Vector2(1.6, 1.6)
 process_callback = 0
+limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 12.0
+position_smoothing_speed = 16.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 15.0
 script = ExtResource("1_bobsn")
+random_strength = 150.0
+shake_fade = 7.0

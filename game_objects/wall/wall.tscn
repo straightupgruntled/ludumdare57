@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgse7yug0dx7b"]
+[gd_scene load_steps=11 format=3 uid="uid://bgse7yug0dx7b"]
 
 [ext_resource type="AudioStream" uid="uid://bc1gtn1pf5kj3" path="res://assets/audio/sfx/platform_moving.wav" id="1_cvko8"]
 [ext_resource type="Script" uid="uid://4pp53x6t3j2c" path="res://game_objects/wall/wall.gd" id="1_jgstv"]
 [ext_resource type="AudioStream" uid="uid://e32gkjpfh82b" path="res://assets/audio/sfx/platform_lockin.wav" id="2_jgstv"]
-[ext_resource type="Texture2D" uid="uid://by2aungfdraya" path="res://assets/sprites/wall/wall_down.png" id="3_xd44w"]
-[ext_resource type="Texture2D" uid="uid://deanv8tv1a4po" path="res://assets/sprites/wall/wall_up.png" id="4_8e8s6"]
+[ext_resource type="Texture2D" uid="uid://s4ky78hn351e" path="res://assets/sprites/wall/wall_down.png" id="3_xd44w"]
+[ext_resource type="Texture2D" uid="uid://b0w6pvivaqoco" path="res://assets/sprites/wall/wall_up.png" id="4_8e8s6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v53k3"]
 size = Vector2(32, 160)
@@ -60,16 +60,45 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1.15, 1.15), Vector2(1, 1)]
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8e8s6"]
+resource_name = "raise_wall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpSprite:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333334, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333334, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.25, 1.25)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xd44w"]
 _data = {
 &"RESET": SubResource("Animation_xd44w"),
-&"lower_wall": SubResource("Animation_jgstv")
+&"lower_wall": SubResource("Animation_jgstv"),
+&"raise_wall": SubResource("Animation_8e8s6")
 }
 
 [node name="Wall" type="StaticBody2D"]
+z_index = 1
 scale = Vector2(1.15, 1.15)
 script = ExtResource("1_jgstv")
 

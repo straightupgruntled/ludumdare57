@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://gle1as0pok8k"]
+[gd_scene load_steps=13 format=3 uid="uid://gle1as0pok8k"]
 
-[ext_resource type="Texture2D" uid="uid://b86mkwdv1qlj3" path="res://assets/sprites/rock.png" id="1_fi6s8"]
+[ext_resource type="Texture2D" uid="uid://btr700abi50yk" path="res://assets/sprites/rock.png" id="1_fi6s8"]
 [ext_resource type="Script" uid="uid://cjx7hikfv6w3w" path="res://game_objects/rock/rock.gd" id="1_qtftb"]
 [ext_resource type="PackedScene" uid="uid://c0kpo3qloqa7y" path="res://game_objects/collectables/diamond.tscn" id="2_4sksh"]
 [ext_resource type="Shader" uid="uid://bg3m4bftlrp3n" path="res://resources/shader/hitflash.gdshader" id="3_x5y7b"]
 [ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="6_djh21"]
 [ext_resource type="Script" uid="uid://cacmw8a416j6f" path="res://components/health/health_component.gd" id="7_b2qeq"]
+[ext_resource type="Texture2D" uid="uid://djw2kh4se2c46" path="res://assets/sprites/light_mask.png" id="7_ssvmv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ao2x"]
 resource_local_to_scene = true
@@ -78,7 +79,7 @@ _data = {
 &"hit": SubResource("Animation_x5y7b")
 }
 
-[node name="Rock" type="StaticBody2D"]
+[node name="Rock" type="StaticBody2D" groups=["clearable"]]
 collision_layer = 10
 collision_mask = 0
 script = ExtResource("1_qtftb")
@@ -110,6 +111,12 @@ shape = SubResource("CircleShape2D_qtftb")
 script = ExtResource("7_b2qeq")
 max_health = 8
 metadata/_custom_type_script = "uid://cacmw8a416j6f"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 0.419342, 0.898729, 1)
+energy = 0.25
+texture = ExtResource("7_ssvmv")
+texture_scale = 0.2
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_lost" from="HealthComponent" to="." method="health_lost"]

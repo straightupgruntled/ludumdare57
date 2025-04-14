@@ -1,15 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://crxmwxwyc10ot"]
+[gd_scene load_steps=21 format=3 uid="uid://crxmwxwyc10ot"]
 
 [ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_4kwlo"]
 [ext_resource type="Script" uid="uid://svud5lxk3yj2" path="res://ui/title_screen/title_screen.gd" id="1_ffat2"]
-[ext_resource type="Texture2D" uid="uid://cehijw2vtqm75" path="res://assets/sprites/cave_background.png" id="2_kp51c"]
-[ext_resource type="Texture2D" uid="uid://d3jh4meoqoa1e" path="res://assets/sprites/diamond.png" id="2_rhiq2"]
+[ext_resource type="Texture2D" uid="uid://cq7rwhupstfts" path="res://assets/sprites/cave_background.png" id="2_kp51c"]
+[ext_resource type="Texture2D" uid="uid://dudbx1uh0ytoi" path="res://assets/sprites/diamond.png" id="2_rhiq2"]
 [ext_resource type="PackedScene" uid="uid://bh5tfquq6tow0" path="res://ui/intro_overlay/intro_overlay.tscn" id="3_72buf"]
-[ext_resource type="Texture2D" uid="uid://b7345aerdqap4" path="res://assets/sprites/title_cart_and_player.png" id="4_2er51"]
-[ext_resource type="Texture2D" uid="uid://x4cbsel367uc" path="res://assets/sprites/ludum_dare_logo.png" id="5_ca08b"]
-[ext_resource type="AudioStream" uid="uid://glr462vggrr4" path="res://assets/audio/music/DiamondMarch.wav" id="8_lgnx5"]
-[ext_resource type="Texture2D" uid="uid://r02ihevh0e6w" path="res://assets/sprites/speaker_button.png" id="9_gwpbi"]
-[ext_resource type="Texture2D" uid="uid://dw4463334dtel" path="res://assets/sprites/mute_speaker_button.png" id="10_dk1uc"]
+[ext_resource type="Texture2D" uid="uid://c75unrqe0hfs7" path="res://assets/sprites/title_cart_and_player.png" id="4_2er51"]
+[ext_resource type="Texture2D" uid="uid://b6o7n0ybdvihb" path="res://assets/sprites/ludum_dare_logo.png" id="5_ca08b"]
+[ext_resource type="Texture2D" uid="uid://dkhf78kqmbky3" path="res://assets/sprites/white_vignette_overlay.png" id="5_dk1uc"]
+[ext_resource type="Shader" uid="uid://br6x21thfo7gb" path="res://resources/shader/screen_overlay.gdshader" id="10_gwpbi"]
+[ext_resource type="Script" uid="uid://bxoj321qvg0vx" path="res://ui/ui_menu/ui_menu.gd" id="11_c8lgs"]
+[ext_resource type="PackedScene" uid="uid://b44yjbpcqyw4o" path="res://ui/pause_menu/pause_menu.tscn" id="11_dk1uc"]
 
 [sub_resource type="Curve" id="Curve_ca08b"]
 _data = [Vector2(0, 0.359551), 0.0, 0.0, 0, 0, Vector2(0.491018, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.404494), -3.48475, 0.0, 0, 0]
@@ -44,16 +45,48 @@ shadow_size = 96
 shadow_color = Color(0, 0, 0, 0.847059)
 shadow_offset = Vector2(0, 8)
 
-[sub_resource type="LabelSettings" id="LabelSettings_72buf"]
+[sub_resource type="LabelSettings" id="LabelSettings_dk1uc"]
 font = ExtResource("1_4kwlo")
-font_size = 100
-outline_size = 35
-outline_color = Color(0.0941176, 0.192157, 0.345098, 1)
-shadow_size = 65
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(1, 4)
+font_size = 42
+font_color = Color(0.980968, 0.562436, 0.186719, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 0.847059)
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dk1uc"]
+shader = ExtResource("10_gwpbi")
+shader_parameter/r_displacement = Vector2(0.5, 0.5)
+shader_parameter/g_displacement = Vector2(-0.5, -0.5)
+shader_parameter/b_displacement = Vector2(-0.5, 0.5)
+shader_parameter/height = 0.7
+shader_parameter/width = 0.5
+shader_parameter/fade = 0.7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8lgs"]
+bg_color = Color(0.462754, 0.502272, 0.651568, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_533ah"]
+bg_color = Color(8.42288e-07, 0.613003, 0.273512, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dk1uc"]
+bg_color = Color(0.187589, 0.210819, 0.302461, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="TitleScreen" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,17 +95,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ffat2")
 level_scene_file = "uid://5l3dg75qbig5"
+stage_scene_file = "uid://qnouoriqwjth"
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
 [node name="BackgroundSprite" type="Sprite2D" parent="Background"]
-position = Vector2(960, 541)
+position = Vector2(960, 841)
 texture = ExtResource("2_kp51c")
+offset = Vector2(0, -300)
 
 [node name="CartPlayerSprite" type="Sprite2D" parent="Background/BackgroundSprite"]
 z_index = 1
-position = Vector2(-15, 508)
+position = Vector2(-15, 216)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_2er51")
 offset = Vector2(0, -120)
 
@@ -86,18 +122,23 @@ preprocess = 3.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_kp51c")
 
-[node name="ColorRect2" type="ColorRect" parent="Background"]
+[node name="Cover" type="ColorRect" parent="Background"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0348, 0.06604, 0.12, 0.8)
+color = Color(0.045, 0, 0.27, 0.752941)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background"]
-position = Vector2(1773, 994)
-scale = Vector2(1.4, 1.4)
-texture = ExtResource("5_ca08b")
+[node name="ColorRect3" type="TextureRect" parent="Background/Cover"]
+modulate = Color(0, 0.488, 0.61, 0.788235)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_dk1uc")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -113,40 +154,122 @@ label_settings = SubResource("LabelSettings_ffat2")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Hint" type="Label" parent="."]
-layout_mode = 1
+[node name="LDLogo" type="Sprite2D" parent="."]
+position = Vector2(1753, 947)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("5_ca08b")
+
+[node name="Title2" type="Label" parent="LDLogo"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 413.0
-offset_bottom = -174.0
+offset_left = -95.0
+offset_top = 48.5715
+offset_right = -23.0
+offset_bottom = -6.42851
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(960, 245)
-text = "Enter to Start"
-label_settings = SubResource("LabelSettings_72buf")
+scale = Vector2(0.71, 0.71)
+text = "Post Jam Edition"
+label_settings = SubResource("LabelSettings_dk1uc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="IntroOverlay" parent="." instance=ExtResource("3_72buf")]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_lgnx5")
-pitch_scale = 0.8
-autoplay = true
-bus = &"Music"
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_dk1uc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="CheckButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 1773.0
-offset_top = 6.0
-offset_right = 1906.0
-offset_bottom = 134.0
-focus_mode = 0
-toggle_mode = true
+[node name="MenuOptions" type="VBoxContainer" parent="."]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.5
+offset_top = -113.0
+offset_right = 211.5
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+script = ExtResource("11_c8lgs")
+is_open = true
+
+[node name="StartButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_4kwlo")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/focus = SubResource("StyleBoxFlat_c8lgs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c8lgs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_533ah")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dk1uc")
 action_mode = 0
-texture_normal = ExtResource("9_gwpbi")
-texture_pressed = ExtResource("10_dk1uc")
+text = "START GAME"
 
-[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
+[node name="SettingsButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_4kwlo")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/focus = SubResource("StyleBoxFlat_c8lgs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c8lgs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_533ah")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dk1uc")
+action_mode = 0
+text = "SETTINGS"
+
+[node name="ExitButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("1_4kwlo")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/focus = SubResource("StyleBoxFlat_c8lgs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c8lgs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_533ah")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dk1uc")
+action_mode = 0
+text = "EXIT GAME"
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_dk1uc")]
+visible = false
+layout_mode = 1
+can_manually_open = false
+
+[node name="MenuOptions" parent="PauseMenu/Panel2" index="0"]
+offset_top = 193.0
+offset_bottom = 4.0
+alignment = 0
+
+[node name="ResumeButton" parent="PauseMenu/Panel2/MenuOptions" index="0"]
+visible = false
+text = "EXIT SETTINGS"
+
+[node name="ExitButton" parent="PauseMenu/Panel2/MenuOptions" index="4"]
+visible = false
+
+[connection signal="finished" from="IntroOverlay" to="." method="_on_intro_overlay_finished"]
+[connection signal="pressed" from="MenuOptions/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuOptions/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuOptions/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="menu_closed" from="PauseMenu" to="." method="_on_pause_menu_menu_closed"]
+
+[editable path="PauseMenu"]

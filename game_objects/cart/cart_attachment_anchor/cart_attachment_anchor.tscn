@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://da3hdft6hj6k7"]
+
+[ext_resource type="Texture2D" uid="uid://by82yonstsoi" path="res://assets/sprites/cart_attachment_anchor.png" id="1_2dpov"]
+[ext_resource type="Script" uid="uid://bd1qa7qw1cfwm" path="res://game_objects/cart/cart_attachment_anchor/cart_attachment_anchor.gd" id="1_wsvjb"]
+[ext_resource type="Texture2D" uid="uid://c8kte7vl86o8i" path="res://assets/sprites/cart_attachment_arrow.png" id="3_ktehh"]
+
+[node name="CartAttachmentAnchor" type="Node2D"]
+script = ExtResource("1_wsvjb")
+
+[node name="AnchorSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_2dpov")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ktehh")

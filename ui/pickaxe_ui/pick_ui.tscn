@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://xcpmulq5ajis"]
 
-[ext_resource type="Texture2D" uid="uid://cbxt77ibqfw5f" path="res://assets/sprites/pickaxe_icon.png" id="1_4q2ok"]
+[ext_resource type="Texture2D" uid="uid://brypamjlffy6r" path="res://assets/sprites/pickaxe_icon.png" id="1_4q2ok"]
 [ext_resource type="Script" uid="uid://boljb1yqv1k12" path="res://ui/pickaxe_ui/pick_ui.gd" id="1_jx6w2"]
 
 [node name="PickUI" type="HBoxContainer"]
+z_index = -1
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(1.2, 1.2)

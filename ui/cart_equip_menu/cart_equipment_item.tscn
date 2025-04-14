@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://gw6m8p2vngon"]
+
+[ext_resource type="Texture2D" uid="uid://bh3g5oip08sqf" path="res://assets/sprites/magnet.png" id="1_b7bdv"]
+
+[node name="CartEquipmentItem" type="Sprite2D"]
+texture = ExtResource("1_b7bdv")
+offset = Vector2(20, 0)

@@ -4,6 +4,7 @@ extends Control
 
 
 func _ready():
+	TransitionManager.music_pitch = 0.7
 	$AnimationPlayer.play("win_animation")
 
 

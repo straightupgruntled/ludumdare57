@@ -1,8 +1,9 @@
 class_name HeightController
 extends Area2D
 
-signal in_air_started
-signal landed_on_ground
+signal grounded_started
+signal airborne_started
+signal falling_started
 signal fell_into_pit
 
 @export var body : CharacterBody2D
@@ -17,14 +18,11 @@ enum State {
 	FALLING
 }
 var current_state : State = State.GROUNDED
-
 var height : float = 0.0
 var fall_gravity : float = 0.0
 var spawn_pos : Vector2
 var spawn_scale : Vector2
 var ground_bodies : Array[Node2D]
-
-@onready var respawn_timer = $RespawnTimer
 
 
 func _ready():
@@ -46,7 +44,7 @@ func _physics_process(delta):
 			if height <= 0.0:
 				landing()
 		State.FALLING:
-			visuals.modulate = visuals.modulate.lerp(Color.BLACK, .175)
+			visuals.modulate.a = lerpf(visuals.modulate.a, 0.0, .15)
 			if height < -190:
 				fall_gravity = 0.0
 				fell_into_pit.emit()
@@ -56,7 +54,6 @@ func _physics_process(delta):
 					queue_free()
 			elif height >= -190:
 				fall_gravity -= 1.0
-
 	var scale_remap = remap(height, 0.0, 200.0, 1.0, 2.0)
 	visuals.scale = spawn_scale * scale_remap
 
@@ -65,14 +62,19 @@ func set_state(new_state : State) -> void:
 	current_state = new_state
 	match current_state:
 		State.GROUNDED:
+			z_as_relative = true
 			body.z_index = 0
 			height = 0.0
 			fall_gravity = 0.0
+			grounded_started.emit()
 		State.AIRBORNE:
-			body.z_index = 1
-			in_air_started.emit()
+			z_as_relative = true
+			body.z_index = 2
+			airborne_started.emit()
 		State.FALLING:
-			body.z_index = -1
+			z_as_relative = false
+			body.z_index = -2
+			falling_started.emit()
 
 
 func jump(upward_force : float = 20.0) -> void:
@@ -85,17 +87,17 @@ func landing() -> void:
 		set_state(State.FALLING)
 	else:
 		set_state(State.GROUNDED)
-		landed_on_ground.emit()
 
 
 func respawn():
-	set_state(State.GROUNDED)
+	visuals.hide()
 	body.global_position = spawn_pos
 	body.rotation = 0.0
 	body.velocity = Vector2.ZERO
-	visuals.modulate = Color.WHITE
+	visuals.modulate.a = 1.0
 	force_update_transform()
 	await get_tree().physics_frame
+	visuals.show()
 	landing()
 
 

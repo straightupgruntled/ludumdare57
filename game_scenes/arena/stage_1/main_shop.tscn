@@ -1,0 +1,431 @@
+[gd_scene load_steps=22 format=4 uid="uid://k0l7dobsqx27"]
+
+[ext_resource type="PackedScene" uid="uid://cig3d60km51ju" path="res://game_scenes/arena/arena.tscn" id="1_3c5uh"]
+[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="2_gek2h"]
+[ext_resource type="Texture2D" uid="uid://cpmm1m5e6u0w4" path="res://assets/sprites/gear.png" id="2_h5b6n"]
+[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="3_18ilv"]
+[ext_resource type="PackedScene" uid="uid://ce5w0k8lrgp8q" path="res://game_objects/shop_items/heart_item.tscn" id="3_h5b6n"]
+[ext_resource type="PackedScene" uid="uid://8h6b1t7bl0hi" path="res://game_objects/shop_items/pickaxe_item.tscn" id="4_18ilv"]
+[ext_resource type="PackedScene" uid="uid://cnex0w5jt7uq5" path="res://game_objects/shop_items/minecart_shop/minecart_equipment_item.tscn" id="5_icly5"]
+[ext_resource type="Texture2D" uid="uid://msbs4mt3bj7y" path="res://assets/sprites/square_light_mask.png" id="5_qwoh8"]
+[ext_resource type="Resource" uid="uid://ckmqqcot2f1v7" path="res://resources/minecart_equipment/collectable_magnet.tres" id="6_qwoh8"]
+[ext_resource type="AudioStream" uid="uid://cton124d50hbo" path="res://assets/audio/dialogue/first_shop_new.wav" id="9_icly5"]
+[ext_resource type="PackedScene" uid="uid://bnp3hgbh6r8dy" path="res://game_objects/shop_items/hyper_boost_item/hyper_boost_item.tscn" id="10_icly5"]
+
+[sub_resource type="Curve" id="Curve_h5b6n"]
+_data = [Vector2(0, 0), 0.0, 9.36807, 0, 0, Vector2(0.382353, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.05793, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_18ilv"]
+curve = SubResource("Curve_h5b6n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_icly5"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 800.0
+emission_ring_inner_radius = 200.0
+emission_ring_cone_angle = 90.0
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_min = -200.0
+angular_velocity_max = -100.0
+orbit_velocity_min = -0.0199999
+orbit_velocity_max = -0.00999991
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_18ilv")
+color = Color(1, 1, 1, 0.0666667)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h5b6n"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 800.0
+emission_ring_inner_radius = 200.0
+emission_ring_cone_angle = 90.0
+angle_min = -180.0
+angle_max = 180.0
+angular_velocity_min = -200.0
+angular_velocity_max = -100.0
+orbit_velocity_min = -0.0199999
+orbit_velocity_max = -0.00999991
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_18ilv")
+color = Color(1, 1, 1, 0.121569)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d2syx"]
+font = ExtResource("2_gek2h")
+font_size = 82
+font_color = Color(0, 0, 0, 1)
+outline_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_18ilv"]
+font = ExtResource("2_gek2h")
+font_size = 42
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_icly5"]
+font = ExtResource("2_gek2h")
+font_size = 42
+font_color = Color(1, 0, 0, 1)
+outline_size = 12
+outline_color = Color(0.227451, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="Animation" id="Animation_o8r2q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Line2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Line3:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Line4:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Line5:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Line6:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qwoh8"]
+resource_name = "dialogue_animation"
+length = 13.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Line2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4, 7.86667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Line3:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7.86667, 8.93333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Line4:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 8.92, 9.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Line5:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 9.9, 11.0667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Line6:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 11.0667, 12.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c2qec"]
+_data = {
+&"RESET": SubResource("Animation_o8r2q"),
+&"dialogue_animation": SubResource("Animation_qwoh8")
+}
+
+[node name="ShopArena" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_3c5uh")]
+background_modulate = Color(0.0921513, 0.133265, 0.0623573, 1)
+safe_arena = true
+animation_player = NodePath("Dialogue/AnimationPlayer")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="0"]
+z_index = -1
+amount = 200
+texture = ExtResource("2_h5b6n")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_icly5")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="." index="1"]
+z_index = -1
+amount = 200
+texture = ExtResource("3_18ilv")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_h5b6n")
+
+[node name="CanvasModulate" parent="." index="2"]
+color = Color(0.138227, 0.199897, 0.0935359, 1.5)
+
+[node name="TileMapLayer" parent="." index="3"]
+tile_map_data = PackedByteArray("AAD8//z/AQAAAAAAAAD8//3/AQAAAAAAAAD8//7/AQAAAAAAAAD8////AQAAAAAAAAD8/wAAAQAAAAAAAAD8/wEAAQAAAAAAAAD8/wIAAQAAAAAAAAD8/wMAAQAAAAAAAAD9/wMAAQAAAAAAAAD+/wMAAQAAAAAAAAD//wMAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAMAAQAAAAAAAAACAAMAAQAAAAAAAAADAAMAAQAAAAAAAAADAPz/AQAAAAAAAAADAP3/AQAAAAAAAAADAP7/AQAAAAAAAAADAP//AQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAD9//z/AQAAAAAAAAD+//z/AQAAAAAAAAD///z/AQAAAAAAAAAAAPz/AQAAAAAAAAABAPz/AQAAAAAAAAACAPz/AQAAAAAAAAD7//v/AQAAAAAAAAD7//z/AQAAAAAAAAD7//3/AQAAAAAAAAD7//7/AQAAAAAAAAD7////AQAAAAAAAAD7/wAAAQAAAAAAAAD7/wEAAQAAAAAAAAD7/wIAAQAAAAAAAAD7/wMAAQAAAAAAAAD7/wQAAQAAAAAAAAD8//v/AQAAAAAAAAD8/wQAAQAAAAAAAAD9/wQAAQAAAAAAAAD+/wQAAQAAAAAAAAD//wQAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAQAAQAAAAAAAAACAAQAAQAAAAAAAAADAAQAAQAAAAAAAAAEAAMAAQAAAAAAAAAEAAQAAQAAAAAAAAADAPv/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAPz/AQAAAAAAAAAEAP3/AQAAAAAAAAAEAP7/AQAAAAAAAAAEAP//AQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAD9//v/AQAAAAAAAAD+//v/AQAAAAAAAAD///v/AQAAAAAAAAAAAPv/AQAAAAAAAAABAPv/AQAAAAAAAAACAPv/AQAAAAAAAAD6//r/AQAAAAAAAAD7//r/AQAAAAAAAAD8//r/AQAAAAAAAAD9//r/AQAAAAAAAAD+//r/AQAAAAAAAAD///r/AQAAAAAAAAAAAPr/AQAAAAAAAAABAPr/AQAAAAAAAAACAPr/AQAAAAAAAAADAPr/AQAAAAAAAAAEAPr/AQAAAAAAAAAFAPr/AQAAAAAAAAAFAPv/AQAAAAAAAAAFAPz/AQAAAAAAAAAFAP3/AQAAAAAAAAAFAP7/AQAAAAAAAAAFAP//AQAAAAAAAAAFAAAAAQAAAAAAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAFAAQAAQAAAAAAAAAFAAUAAQAAAAAAAAD6/wUAAQAAAAAAAAD7/wUAAQAAAAAAAAD8/wUAAQAAAAAAAAD9/wUAAQAAAAAAAAD+/wUAAQAAAAAAAAD//wUAAQAAAAAAAAAAAAUAAQAAAAAAAAABAAUAAQAAAAAAAAACAAUAAQAAAAAAAAADAAUAAQAAAAAAAAAEAAUAAQAAAAAAAAD6//v/AQAAAAAAAAD6//z/AQAAAAAAAAD6//3/AQAAAAAAAAD6//7/AQAAAAAAAAD6////AQAAAAAAAAD6/wAAAQAAAAAAAAD6/wEAAQAAAAAAAAD6/wIAAQAAAAAAAAD6/wMAAQAAAAAAAAD6/wQAAQAAAAAAAAD9//3/AQACAAAAAAD9//7/AQACAAAAAAD9////AQACAAAAAAD9/wAAAQACAAAAAAD9/wEAAQACAAAAAAD9/wIAAQACAAAAAAD+//3/AQACAAAAAAD+//7/AQACAAAAAAD+////AQACAAAAAAD+/wAAAQACAAAAAAD+/wEAAQACAAAAAAD+/wIAAQACAAAAAAD///3/AQACAAAAAAD///7/AQACAAAAAAD/////AQACAAAAAAD//wAAAQACAAAAAAD//wEAAQACAAAAAAD//wIAAQACAAAAAAAAAP3/AQACAAAAAAAAAP7/AQACAAAAAAAAAP//AQACAAAAAAAAAAAAAQACAAAAAAAAAAEAAQACAAAAAAAAAAIAAQACAAAAAAABAP3/AQACAAAAAAABAP7/AQACAAAAAAABAP//AQACAAAAAAABAAAAAQACAAAAAAABAAEAAQACAAAAAAABAAIAAQACAAAAAAACAP3/AQACAAAAAAACAP7/AQACAAAAAAACAP//AQACAAAAAAACAAAAAQACAAAAAAACAAEAAQACAAAAAAACAAIAAQACAAAAAAD7//n/AQAAAAAAAAD8//n/AQAAAAAAAAD9//n/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAAAAAAAAPn/AQAAAAAAAAABAPn/AQAAAAAAAAACAPn/AQAAAAAAAAADAPn/AQAAAAAAAAAEAPn/AQAAAAAAAAD+//b/AQABAAAAAAABAPb/AQABAAAAAAD7//b/AQABAAAAAAAEAPb/AQABAAAAAAD7//f/AQAAAAAAAAD7//j/AQAAAAAAAAAEAPf/AQAAAAAAAAAEAPj/AQAAAAAAAAD9//f/AQAAAAAAAAD9//j/AQAAAAAAAAD+//f/AQAAAAAAAAD+//j/AQAAAAAAAAD///f/AQAAAAAAAAD///j/AQAAAAAAAAAAAPf/AQAAAAAAAAAAAPj/AQAAAAAAAAABAPf/AQAAAAAAAAABAPj/AQAAAAAAAAACAPf/AQAAAAAAAAACAPj/AQAAAAAAAAADAPf/AQAAAAAAAAADAPj/AQAAAAAAAAD8//b/AQABAAAAAAD8//f/AQAAAAAAAAD9//b/AQABAAAAAAD8//j/AQAAAAAAAAD///b/AQABAAAAAAAAAPb/AQABAAAAAAACAPb/AQABAAAAAAADAPb/AQABAAAAAAD8/wYAAQAAAAAAAAD9/wYAAQAAAAAAAAD+/wYAAQAAAAAAAAD//wYAAQAAAAAAAAAAAAYAAQAAAAAAAAABAAYAAQAAAAAAAAACAAYAAQAAAAAAAAADAAYAAQAAAAAAAAACAAcAAQAAAAAAAAACAAgAAQAAAAAAAAADAAcAAQAAAAAAAAADAAgAAQAAAAAAAAD//wcAAQAAAAAAAAD//wgAAQAAAAAAAAAAAAcAAQAAAAAAAAAAAAgAAQAAAAAAAAD8/wcAAQAAAAAAAAD8/wgAAQAAAAAAAAD9/wcAAQAAAAAAAAD9/wgAAQAAAAAAAAD7/wYAAQAAAAAAAAD7/wcAAQAAAAAAAAD7/wgAAQAAAAAAAAD8/wkAAQABAAAAAAD9/wkAAQABAAAAAAD+/wcAAQAAAAAAAAD+/wgAAQAAAAAAAAD//wkAAQABAAAAAAAAAAkAAQABAAAAAAABAAcAAQAAAAAAAAABAAgAAQAAAAAAAAACAAkAAQABAAAAAAADAAkAAQABAAAAAAD7/wkAAQABAAAAAAD+/wkAAQABAAAAAAABAAkAAQABAAAAAAAEAAkAAQABAAAAAAAEAAYAAQAAAAAAAAAEAAcAAQAAAAAAAAAEAAgAAQAAAAAAAAAFAPn/AQAAAAAAAAD6//n/AQAAAAAAAAD6/wYAAQAAAAAAAAAFAAYAAQAAAAAAAAD4//r/AQAAAAAAAAD4//v/AQAAAAAAAAD4//z/AQAAAAAAAAD4//3/AQAAAAAAAAD4//7/AQAAAAAAAAD4////AQAAAAAAAAD4/wAAAQAAAAAAAAD4/wEAAQAAAAAAAAD4/wIAAQAAAAAAAAD4/wMAAQAAAAAAAAD4/wQAAQAAAAAAAAD4/wUAAQAAAAAAAAD5//r/AQAAAAAAAAD5//v/AQAAAAAAAAD5//z/AQAAAAAAAAD5//3/AQAAAAAAAAD5//7/AQAAAAAAAAD5////AQAAAAAAAAD5/wAAAQAAAAAAAAD5/wEAAQAAAAAAAAD5/wIAAQAAAAAAAAD5/wMAAQAAAAAAAAD5/wQAAQAAAAAAAAD5/wUAAQAAAAAAAAAGAPr/AQAAAAAAAAAGAPv/AQAAAAAAAAAGAPz/AQAAAAAAAAAGAP3/AQAAAAAAAAAGAP7/AQAAAAAAAAAGAP//AQAAAAAAAAAGAAAAAQAAAAAAAAAGAAEAAQAAAAAAAAAGAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAAGAAQAAQAAAAAAAAAGAAUAAQAAAAAAAAAHAPr/AQAAAAAAAAAHAPv/AQAAAAAAAAAHAPz/AQAAAAAAAAAHAP3/AQAAAAAAAAAHAP7/AQAAAAAAAAAHAP//AQAAAAAAAAAHAAAAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAHAAMAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAAUAAQAAAAAAAAD3/wYAAQABAAAAAAD4/wYAAQAAAAAAAAD5/wYAAQAAAAAAAAD3//n/AQABAAAAAAD3//r/AQABAAAAAAD3//v/AQABAAAAAAD3//z/AQABAAAAAAD3//3/AQABAAAAAAD3//7/AQABAAAAAAD3////AQABAAAAAAD3/wAAAQABAAAAAAD3/wEAAQABAAAAAAD3/wIAAQABAAAAAAD3/wMAAQABAAAAAAD3/wQAAQABAAAAAAD3/wUAAQABAAAAAAD4//n/AQAAAAAAAAD5//n/AQAAAAAAAAAGAPn/AQAAAAAAAAAHAPn/AQAAAAAAAAAIAPn/AQABAAAAAAAIAPr/AQABAAAAAAAIAPv/AQABAAAAAAAIAPz/AQABAAAAAAAIAP3/AQABAAAAAAAIAP7/AQABAAAAAAAIAP//AQABAAAAAAAIAAAAAQABAAAAAAAIAAEAAQABAAAAAAAIAAIAAQABAAAAAAAIAAMAAQABAAAAAAAIAAQAAQABAAAAAAAIAAUAAQABAAAAAAAIAAYAAQABAAAAAAAGAAYAAQAAAAAAAAAHAAYAAQAAAAAAAAD3//j/AQABAAAAAAD3//f/AQABAAAAAAD3//b/AQABAAAAAAD4//b/AQABAAAAAAD5//b/AQABAAAAAAD6//b/AQABAAAAAAAFAPb/AQABAAAAAAAGAPb/AQABAAAAAAAHAPb/AQABAAAAAAAIAPb/AQABAAAAAAAIAPf/AQABAAAAAAAIAPj/AQABAAAAAAD3/wcAAQABAAAAAAD3/wgAAQABAAAAAAD3/wkAAQABAAAAAAD4/wkAAQABAAAAAAD5/wkAAQABAAAAAAD6/wkAAQABAAAAAAAFAAkAAQABAAAAAAAGAAkAAQABAAAAAAAHAAkAAQABAAAAAAAIAAkAAQABAAAAAAAIAAgAAQABAAAAAAAIAAcAAQABAAAAAAD4/wcAAQAAAAAAAAD4/wgAAQAAAAAAAAD5/wcAAQAAAAAAAAD5/wgAAQAAAAAAAAD6/wcAAQAAAAAAAAD6/wgAAQAAAAAAAAAFAAcAAQAAAAAAAAAFAAgAAQAAAAAAAAAGAAcAAQAAAAAAAAAGAAgAAQAAAAAAAAAHAAcAAQAAAAAAAAAHAAgAAQAAAAAAAAD4//f/AQAAAAAAAAD4//j/AQAAAAAAAAD5//f/AQAAAAAAAAD5//j/AQAAAAAAAAD6//f/AQAAAAAAAAD6//j/AQAAAAAAAAAFAPf/AQAAAAAAAAAFAPj/AQAAAAAAAAAGAPf/AQAAAAAAAAAGAPj/AQAAAAAAAAAHAPf/AQAAAAAAAAAHAPj/AQAAAAAAAAA=")
+
+[node name="Groundtip1" type="RichTextLabel" parent="." index="5"]
+offset_left = -247.0
+offset_top = -391.0
+offset_right = 735.0
+offset_bottom = -229.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 45
+theme_override_fonts/normal_font = ExtResource("2_gek2h")
+theme_override_font_sizes/normal_font_size = 116
+bbcode_enabled = true
+text = "[rainbow]PRIZE PAVILION"
+horizontal_alignment = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="Groundtip1" index="1"]
+position = Vector2(494, 70)
+scale = Vector2(1, 0.217445)
+texture = ExtResource("5_qwoh8")
+texture_scale = 4.07
+
+[node name="Groundtip2" type="Label" parent="." index="6"]
+modulate = Color(0.686275, 0.686275, 0.686275, 0.32549)
+offset_left = -113.0
+offset_top = -211.0
+offset_right = 339.0
+offset_bottom = -91.0
+scale = Vector2(0.5, 0.5)
+text = "PLAYER SHOP"
+label_settings = SubResource("LabelSettings_d2syx")
+horizontal_alignment = 1
+
+[node name="Groundtip3" type="Label" parent="." index="7"]
+modulate = Color(0.686275, 0.686275, 0.686275, 0.32549)
+offset_left = -135.0
+offset_top = 163.0
+offset_right = 410.0
+offset_bottom = 283.0
+scale = Vector2(0.5, 0.5)
+text = "MINECART SHOP"
+label_settings = SubResource("LabelSettings_d2syx")
+horizontal_alignment = 1
+
+[node name="HeartItem" parent="." index="8" instance=ExtResource("3_h5b6n")]
+position = Vector2(-95, -246)
+scale = Vector2(0.5, 0.5)
+item_name = "HEART"
+diamond_cost = 30
+
+[node name="PickaxeItem" parent="." index="9" instance=ExtResource("4_18ilv")]
+position = Vector2(0, -247)
+scale = Vector2(0.5, 0.5)
+diamond_cost = 45
+
+[node name="MinecartEquipmentItem" parent="." index="10" instance=ExtResource("5_icly5")]
+position = Vector2(-97, 245)
+gear_cost = 10
+
+[node name="MinecartEquipmentItem2" parent="." index="11" instance=ExtResource("5_icly5")]
+position = Vector2(0, 245)
+equipment_item = ExtResource("6_qwoh8")
+gear_cost = 15
+
+[node name="MinecartEquipmentItem3" parent="." index="12" instance=ExtResource("5_icly5")]
+position = Vector2(96, 245)
+gear_cost = 10
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="13"]
+stream = ExtResource("9_icly5")
+volume_db = -6.0
+bus = &"SFX"
+
+[node name="Dialogue" type="CanvasLayer" parent="." index="14"]
+
+[node name="Line1" type="Label" parent="Dialogue" index="0"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "Welcome contestant to the fabulous prize pavilion."
+label_settings = SubResource("LabelSettings_18ilv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line2" type="Label" parent="Dialogue" index="1"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "See something you like? Just smash the crystal to claim it."
+label_settings = SubResource("LabelSettings_18ilv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line3" type="Label" parent="Dialogue" index="2"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "You break it"
+label_settings = SubResource("LabelSettings_18ilv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line4" type="Label" parent="Dialogue" index="3"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "You buy it"
+label_settings = SubResource("LabelSettings_18ilv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line5" type="Label" parent="Dialogue" index="4"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "NO REFUNDS"
+label_settings = SubResource("LabelSettings_icly5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line6" type="Label" parent="Dialogue" index="5"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "No Exceptions"
+label_settings = SubResource("LabelSettings_18ilv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Dialogue" index="6"]
+libraries = {
+&"": SubResource("AnimationLibrary_c2qec")
+}
+
+[node name="HyperBoostItem" parent="." index="15" instance=ExtResource("10_icly5")]
+position = Vector2(97, -247)

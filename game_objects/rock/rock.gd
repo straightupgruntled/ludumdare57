@@ -4,6 +4,7 @@ extends StaticBody2D
 @export var diamond_scene : PackedScene
 
 @onready var animation_player = $AnimationPlayer
+@onready var health_component = $HealthComponent
 
 func _ready():
 	rotation = randf_range(-PI, PI)
@@ -28,6 +29,9 @@ func create_diamond() -> void:
 
 
 func _on_health_component_died():
+	hide()
+	set_collision_layer_value(4, false)
 	for i in randi_range(4, 10):
+		await get_tree().create_timer(0.025).timeout
 		create_diamond()
 	self.queue_free()

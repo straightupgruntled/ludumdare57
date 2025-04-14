@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8dxl17fafso5"]
 
-[ext_resource type="Texture2D" uid="uid://1y2kwpjq2u0j" path="res://assets/sprites/poof_particles/medium_poof.png" id="1_dhvou"]
-[ext_resource type="Script" uid="uid://bgy8mbm6rv7h5" path="res://game_objects/particles/small_poof_particles.gd" id="2_16j4f"]
+[ext_resource type="Texture2D" uid="uid://dms32itu11du3" path="res://assets/sprites/poof_particles/medium_poof.png" id="1_dhvou"]
+[ext_resource type="Script" uid="uid://bgy8mbm6rv7h5" path="res://game_objects/particles/instant_particle.gd" id="2_16j4f"]
 
 [sub_resource type="Gradient" id="Gradient_atyx3"]
 offsets = PackedFloat32Array(0, 0.567376, 1)
@@ -34,7 +34,8 @@ scale_max = 0.4
 scale_curve = SubResource("CurveTexture_wiqxo")
 color_ramp = SubResource("GradientTexture1D_wiqxo")
 
-[node name="LittlePoofParticles" type="GPUParticles2D"]
+[node name="LittlePoofParticles" type="GPUParticles2D" groups=["clearable"]]
+z_as_relative = false
 emitting = false
 amount = 20
 texture = ExtResource("1_dhvou")

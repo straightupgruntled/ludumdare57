@@ -1,61 +1,251 @@
 class_name Cart
 extends CharacterBody2D
 
-@export var diamonds_collected : int = 0
-@export var frozen : bool = false : set = _set_frozen
+enum MoveMode {
+	FREE,
+	PLAYER_PUSH,
+	FROZEN
+}
+@export var current_move_mode : MoveMode = MoveMode.FREE
+@export var top_speed : float = 250.0
+@export var diamonds_collected : int = 0 : set = _set_diamonds_collected
+@export var gears_collected : int = 0 : set = _set_gears_collected
 
+@export_group("Weight Speed Effects")
+@export var max_item_count : int = 100
+@export var full_speed_modifier : float = 0.25
+
+var player_ref : Player
+var player_can_release : bool = false
+var turn_speed : float = 0.0
+var move_speed : float = top_speed
+var move_backwards : bool = false
+
+@onready var visuals = $Visuals
+@onready var sprite = $Visuals/Sprite2D
 @onready var fixed_pivot = $Visuals/FixedPivot
 @onready var diamond_count_label = $Visuals/FixedPivot/DiamondCountLabel
+@onready var gear_count_label = $Visuals/FixedPivot/GearCountLabel
+@onready var animation_player = $Visuals/AnimationPlayer
+@onready var player_collision = $PlayerCollision
 @onready var height_controller = $HeightController
 @onready var hurtbox = $Hurtbox
+@onready var interactable = $Interactable
 
-var locked_to_platform : bool = false
+# Attachment Points #
+@onready var front_equip = $Visuals/AttachmentAnchors/Front
+@onready var left_equip = $Visuals/AttachmentAnchors/Left
+@onready var right_equip = $Visuals/AttachmentAnchors/Right
+@onready var front_left_equip = $Visuals/AttachmentAnchors/FrontLeft
+@onready var front_right_equip = $Visuals/AttachmentAnchors/FrontRight
+@onready var back_left_equip = $Visuals/AttachmentAnchors/BackLeft
+@onready var back_right_equip = $Visuals/AttachmentAnchors/BackRight
 
-func _ready():
-	diamond_count_label.text = str(diamonds_collected)
+
+func _unhandled_input(event):
+	if event.is_action_pressed("interact") and player_can_release:
+		release_player()
 
 
 func _physics_process(delta):
 	fixed_pivot.global_rotation = 0.0
-	if frozen:
-		return
-	if !locked_to_platform:
-		velocity = velocity.lerp(Vector2.ZERO, .05)
-		rotation = lerp_angle(rotation, velocity.angle(), .05)
-	else:
-		velocity = velocity.lerp(Vector2.ZERO, .2)
-		rotation = lerp_angle(rotation, velocity.angle(), .2)
-	move_and_slide()
+	sprite.scale = sprite.scale.lerp(Vector2.ONE * 0.5, .2)
+	diamond_count_label.scale = diamond_count_label.scale.lerp(Vector2.ONE * 0.5, .2)
+	gear_count_label.scale = gear_count_label.scale.lerp(Vector2.ONE * 0.5, .2)
+	match current_move_mode:
+		MoveMode.FREE:
+			velocity = velocity.move_toward(Vector2.ZERO, 5.25)
+			var collision = move_and_collide(velocity * delta)
+			if collision:
+				var collider = collision.get_collider()
+				if collider is Rock and velocity.length() > 50.0:
+					collider.health_component.take_damage(1)
+				velocity = velocity.reflect(collision.get_normal().rotated(PI/2)) * 0.9
+				move_backwards = true
+				if velocity.length() > 50.0:
+					pulse(1.35)
+			if velocity.length_squared() > 0.0:
+				var dir : Vector2
+				var target_rotation : float
+				if !move_backwards:
+					dir = velocity.normalized()
+					target_rotation = dir.angle()
+					rotation = lerp_angle(rotation, target_rotation, .25)
+				else:
+					dir = -velocity.normalized()
+					target_rotation = dir.angle()
+					rotation = lerp_angle(rotation, target_rotation, .05)
+		MoveMode.PLAYER_PUSH:
+			if player_ref.is_dead:
+				release_player()
+				return
+			player_ref.global_position = player_ref.global_position.lerp(player_collision.global_position, .7)
+			player_ref.rotation = lerp_angle(player_ref.rotation, (global_position - player_ref.global_position).angle(), .3)
+			var item_count = diamonds_collected + gears_collected
+			var speed_modif = clamp(remap(item_count, 0, max_item_count, 1.0, full_speed_modifier), full_speed_modifier, 1.0)
+			if InputMode.is_gamepad():
+				var input_vector : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+				if input_vector.length() > 0.3:
+					rotation = lerp_angle(rotation, input_vector.angle(), .2)
+					velocity = velocity.lerp(input_vector * move_speed * speed_modif, .15)
+				else:
+					velocity = velocity.lerp(Vector2.ZERO, .15)
+			elif InputMode.is_keyboard():
+				rotation = lerp_angle(rotation, (get_global_mouse_position() - global_position).angle(), .15)
+				var forward_input : float = Input.get_action_strength("move_up") - Input.get_action_strength("move_down") * 0.5
+				if forward_input > 0:
+					move_backwards = false
+				else:
+					move_backwards = true
+				var input_vector : Vector2 = Vector2(cos(rotation), sin(rotation)) * forward_input
+				velocity = velocity.lerp(input_vector * move_speed * speed_modif, .2)
+			move_and_slide()
+			for i in range(get_slide_collision_count()):
+				var collision = get_slide_collision(i)
+				if collision:
+					var normal = collision.get_normal()
+					velocity = velocity.slide(normal)
+		MoveMode.FROZEN:
+			velocity = velocity.lerp(Vector2.ZERO, .2)
+			move_and_slide()
+
+
+func set_current_move_mode(new_move_move : MoveMode) -> void:
+	current_move_mode = new_move_move
+	move_backwards = false
+
+
+func push(force_vector : Vector2) -> void:
+	move_backwards = false
+	velocity = force_vector
+	pulse()
+
+
+func pulse(amount : float = 1.25) -> void:
+	sprite.scale = Vector2(0.5, 0.5) * amount
 
 
 func take_damage(amount : int) -> void:
-	diamonds_collected -= amount * 2
+	if diamonds_collected > 0 and gears_collected > 0:
+		var rand_chance : int = randi_range(0, 10)
+		if rand_chance < 8:
+			diamonds_collected -= amount
+		else:
+			gears_collected -= amount
+	elif gears_collected == 0:
+		diamonds_collected -= amount
+	elif diamonds_collected == 0:
+		gears_collected -= amount
 	if diamonds_collected < 0:
 		diamonds_collected = 0
-	diamond_count_label.text = str(diamonds_collected)
+	animation_player.play("hurt")
 
 
-func lock_to_platform() -> void:
-	locked_to_platform = true
+#func lock_to_platform() -> void:
+	#height_controller.can_fall = false
+	#hurtbox.active = false
+	#interactable.active = false
+	#set_current_move_mode(MoveMode.LOCKED_TO_PLATFORM)
+#
+#
+#func unlock_from_platform() -> void:
+	#height_controller.can_fall = true
+	#hurtbox.active = true
+	#interactable.active = true
+	#set_current_move_mode(MoveMode.FREE)
+
+
+func freeze() -> void:
 	height_controller.can_fall = false
+	hurtbox.active = false
+	interactable.active = false
+	current_move_mode = MoveMode.FROZEN
 
 
-func unlock_from_platform() -> void:
-	locked_to_platform = false
+func unfreeze() -> void:
 	height_controller.can_fall = true
+	hurtbox.active = true
+	interactable.active = true
+	current_move_mode = MoveMode.FREE
+
+
+func release_player() -> void:
+	player_collision.set_deferred("disabled", true)
+	if player_ref:
+		player_ref.unfreeze()
+		player_ref.interactor.active = true
+		player_ref.follow_camera.target_node = player_ref
+		player_ref = null
+	set_current_move_mode(MoveMode.FREE)
 
 
 func _on_collectable_detector_body_entered(body):
 	body.queue_free()
-	diamonds_collected += 1
+	if body is Diamond:
+		diamonds_collected += 1
+	elif body is Gear:
+		gears_collected += 1
+
+
+func _on_interactable_interaction_triggered(interactor : Interactor):
+	if interactor.owner_body is Player:
+		player_ref = interactor.owner_body
+		player_collision.set_deferred("disabled", false)
+		player_ref.freeze()
+		player_ref.follow_camera.target_node = self
+		player_can_release = false
+		set_current_move_mode(MoveMode.PLAYER_PUSH)
+		await get_tree().process_frame
+		player_can_release = true
+
+
+func _on_height_controller_fall_started():
+	interactable.active = false
+	set_collision_layer_value(4, false)
+	if player_ref:
+		release_player()
+
+
+func _on_height_controller_fell_into_pit():
+	interactable.active = true
+	diamonds_collected = ceil(float(diamonds_collected) * 0.5)
+	gears_collected = ceil(float(gears_collected) * 0.5)
+	set_collision_layer_value(4, true)
+
+
+func _set_diamonds_collected(value : int) -> void:
+	diamonds_collected = value
+	if diamonds_collected < 0:
+		diamonds_collected = 0
+	if not is_node_ready():
+		await ready
 	diamond_count_label.text = str(diamonds_collected)
+	diamond_count_label.scale = Vector2.ONE
 
 
-func _on_fell_into_pit():
-	diamonds_collected /= 2
-	diamond_count_label.text = str(diamonds_collected)
+func _set_gears_collected(value : int) -> void:
+	gears_collected = value
+	if gears_collected < 0:
+		gears_collected = 0
+	if not is_node_ready():
+		await ready
+	gear_count_label.text = str(gears_collected)
+	gear_count_label.scale = Vector2.ONE
 
 
-func _set_frozen(value : bool) -> void:
-	frozen = value
-	hurtbox.active = !frozen
+func give_equipment(equipment_item : MinecartEquipment, snap_dir : CartEquipSnapPoint.Direction):
+	match snap_dir:
+		CartEquipSnapPoint.Direction.FORWARD:
+			front_equip.give_attachment_scene(equipment_item.equipment_scene)
+		CartEquipSnapPoint.Direction.LEFT:
+			left_equip.give_attachment_scene(equipment_item.equipment_scene)
+		CartEquipSnapPoint.Direction.RIGHT:
+			right_equip.give_attachment_scene(equipment_item.equipment_scene)
+		CartEquipSnapPoint.Direction.FORWARD_LEFT:
+			front_left_equip.give_attachment_scene(equipment_item.equipment_scene)
+		CartEquipSnapPoint.Direction.FORWARD_RIGHT:
+			front_right_equip.give_attachment_scene(equipment_item.equipment_scene)
+		CartEquipSnapPoint.Direction.BACK_LEFT:
+			back_left_equip.give_attachment_scene(equipment_item.equipment_scene)
+		CartEquipSnapPoint.Direction.BACK_RIGHT:
+			back_right_equip.give_attachment_scene(equipment_item.equipment_scene)

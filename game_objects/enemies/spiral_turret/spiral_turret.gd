@@ -1,0 +1,125 @@
+class_name SpiralTurret
+extends StaticBody2D
+
+@export var bullet_scene : PackedScene
+@export var poof_particle_scene : PackedScene
+@export var gear_scene : PackedScene
+
+var health : int = 7
+var near_cart : Cart
+var near_player : Player
+var target_rotation : float = 0.0
+var dangerous : bool = false
+
+@onready var gun = $Sprite2D/Gun
+@onready var animation_player = $AnimationPlayer
+@onready var danger_marker = $DangerMarker
+@onready var health_component = $HealthComponent
+@onready var active_light = $ActiveLight
+@onready var bullet_marker = $Sprite2D/Gun/BulletMarker
+@onready var shoot_timer = $ShootTimer
+
+#SFX#
+@onready var aim_sfx = $AimSFX
+
+
+func _ready():
+	scale = Vector2.ZERO
+	_on_shoot_timer_timeout()
+
+
+func _physics_process(delta):
+	scale = scale.lerp(Vector2.ONE, .025)
+	gun.rotation = lerp_angle(gun.rotation, target_rotation, 0.25)
+
+
+func _on_shoot_timer_timeout():
+	if near_cart:
+		active_light.show()
+		target_rotation = (near_cart.global_position - global_position).angle() + randf_range(-PI/6, -PI/12)
+		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+		aim_sfx.play()
+		for i in 3:
+			await get_tree().create_timer(.2).timeout
+			shoot()
+			target_rotation += PI/10
+			aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+			aim_sfx.play()
+	elif near_player:
+		active_light.show()
+		target_rotation = (near_player.global_position - global_position).angle() + randf_range(-PI/6, -PI/12)
+		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+		aim_sfx.play()
+		for i in 4:
+			await get_tree().create_timer(.2).timeout
+			shoot()
+			target_rotation += PI/10
+			aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+			aim_sfx.play()
+	else:
+		active_light.hide()
+
+
+func shoot() -> void:
+	var bullet : EnemyBullet = bullet_scene.instantiate()
+	bullet.rotation = target_rotation
+	get_tree().current_scene.call_deferred("add_child", bullet)
+	bullet.global_position = bullet_marker.global_position
+
+
+func start_danger() -> void:
+	if !dangerous:
+		dangerous = true
+		danger_marker.trigger()
+		shoot_timer.wait_time = 1.5
+		
+
+
+func take_damage(amount : int = 1) -> void:
+	animation_player.stop()
+	animation_player.play("hit")
+	if health_component.current_health < 2:
+		start_danger()
+
+
+func create_poof() -> InstantParticles:
+	var poof = poof_particle_scene.instantiate()
+	get_parent().call_deferred("add_child", poof)
+	poof.global_position = global_position
+	poof.scale = global_scale
+	return poof
+
+
+func create_gear() -> void:
+	var gear : Gear = gear_scene.instantiate()
+	get_parent().call_deferred("add_child", gear)
+	gear.global_position = global_position
+	gear.rotation = randf_range(0.0, 2*PI)
+	gear.velocity = Vector2.RIGHT.rotated(randf_range(0.0, 2*PI)) * 200.0
+
+
+func _on_health_component_died():
+	Global.enemies_killed += 1
+	if Global.enemies_killed == 3:
+		EventBus.tutorial_enemies_killed.emit()
+	set_collision_layer_value(4, false)
+	create_poof()
+	hide()
+	for i in randi_range(4, 5):
+		await get_tree().create_timer(0.025).timeout
+		create_gear()
+	self.queue_free()
+
+
+func _on_object_detector_body_entered(body):
+	if body is Cart:
+		near_cart = body
+	elif body is Player:
+		near_player = body
+
+
+func _on_object_detector_body_exited(body):
+	if body == near_cart:
+		near_cart = null
+	elif body == near_player:
+		near_player = null

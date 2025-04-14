@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwpj00fhvt8q4"]
+
+[ext_resource type="Script" uid="uid://dn1q8rtabfp0l" path="res://ui/hyper_boost_panel/hyper_boost_panel.gd" id="1_85w54"]
+[ext_resource type="PackedScene" uid="uid://bgohslr01ltcd" path="res://ui/hyper_boost_panel/hyper_boost_slot.tscn" id="1_v8bnv"]
+[ext_resource type="Resource" uid="uid://bhdqtpr8o1m3l" path="res://resources/hyper_boost/bullet_clear_boost.tres" id="2_8wfil"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wfil"]
+bg_color = Color(0, 0.269625, 0.415241, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[node name="HyperBoostPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_85w54")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -96.0
+offset_right = 127.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8wfil")
+
+[node name="Slots" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -258.0
+offset_right = 84.0
+offset_bottom = 258.0
+grow_vertical = 2
+alignment = 1
+
+[node name="HyperBoostSlot" parent="Slots" instance=ExtResource("1_v8bnv")]
+layout_mode = 2
+hyper_boost = ExtResource("2_8wfil")
+
+[node name="HyperBoostSlot2" parent="Slots" instance=ExtResource("1_v8bnv")]
+layout_mode = 2
+slot_number = 2
+
+[node name="HyperBoostSlot3" parent="Slots" instance=ExtResource("1_v8bnv")]
+layout_mode = 2
+slot_number = 3

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpn6w60w1hcv2"]
+
+[ext_resource type="Texture2D" uid="uid://by82yonstsoi" path="res://assets/sprites/cart_attachment_anchor.png" id="1_nfejs"]
+[ext_resource type="Script" uid="uid://d01wccac1yo3b" path="res://ui/cart_equip_menu/cart_equipment_snap_point_ui.gd" id="1_u8lxa"]
+[ext_resource type="PackedScene" uid="uid://gw6m8p2vngon" path="res://ui/cart_equip_menu/cart_equipment_item.tscn" id="2_aigk3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_itr3n"]
+
+[node name="CartEquipmentSnapPointUI" type="Area2D"]
+process_mode = 3
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_u8lxa")
+
+[node name="CartEquipmentItem" parent="." instance=ExtResource("2_aigk3")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nfejs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_itr3n")
