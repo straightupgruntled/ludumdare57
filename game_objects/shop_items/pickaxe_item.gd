@@ -26,7 +26,7 @@ func _process(delta):
 func _on_interactable_interaction_triggered(interactor : Interactor):
 	if interactor.owner_body is Player:
 		var player : Player = interactor.owner_body
-		if Global.diamonds >= diamond_cost and player.max_picks < 5:
+		if Global.diamonds >= diamond_cost and player.max_picks < 15:
 			item_chosen.emit(item_name)
 			var poof = poof_particle_scene.instantiate()
 			get_parent().call_deferred("add_child", poof)

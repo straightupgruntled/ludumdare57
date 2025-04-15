@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c75unrqe0hfs7" path="res://assets/sprites/title_cart_and_player.png" id="4_2er51"]
 [ext_resource type="Texture2D" uid="uid://b6o7n0ybdvihb" path="res://assets/sprites/ludum_dare_logo.png" id="5_ca08b"]
 [ext_resource type="Texture2D" uid="uid://dkhf78kqmbky3" path="res://assets/sprites/white_vignette_overlay.png" id="5_dk1uc"]
-[ext_resource type="Shader" uid="uid://br6x21thfo7gb" path="res://resources/shader/screen_overlay.gdshader" id="10_gwpbi"]
+[ext_resource type="Shader" path="res://resources/shader/screen_overlay.gdshader" id="10_gwpbi"]
 [ext_resource type="Script" uid="uid://bxoj321qvg0vx" path="res://ui/ui_menu/ui_menu.gd" id="11_c8lgs"]
 [ext_resource type="PackedScene" uid="uid://b44yjbpcqyw4o" path="res://ui/pause_menu/pause_menu.tscn" id="11_dk1uc"]
 

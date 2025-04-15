@@ -1,15 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://cr8v58l6qfp32"]
+[gd_scene load_steps=24 format=3 uid="uid://dh26s84gf6jst"]
 
-[ext_resource type="Script" uid="uid://do7yfg1wdvsk1" path="res://game_objects/platform/platform.gd" id="1_8ynsn"]
-[ext_resource type="Texture2D" uid="uid://dsiqrr24glxl7" path="res://assets/sprites/cash_in_platform.png" id="1_lljtu"]
-[ext_resource type="Texture2D" uid="uid://ctwtnx4hd147c" path="res://assets/sprites/poof_particles/large_poof.png" id="2_gogjw"]
-[ext_resource type="Texture2D" uid="uid://bwskas4e1vwhy" path="res://assets/sprites/platform_rails.png" id="3_gogjw"]
-[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="3_h3ia6"]
-[ext_resource type="Texture2D" uid="uid://msbs4mt3bj7y" path="res://assets/sprites/square_light_mask.png" id="3_h7hcp"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="4_pind4"]
-[ext_resource type="AudioStream" uid="uid://bc1gtn1pf5kj3" path="res://assets/audio/sfx/platform_moving.wav" id="6_njqju"]
-[ext_resource type="AudioStream" uid="uid://e32gkjpfh82b" path="res://assets/audio/sfx/platform_lockin.wav" id="7_pind4"]
-[ext_resource type="PackedScene" uid="uid://dxb7o428afhsd" path="res://components/interaction/interactable.tscn" id="10_pk7ak"]
+[ext_resource type="Script" uid="uid://s08gkugvolfw" path="res://game_objects/platform/platform.gd" id="1_drrpw"]
+[ext_resource type="Texture2D" uid="uid://ctwtnx4hd147c" path="res://assets/sprites/poof_particles/large_poof.png" id="2_7opwt"]
+[ext_resource type="Texture2D" uid="uid://bwskas4e1vwhy" path="res://assets/sprites/platform_rails.png" id="3_chp4i"]
+[ext_resource type="Texture2D" uid="uid://dsiqrr24glxl7" path="res://assets/sprites/cash_in_platform.png" id="4_67jl3"]
+[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="5_a6o58"]
+[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="6_5t6gq"]
+[ext_resource type="PackedScene" uid="uid://dxb7o428afhsd" path="res://components/interaction/interactable.tscn" id="7_45oeq"]
+[ext_resource type="Texture2D" uid="uid://msbs4mt3bj7y" path="res://assets/sprites/square_light_mask.png" id="8_i4i7n"]
+[ext_resource type="AudioStream" uid="uid://bc1gtn1pf5kj3" path="res://assets/audio/sfx/platform_moving.wav" id="9_oiqoi"]
+[ext_resource type="AudioStream" uid="uid://e32gkjpfh82b" path="res://assets/audio/sfx/platform_lockin.wav" id="10_r3h1p"]
 
 [sub_resource type="Gradient" id="Gradient_pk7ak"]
 offsets = PackedFloat32Array(0, 0.567376, 1)
@@ -43,24 +43,27 @@ scale_curve = SubResource("CurveTexture_kb5ji")
 color_ramp = SubResource("GradientTexture1D_3y87h")
 
 [sub_resource type="LabelSettings" id="LabelSettings_h3ia6"]
-font = ExtResource("4_pind4")
+font = ExtResource("6_5t6gq")
 font_size = 38
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pind4"]
 line_spacing = -9.995
-font = ExtResource("4_pind4")
+font = ExtResource("6_5t6gq")
 font_size = 20
 font_color = Color(0.583604, 0.783366, 0.954084, 1)
 outline_size = 8
 outline_color = Color(0.0230229, 0.21201, 0.324986, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lljtu"]
-size = Vector2(160, 160)
+size = Vector2(192, 192)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pind4"]
 size = Vector2(124, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chp4i"]
+size = Vector2(80, 80)
 
 [sub_resource type="Animation" id="Animation_3y87h"]
 length = 0.001
@@ -104,14 +107,12 @@ _data = {
 [node name="Platform" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_8ynsn")
-diamond_requirement = 102
-target_light_color = Color(1, 1, 1, 1)
+script = ExtResource("1_drrpw")
 
 [node name="LockPoof" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 40
-texture = ExtResource("2_gogjw")
+texture = ExtResource("2_7opwt")
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5
@@ -121,10 +122,10 @@ process_material = SubResource("ParticleProcessMaterial_72icp")
 [node name="RailingSprite" type="Sprite2D" parent="."]
 show_behind_parent = true
 z_index = -2
-texture = ExtResource("3_gogjw")
+texture = ExtResource("3_chp4i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_lljtu")
+texture = ExtResource("4_67jl3")
 
 [node name="FixedPivot" type="Node2D" parent="Sprite2D"]
 position = Vector2(-1, -1)
@@ -133,7 +134,7 @@ position = Vector2(-1, -1)
 modulate = Color(0, 0.682586, 0.821081, 1)
 position = Vector2(0, -11)
 scale = Vector2(1.75, 1.75)
-texture = ExtResource("3_h3ia6")
+texture = ExtResource("5_a6o58")
 
 [node name="DiamondCountLabel" type="Label" parent="Sprite2D/FixedPivot"]
 offset_left = -31.0
@@ -168,41 +169,37 @@ metadata/_edit_use_anchors_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lljtu")
 
-[node name="ObjectDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetector"]
-shape = SubResource("RectangleShape2D_pind4")
-debug_color = Color(0.208499, 0.640215, 0, 0.42)
-
-[node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-shape = SubResource("RectangleShape2D_pind4")
-debug_color = Color(0.208499, 0.640215, 0, 0.42)
-
-[node name="ContinueInteractable" parent="." instance=ExtResource("10_pk7ak")]
-message = "CONTINUE"
+[node name="ContinueInteractable" parent="." instance=ExtResource("7_45oeq")]
+position = Vector2(0, -115)
+message = "CONTINUE DESCENT?"
 active = false
+descent_interactor = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueInteractable"]
+position = Vector2(0, 115)
 shape = SubResource("RectangleShape2D_pind4")
 debug_color = Color(0.208499, 0.640215, 0, 0.42)
 
+[node name="CartDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CartDetector"]
+shape = SubResource("RectangleShape2D_chp4i")
+debug_color = Color(0.980392, 0.027451, 0.290196, 0.615686)
+
 [node name="WeightLight" type="PointLight2D" parent="."]
+position = Vector2(1, 0)
 energy = 0.0
-texture = ExtResource("3_h7hcp")
+texture = ExtResource("8_i4i7n")
 
 [node name="DescentSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_njqju")
+stream = ExtResource("9_oiqoi")
 volume_db = -8.0
 bus = &"SFX"
 
 [node name="LockInSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_pind4")
+stream = ExtResource("10_r3h1p")
 volume_db = -4.0
 bus = &"SFX"
 
@@ -216,9 +213,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_3y87h")
 }
 
-[connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
-[connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
 [connection signal="interaction_triggered" from="ContinueInteractable" to="." method="_on_interactable_interaction_triggered"]
+[connection signal="body_entered" from="CartDetector" to="." method="_on_object_detector_body_entered"]
+[connection signal="body_exited" from="CartDetector" to="." method="_on_object_detector_body_exited"]
 [connection signal="timeout" from="WeightTimer" to="." method="attempt_descent"]

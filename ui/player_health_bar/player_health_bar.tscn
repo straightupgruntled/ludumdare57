@@ -18,18 +18,18 @@ script = ExtResource("1_3p05j")
 texture = ExtResource("1_ewi7k")
 centered = false
 region_enabled = true
-region_rect = Rect2(86, 0, 86, 83)
+region_rect = Rect2(172, 0, 86, 83)
 
 [node name="Heart2" type="Sprite2D" parent="."]
 position = Vector2(88, 0)
 texture = ExtResource("1_ewi7k")
 centered = false
 region_enabled = true
-region_rect = Rect2(86, 0, 86, 83)
+region_rect = Rect2(172, 0, 86, 83)
 
 [node name="Heart3" type="Sprite2D" parent="."]
 position = Vector2(176, 0)
 texture = ExtResource("1_ewi7k")
 centered = false
 region_enabled = true
-region_rect = Rect2(86, 0, 86, 83)
+region_rect = Rect2(172, 0, 86, 83)

@@ -27,7 +27,6 @@ var time : float = 0.0
 @onready var dead_sprite = $Visuals/DeadSprite
 @onready var animation_player = $AnimationPlayer
 @onready var flashlight = $Flashlight
-@onready var circle_light = $CircleLight
 @onready var health_component = $HealthComponent
 @onready var interactor = $Interactor
 @onready var hurtbox = $Hurtbox
@@ -56,7 +55,6 @@ func _physics_process(delta):
 		global_position = global_position.lerp(follow_camera.global_position, .15)
 		rotation = lerp_angle(rotation, PI/2, .15)
 		visuals.scale = visuals.scale.lerp(Vector2(2.5, 2.5), .15)
-		circle_light.texture_scale = lerpf(circle_light.texture_scale, 3.0, .15)
 		velocity = Vector2.ZERO
 	elif can_move:
 		var input_vector : Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -181,7 +179,6 @@ func freeze() -> void:
 	height_controller.can_fall = false
 	interactor.active = false
 	hurtbox.active = false
-	flashlight.hide()
 
 
 func unfreeze() -> void:
@@ -193,7 +190,6 @@ func unfreeze() -> void:
 	height_controller.can_fall = true
 	interactor.active = true
 	hurtbox.active = true
-	flashlight.show()
 
 
 func create_poof() -> InstantParticles:

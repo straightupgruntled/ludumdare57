@@ -1,5 +1,5 @@
 class_name PickUI
-extends HBoxContainer
+extends GridContainer
 
 @export var pick_count : int = 4
 

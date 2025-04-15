@@ -119,6 +119,7 @@ shape = SubResource("CircleShape2D_4tqfo")
 [node name="ShootTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 3.0
+one_shot = true
 autostart = true
 
 [node name="ObjectDetector" type="Area2D" parent="."]

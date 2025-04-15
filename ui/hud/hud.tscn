@@ -28,10 +28,9 @@ scale = Vector2(0.8, 0.8)
 
 [node name="PickUI" parent="." instance=ExtResource("2_w75iv")]
 z_index = 0
-offset_left = -4.0
-offset_top = 76.0
-offset_right = 256.0
-offset_bottom = 136.0
+offset_top = 74.0
+offset_bottom = 244.0
+scale = Vector2(1, 1)
 
 [node name="DiamondCounter" type="Control" parent="."]
 layout_mode = 3
@@ -78,6 +77,6 @@ text = "0"
 label_settings = SubResource("LabelSettings_kwc50")
 horizontal_alignment = 2
 
-[node name="DeathScreen" parent="." instance=ExtResource("3_imuuq")]
-
 [node name="HyperBoostPanel" parent="." instance=ExtResource("8_gfles")]
+
+[node name="DeathScreen" parent="." instance=ExtResource("3_imuuq")]

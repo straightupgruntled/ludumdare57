@@ -3,12 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://brypamjlffy6r" path="res://assets/sprites/pickaxe_icon.png" id="1_4q2ok"]
 [ext_resource type="Script" uid="uid://boljb1yqv1k12" path="res://ui/pickaxe_ui/pick_ui.gd" id="1_jx6w2"]
 
-[node name="PickUI" type="HBoxContainer"]
+[node name="PickUI" type="GridContainer"]
 z_index = -1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 280.0
+offset_bottom = 170.0
 scale = Vector2(1.2, 1.2)
-theme_override_constants/separation = -10
+theme_override_constants/h_separation = -5
+theme_override_constants/v_separation = -5
+columns = 5
 script = ExtResource("1_jx6w2")
 pick_count = 2
 
@@ -29,5 +31,45 @@ layout_mode = 2
 texture = ExtResource("1_4q2ok")
 
 [node name="Pickaxe5" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe6" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe7" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe8" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe9" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe10" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe11" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe12" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe13" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe14" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4q2ok")
+
+[node name="Pickaxe15" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("1_4q2ok")

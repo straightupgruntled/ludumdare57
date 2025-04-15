@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://ebote4etxu2p" path="res://game_objects/cart/cart.tscn" id="7_7rrsk"]
 [ext_resource type="Texture2D" uid="uid://dn4wuaj0fschr" path="res://assets/sprites/dark_mist.png" id="8_f4o6f"]
 [ext_resource type="PackedScene" uid="uid://btexll737i6xw" path="res://ui/hud/hud.tscn" id="9_7rrsk"]
-[ext_resource type="Shader" uid="uid://btt0un2r4gbpi" path="res://resources/shader/vignette_overlay.gdshader" id="10_cpjv5"]
+[ext_resource type="Shader" path="res://resources/shader/vignette_overlay.gdshader" id="10_cpjv5"]
 [ext_resource type="PackedScene" uid="uid://b44yjbpcqyw4o" path="res://ui/pause_menu/pause_menu.tscn" id="11_g5rtv"]
 [ext_resource type="PackedScene" uid="uid://b0wx7xiwitxfr" path="res://ui/cart_equip_menu/cart_equip_menu.tscn" id="12_a2dh6"]
-[ext_resource type="PackedScene" uid="uid://dh26s84gf6jst" path="res://game_objects/new_platform/new_platform.tscn" id="12_ikspt"]
+[ext_resource type="PackedScene" uid="uid://dh26s84gf6jst" path="res://game_objects/platform/platform.tscn" id="12_ikspt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5rtv"]
 shader = ExtResource("10_cpjv5")
@@ -89,12 +89,14 @@ tonemap_exposure = 0.9
 tonemap_white = 2.0
 glow_enabled = true
 adjustment_enabled = true
+adjustment_brightness = 1.6
 adjustment_contrast = 1.02
 adjustment_saturation = 1.05
 
 [node name="Stage" type="Node2D" node_paths=PackedStringArray("platform")]
 script = ExtResource("1_4i1ok")
 arena_collections = Array[ExtResource("2_1rswj")]([ExtResource("3_bwcge"), ExtResource("4_bwcge")])
+current_level = null
 platform = NodePath("NewPlatform")
 
 [node name="BackParallax" type="ParallaxBackground" parent="."]

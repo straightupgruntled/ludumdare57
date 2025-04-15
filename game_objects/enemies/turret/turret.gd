@@ -34,18 +34,18 @@ func _physics_process(delta):
 
 
 func _on_shoot_timer_timeout():
-	if near_cart:
+	if near_player:
 		active_light.show()
-		target_rotation = (near_cart.global_position - global_position).angle() + randf_range(-PI/12, PI/12)
+		target_rotation = (near_player.global_position - global_position).angle() + randf_range(-PI/12, PI/12)
 		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
 		aim_sfx.play()
 		await get_tree().create_timer(.25).timeout
 		shoot()
 		await get_tree().create_timer(.25).timeout
 		shoot()
-	elif near_player:
+	elif near_cart:
 		active_light.show()
-		target_rotation = (near_player.global_position - global_position).angle() + randf_range(-PI/12, PI/12)
+		target_rotation = (near_cart.global_position - global_position).angle() + randf_range(-PI/12, PI/12)
 		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
 		aim_sfx.play()
 		await get_tree().create_timer(.25).timeout

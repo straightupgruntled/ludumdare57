@@ -3,7 +3,7 @@ extends Node2D
 
 @export var arena_collections : Array[ArenaCollection]
 @export var current_level : int = 0
-@export var platform : NewPlatform
+@export var platform : Platform
 
 var current_arena_scene : PackedScene
 var current_arena : Arena
