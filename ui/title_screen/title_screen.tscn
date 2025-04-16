@@ -105,7 +105,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ffat2")
-level_scene_file = "uid://5l3dg75qbig5"
+level_scene_file = "uid://qnouoriqwjth"
 stage_scene_file = "uid://qnouoriqwjth"
 
 [node name="Background" type="CanvasLayer" parent="."]

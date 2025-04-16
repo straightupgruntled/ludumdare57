@@ -79,7 +79,7 @@ func _physics_process(delta):
 				
 				if Input.is_action_pressed("block"):
 					bullet_shield.active = true
-					top_speed = 70.0
+					top_speed = 120.0
 				elif Input.is_action_pressed("sprint"):
 					bullet_shield.active = false
 					top_speed = 300.0

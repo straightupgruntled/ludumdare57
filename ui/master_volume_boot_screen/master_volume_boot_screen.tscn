@@ -1,18 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqsxxge02143w"]
 
 [ext_resource type="Script" uid="uid://dsnpigg7yqv15" path="res://ui/master_volume_boot_screen/master_volume_boot_screen.gd" id="1_rsmrb"]
-[ext_resource type="FontFile" uid="uid://dlhn3i23oowws" path="res://assets/fonts/GmarketSansBold.otf" id="3_oibca"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="3_0w5n6"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_oibca"]
 thickness = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_oibca"]
-font = ExtResource("3_oibca")
-font_size = 50
-outline_size = 35
-outline_color = Color(0.0941176, 0.192157, 0.345098, 1)
-shadow_size = 65
-shadow_color = Color(0, 0, 0, 1)
+font = ExtResource("3_0w5n6")
+font_size = 64
+outline_size = 1
+shadow_size = 6
+shadow_color = Color(0.389287, 0.389287, 0.389287, 1)
 shadow_offset = Vector2(1, 4)
 
 [node name="MasterVolumeBootScreen" type="Control"]
@@ -80,15 +79,14 @@ offset_bottom = -530.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0.102048, 0.149557, 0.434384, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 20
-theme_override_constants/shadow_offset_y = 10
+theme_override_colors/font_shadow_color = Color(0.185344, 0.445993, 0.730321, 1)
+theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_outline_size = 40
-theme_override_fonts/normal_font = ExtResource("3_oibca")
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/normal_font = ExtResource("3_0w5n6")
 theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
-text = "[shake rate=6 level=30 connected=0]Master Volume[/shake]"
+text = "[shake rate=3 level=20 connected=0]MASTER VOLUME[/shake]"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1

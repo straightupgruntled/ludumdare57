@@ -7,7 +7,7 @@
 line_spacing = -8.0
 font = ExtResource("2_2i016")
 font_size = 32
-outline_size = 12
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Interactable" type="Area2D"]

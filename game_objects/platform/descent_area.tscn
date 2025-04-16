@@ -7,8 +7,11 @@
 line_spacing = -8.0
 font = ExtResource("2_rmi4m")
 font_size = 32
-outline_size = 12
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(-2, 3)
 
 [node name="DescentArea" type="Area2D"]
 z_index = 10
