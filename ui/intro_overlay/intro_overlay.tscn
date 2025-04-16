@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bh5tfquq6tow0"]
+[gd_scene load_steps=13 format=3 uid="uid://bh5tfquq6tow0"]
 
 [ext_resource type="Script" uid="uid://cmo74h53pywqe" path="res://ui/intro_overlay/intro_overlay.gd" id="1_w4iag"]
+[ext_resource type="Shader" uid="uid://blvjlr33i0gs8" path="res://resources/shader/shine.gdshader" id="2_ich1p"]
 [ext_resource type="Texture2D" uid="uid://ctw3f2okhmsuo" path="res://assets/sprites/intro_logos/gruntled_games_logo.png" id="2_vqjr5"]
 [ext_resource type="Texture2D" uid="uid://c3wt0w87x6r6b" path="res://assets/sprites/intro_logos/white_godot_logo.png" id="3_pyaq3"]
 [ext_resource type="FontFile" uid="uid://cf7pwort5hh46" path="res://assets/fonts/patrick_hand_regular.ttf" id="4_jxp6w"]
@@ -152,7 +153,7 @@ tracks/2/path = NodePath("GruntledLogo:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.366667, 2.6, 3.63333),
+"times": PackedFloat32Array(0, 0.366667, 2.6, 3.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
@@ -236,6 +237,14 @@ _data = {
 &"intro": SubResource("Animation_b0wv5")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1yna4"]
+shader = ExtResource("2_ich1p")
+shader_parameter/shine_color = Color(0.580248, 0.892843, 0.999127, 0.247059)
+shader_parameter/line_width = 0.7
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 2.0
+shader_parameter/wait_cycles = 1.2
+
 [sub_resource type="LabelSettings" id="LabelSettings_fuupw"]
 font = ExtResource("4_jxp6w")
 font_size = 80
@@ -265,6 +274,7 @@ grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
 [node name="GruntledLogo" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1yna4")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -284,6 +294,7 @@ texture = ExtResource("2_vqjr5")
 
 [node name="GodotLogo" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 0)
+self_modulate = Color(0.282353, 0.701961, 1, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

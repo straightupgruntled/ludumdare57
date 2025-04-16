@@ -83,7 +83,7 @@ libraries = {
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("2_25oyp")
-volume_db = 2.0
+volume_db = -4.0
 bus = &"Music"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

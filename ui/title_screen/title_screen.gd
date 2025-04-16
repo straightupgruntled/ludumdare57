@@ -10,7 +10,7 @@ var entering : bool = false
 @onready var title = $Title
 @onready var ld_logo = $LDLogo
 @onready var background_sprite = $Background/BackgroundSprite
-@onready var cover = $Background/Cover
+@onready var cover = $Background/BlueCover
 @onready var cart_player_sprite = $Background/BackgroundSprite/CartPlayerSprite
 @onready var pause_menu = $PauseMenu
 @onready var menu_options = $MenuOptions
@@ -19,6 +19,7 @@ var entering : bool = false
 
 
 func _ready():
+	HubRoom.first_time = true
 	TransitionManager.music_pitch = 0.85
 	EventBus.intro_finished.connect(intro_completed)
 	if Global.intro_completed:

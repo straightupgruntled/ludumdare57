@@ -8,6 +8,8 @@ var camera_rotation_active : bool = true
 var aim_following_active : bool = true
 
 var enemies_killed : int = 0
+var player_health : int = 6
+var diamond_requirement : int = 0
 var diamonds : int = 0
 var gears : int = 0
 

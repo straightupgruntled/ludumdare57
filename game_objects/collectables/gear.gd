@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 
 func _ready():
-	await get_tree().create_timer(8.0).timeout
+	await get_tree().create_timer(10.0).timeout
 	animation_player.play("flashing")
 	await get_tree().create_timer(3.0).timeout
 	self.queue_free()

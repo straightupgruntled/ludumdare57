@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://bqmljgqe0u012"]
+
+[ext_resource type="AudioStream" uid="uid://bqf3ru16hau1k" path="res://assets/audio/dialogue/death_2.wav" id="1_7k0hm"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="2_d78fg"]
+
+[resource]
+script = ExtResource("2_d78fg")
+dialogue_audio_stream = ExtResource("1_7k0hm")
+textline_split_times = Array[float]([2.9, 5.0, 10.2])
+text_lines = Array[String](["Aaaaaaaaaaaaaaand... CUT!", "What a dramatic ending.", "Rest assured, your suffering will be edited into a very tasteful montage"])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://d13qeailrg2te"]
+
+[ext_resource type="AudioStream" uid="uid://b7bpqn68i7l30" path="res://assets/audio/dialogue/double_quota.wav" id="1_0v5n7"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="1_8qca7"]
+
+[resource]
+script = ExtResource("1_8qca7")
+dialogue_audio_stream = ExtResource("1_0v5n7")
+textline_split_times = Array[float]([2.22, 3.9, 5.38, 8.0])
+text_lines = Array[String](["Wow, double the quota.", "You're not just surviving...", "YOU'RE HOARDING!", "Someone's gunning for employee of the month."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

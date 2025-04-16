@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://cs75yagxxn35p"]
+
+[ext_resource type="AudioStream" uid="uid://p0xoxurnb1ke" path="res://assets/audio/dialogue/home_sweet_holding_cell.wav" id="1_m08h4"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="1_v4knx"]
+
+[resource]
+script = ExtResource("1_v4knx")
+dialogue_audio_stream = ExtResource("1_m08h4")
+textline_split_times = Array[float]([2.85, 4.61, 7.46])
+text_lines = Array[String](["Ah... home sweet holding cell.", "Make yourself at home.", "This is the last room you'll ever truly own."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

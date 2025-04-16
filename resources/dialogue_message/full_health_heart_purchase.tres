@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://c1qcbb41m01ye"]
+
+[ext_resource type="AudioStream" uid="uid://bb25m7n8v2pcn" path="res://assets/audio/dialogue/full_health_heart_purchase.wav" id="1_w3l5f"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="2_rktwn"]
+
+[resource]
+script = ExtResource("2_rktwn")
+dialogue_audio_stream = ExtResource("1_w3l5f")
+textline_split_times = Array[float]([1.82, 3.02, 4.76])
+text_lines = Array[String](["You chose to buy a heart", "With full health", "What a fantastic idea..."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

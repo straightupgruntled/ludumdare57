@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://ce4chp4p3qfqv"]
+
+[ext_resource type="AudioStream" uid="uid://beyyk7rhwkmaw" path="res://assets/audio/dialogue/first_time_prize_pavilion.wav" id="1_k1ir6"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="2_bnysj"]
+
+[resource]
+script = ExtResource("2_bnysj")
+dialogue_audio_stream = ExtResource("1_k1ir6")
+textline_split_times = Array[float]([4.05, 5.6, 8.17, 10.4, 11.85, 14.23])
+text_lines = Array[String](["Welcome contestant, to the fabulous prize pavilion!", "See something you like?", "Just smash the orb to obtain in", "You break it, you buy it.", "No refunds.", "NO EXCEPTIONS!"])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

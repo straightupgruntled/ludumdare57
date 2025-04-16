@@ -1,9 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://dxb7o428afhsd"]
 
 [ext_resource type="Script" uid="uid://cvjm6eucisbew" path="res://components/interaction/interactable.gd" id="1_3rpiu"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="2_2i016"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="2_2i016"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5jgo2"]
+line_spacing = -8.0
 font = ExtResource("2_2i016")
 font_size = 32
 outline_size = 12

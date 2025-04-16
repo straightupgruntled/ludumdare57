@@ -1,65 +1,19 @@
-[gd_scene load_steps=23 format=3 uid="uid://ebote4etxu2p"]
+[gd_scene load_steps=27 format=3 uid="uid://ebote4etxu2p"]
 
 [ext_resource type="Script" uid="uid://bq45e3f6xh4jn" path="res://game_objects/cart/cart.gd" id="1_4at20"]
 [ext_resource type="Texture2D" uid="uid://bil2vy6t48a0k" path="res://assets/sprites/cart_vector.png" id="2_df6ov"]
+[ext_resource type="Resource" uid="uid://d13qeailrg2te" path="res://resources/dialogue_message/double_the_quota.tres" id="2_jwoyr"]
 [ext_resource type="Shader" uid="uid://bg3m4bftlrp3n" path="res://resources/shader/hitflash.gdshader" id="2_q7qcd"]
-[ext_resource type="Texture2D" uid="uid://dudbx1uh0ytoi" path="res://assets/sprites/diamond.png" id="4_cp576"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="4_n6aag"]
+[ext_resource type="Resource" uid="uid://cqap6q6o4uinj" path="res://resources/dialogue_message/quota_reached.tres" id="3_a4s4l"]
 [ext_resource type="PackedScene" uid="uid://dovkunoq4hlre" path="res://components/height_controller/height_controller.tscn" id="5_50xmb"]
 [ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="6_88ld3"]
 [ext_resource type="Texture2D" uid="uid://cpmm1m5e6u0w4" path="res://assets/sprites/gear.png" id="6_cp576"]
+[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="7_0vyv0"]
 [ext_resource type="PackedScene" uid="uid://dxb7o428afhsd" path="res://components/interaction/interactable.tscn" id="7_n6aag"]
+[ext_resource type="Texture2D" uid="uid://msbs4mt3bj7y" path="res://assets/sprites/square_light_mask.png" id="8_0vyv0"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="9_jwoyr"]
 [ext_resource type="PackedScene" uid="uid://da3hdft6hj6k7" path="res://game_objects/cart/cart_attachment_anchor/cart_attachment_anchor.tscn" id="10_5o22y"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp576"]
-resource_local_to_scene = true
-shader = ExtResource("2_q7qcd")
-shader_parameter/hit_color = Color(1, 1, 1, 1)
-shader_parameter/intensity = 0.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_da272"]
-font = ExtResource("4_n6aag")
-font_size = 32
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Animation" id="Animation_cp576"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_q7qcd"]
-resource_name = "hurt"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [1.0, 0.0, 1.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5o22y"]
-_data = {
-&"RESET": SubResource("Animation_cp576"),
-&"hurt": SubResource("Animation_q7qcd")
-}
+[ext_resource type="AudioStream" uid="uid://borcdj7afme1y" path="res://assets/audio/sfx/diamond_sparkle.wav" id="14_if3xm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cp576"]
 size = Vector2(62, 42)
@@ -82,6 +36,82 @@ size = Vector2(80, 74)
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6aag"]
 radius = 34.0147
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp576"]
+resource_local_to_scene = true
+shader = ExtResource("2_q7qcd")
+shader_parameter/hit_color = Color(1, 0, 0, 1)
+shader_parameter/intensity = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_da272"]
+font = ExtResource("9_jwoyr")
+font_size = 36
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 26
+shadow_color = Color(0, 0, 0, 0.341176)
+
+[sub_resource type="Animation" id="Animation_cp576"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q7qcd"]
+resource_name = "hurt"
+length = 2.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.35, 2.25, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.7, 0.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.109604, 0.35, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(0.547902, 0.782834, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5o22y"]
+_data = {
+&"RESET": SubResource("Animation_cp576"),
+&"hurt": SubResource("Animation_q7qcd")
+}
+
 [node name="Cart" type="CharacterBody2D"]
 collision_layer = 10
 collision_mask = 9
@@ -89,28 +119,90 @@ motion_mode = 1
 wall_min_slide_angle = 0.785398
 script = ExtResource("1_4at20")
 top_speed = 210.0
+double_quota_dialogue = ExtResource("2_jwoyr")
+quota_reached_dialogue = ExtResource("3_a4s4l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_cp576")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(8, -21)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_cp576")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(8, 21)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_cp576")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-51, 0)
+shape = SubResource("CircleShape2D_q7qcd")
+disabled = true
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_88ld3")]
+position = Vector2(8, 0)
+type = 1
+cooldown_time = 2.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_n6aag")
+
+[node name="HeightController" parent="." node_paths=PackedStringArray("body", "visuals", "ground_exceptions") instance=ExtResource("5_50xmb")]
+position = Vector2(8, 0)
+body = NodePath("..")
+visuals = NodePath("../Visuals")
+ground_exceptions = [NodePath("..")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeightController"]
+shape = SubResource("CircleShape2D_50xmb")
+
+[node name="CollectableDetector" type="Area2D" parent="."]
+position = Vector2(8, 0)
+rotation = -0.000914105
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableDetector"]
+position = Vector2(-2.74955, -0.00274357)
+shape = SubResource("RectangleShape2D_be307")
+
+[node name="Interactable" parent="." instance=ExtResource("7_n6aag")]
+position = Vector2(-14, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_n6aag")
 
 [node name="Visuals" type="Node2D" parent="."]
 position = Vector2(8, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+light_mask = 3
+visibility_layer = 3
 material = SubResource("ShaderMaterial_cp576")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_df6ov")
 offset = Vector2(-12, 0)
 
 [node name="FixedPivot" type="Node2D" parent="Visuals"]
+light_mask = 5
+visibility_layer = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals/FixedPivot"]
 modulate = Color(0, 0.682586, 0.821081, 1)
+light_mask = 5
+visibility_layer = 5
 position = Vector2(0, -10)
 scale = Vector2(0.545, 0.545)
-texture = ExtResource("4_cp576")
+texture = ExtResource("7_0vyv0")
 
 [node name="DiamondCountLabel" type="Label" parent="Visuals/FixedPivot"]
-offset_left = -31.0
+light_mask = 5
+visibility_layer = 5
+offset_left = -30.5
 offset_top = -42.5
-offset_right = 31.0
+offset_right = 31.5
 offset_bottom = 19.5
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(31, 31)
@@ -122,15 +214,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D2" type="Sprite2D" parent="Visuals/FixedPivot"]
 modulate = Color(0.602683, 0.676829, 0.670659, 1)
+light_mask = 5
+visibility_layer = 5
 position = Vector2(0, 11)
 scale = Vector2(0.215, 0.215)
 texture = ExtResource("6_cp576")
 
 [node name="GearCountLabel" type="Label" parent="Visuals/FixedPivot"]
-offset_left = -31.0
-offset_top = -20.5
-offset_right = 31.0
-offset_bottom = 41.5
+light_mask = 5
+visibility_layer = 5
+offset_left = -30.5
+offset_top = -20.0
+offset_right = 31.5
+offset_bottom = 42.0
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(31, 31)
 text = "0"
@@ -175,57 +271,21 @@ rotation = -2.35619
 position = Vector2(-20, 31)
 rotation = 2.35619
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 0)
-shape = SubResource("RectangleShape2D_cp576")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(8, -21)
+[node name="CircleLight2" type="PointLight2D" parent="Visuals"]
+z_index = 2
 rotation = -1.57079
-shape = SubResource("CapsuleShape2D_cp576")
+scale = Vector2(0.999999, 0.999999)
+color = Color(0.816918, 0.786484, 0.760285, 1)
+blend_mode = 2
+range_item_cull_mask = 4
+texture = ExtResource("8_0vyv0")
+texture_scale = 0.39
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(8, 21)
-rotation = -1.57079
-shape = SubResource("CapsuleShape2D_cp576")
-
-[node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2(-51, 0)
-shape = SubResource("CircleShape2D_q7qcd")
-disabled = true
-
-[node name="Hurtbox" parent="." instance=ExtResource("6_88ld3")]
-position = Vector2(8, 0)
-type = 1
-cooldown_time = 0.2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_n6aag")
-
-[node name="HeightController" parent="." node_paths=PackedStringArray("body", "visuals", "ground_exceptions") instance=ExtResource("5_50xmb")]
-position = Vector2(8, 0)
-body = NodePath("..")
-visuals = NodePath("../Visuals")
-ground_exceptions = [NodePath("..")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeightController"]
-shape = SubResource("CircleShape2D_50xmb")
-
-[node name="CollectableDetector" type="Area2D" parent="."]
-position = Vector2(8, 0)
-rotation = -0.000914105
-collision_layer = 0
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableDetector"]
-position = Vector2(-2.74955, -0.00274357)
-shape = SubResource("RectangleShape2D_be307")
-
-[node name="Interactable" parent="." instance=ExtResource("7_n6aag")]
-position = Vector2(-14, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-shape = SubResource("CircleShape2D_n6aag")
+[node name="CollectSparkle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_if3xm")
+volume_db = -3.0
+pitch_scale = 1.2
+bus = &"SFX"
 
 [connection signal="damage_taken" from="Hurtbox" to="." method="take_damage"]
 [connection signal="falling_started" from="HeightController" to="." method="_on_height_controller_fall_started"]

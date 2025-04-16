@@ -1,11 +1,11 @@
 class_name CartEquipMenu
 extends Control
 
-signal item_equipped(equipment_item : MinecartEquipment, snap_dir : CartEquipSnapPoint.Direction)
+signal item_equipped(equipment_item : CartEquipItem, snap_dir : CartEquipSnapPoint.Direction)
 
 @export var cart : Cart
-@export var item_equipment_1 : MinecartEquipment
-@export var item_equipment_2 : MinecartEquipment
+@export var item_equipment_1 : CartEquipItem
+@export var item_equipment_2 : CartEquipItem
 @export var poof_scene : PackedScene
 
 @onready var cart_equipment_cursor = $CartEquipmentCursor
@@ -19,7 +19,7 @@ func _ready():
 		item_equipped.connect(cart.give_equipment)
 
 
-func show_menu(equipment_item : MinecartEquipment) -> void:
+func show_menu(equipment_item : CartEquipItem) -> void:
 	cart_equipment_cursor.cart_equipment = equipment_item
 	cart_equipment_cursor.show()
 	visible = true

@@ -1,69 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://ce5w0k8lrgp8q"]
+[gd_scene load_steps=4 format=3 uid="uid://ce5w0k8lrgp8q"]
 
 [ext_resource type="Texture2D" uid="uid://cu0hw1quv6jfq" path="res://assets/sprites/heart_item.png" id="1_8la02"]
 [ext_resource type="Script" uid="uid://bw4c3sq2j8tj" path="res://game_objects/shop_items/heart_item.gd" id="1_twj3g"]
-[ext_resource type="PackedScene" uid="uid://b8dxl17fafso5" path="res://game_objects/particles/little_poof_particles.tscn" id="2_f05j7"]
-[ext_resource type="PackedScene" uid="uid://dxb7o428afhsd" path="res://components/interaction/interactable.tscn" id="2_w45li"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="4_twj3g"]
-[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="6_kykvg"]
-[ext_resource type="Texture2D" uid="uid://djw2kh4se2c46" path="res://assets/sprites/light_mask.png" id="7_kykvg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rbu4q"]
-radius = 31.0161
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_twj3g"]
-radius = 78.0577
-
-[sub_resource type="LabelSettings" id="LabelSettings_36eo1"]
-font = ExtResource("4_twj3g")
-font_size = 32
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
+radius = 8.06226
 
 [node name="HeartItem" type="StaticBody2D"]
-collision_layer = 8
+collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_twj3g")
-diamond_cost = 20
-poof_particle_scene = ExtResource("2_f05j7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_8la02")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rbu4q")
-
-[node name="Interactable" parent="." instance=ExtResource("2_w45li")]
-position = Vector2(0, 16)
-message = "HEART"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-position = Vector2(0, -16)
-shape = SubResource("CircleShape2D_twj3g")
-
-[node name="ActiveLight" type="PointLight2D" parent="."]
-shadow_enabled = true
-texture = ExtResource("7_kykvg")
-texture_scale = 0.22
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-modulate = Color(0.203922, 0.584314, 0.909804, 1)
-position = Vector2(0, -60)
-scale = Vector2(1.17, 1.17)
-texture = ExtResource("6_kykvg")
-
-[node name="DiamondCountLabel" type="Label" parent="."]
-offset_left = -31.0
-offset_top = -90.0
-offset_right = 31.0
-offset_bottom = -28.0
-pivot_offset = Vector2(31, 31)
-text = "10"
-label_settings = SubResource("LabelSettings_36eo1")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[connection signal="entered" from="Interactable" to="." method="_on_interactable_entered"]
-[connection signal="exited" from="Interactable" to="." method="_on_interactable_exited"]
-[connection signal="interaction_triggered" from="Interactable" to="." method="_on_interactable_interaction_triggered"]

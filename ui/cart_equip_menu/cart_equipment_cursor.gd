@@ -1,9 +1,9 @@
 class_name CartEquipmentCursor
 extends Node2D
 
-signal place_equipment(equipment_item : MinecartEquipment, snap_point : CartEquipSnapPoint)
+signal place_equipment(equipment_item : CartEquipItem, snap_point : CartEquipSnapPoint)
 
-@export var cart_equipment : MinecartEquipment : set = _set_cart_equipment
+@export var cart_equipment : CartEquipItem : set = _set_cart_equipment
 
 var active : bool = false
 var snapping : bool = false
@@ -61,7 +61,7 @@ func _on_snap_point_detector_area_exited(area):
 		snapping = false
 
 
-func _set_cart_equipment(value : MinecartEquipment) -> void:
+func _set_cart_equipment(value : CartEquipItem) -> void:
 	cart_equipment = value
 	if not is_node_ready():
 		await ready

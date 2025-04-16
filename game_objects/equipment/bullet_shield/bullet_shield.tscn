@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0dvamfsywjvu"]
+[gd_scene load_steps=6 format=3 uid="uid://b0dvamfsywjvu"]
 
 [ext_resource type="Script" uid="uid://d2bs1bj5rqpkp" path="res://game_objects/equipment/bullet_shield/bullet_shield.gd" id="1_r2h2v"]
 [ext_resource type="Texture2D" uid="uid://ypali6hh2esg" path="res://assets/sprites/bullet_shield.png" id="2_lho4v"]
 [ext_resource type="AudioStream" uid="uid://c478yjrg08keo" path="res://assets/audio/sfx/deflect_bullet.wav" id="3_lho4v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r2h2v"]
-size = Vector2(7, 32)
+size = Vector2(12, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykikg"]
+size = Vector2(7.3481, 11.9641)
 
 [node name="BulletShield" type="Area2D"]
 collision_layer = 0
@@ -19,8 +22,18 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_lho4v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4.5, 0)
+position = Vector2(7, 0)
 shape = SubResource("RectangleShape2D_r2h2v")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(2.38419e-07, -12)
+rotation = -1.309
+shape = SubResource("RectangleShape2D_ykikg")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(2.38419e-07, 12)
+rotation = -1.83259
+shape = SubResource("RectangleShape2D_ykikg")
 
 [node name="DeflectSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_lho4v")

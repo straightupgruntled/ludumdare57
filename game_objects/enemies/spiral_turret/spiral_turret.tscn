@@ -116,10 +116,15 @@ position = Vector2(86, -0.000218026)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4tqfo")
 
+[node name="WaitTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.75
+one_shot = true
+
 [node name="ShootTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 5.0
-autostart = true
+wait_time = 0.4
+one_shot = true
 
 [node name="ObjectDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -130,8 +135,10 @@ shape = SubResource("CircleShape2D_fouej")
 
 [node name="DangerMarker" parent="." instance=ExtResource("7_5dseo")]
 z_index = 2
+scale = Vector2(0.55, 0.55)
 
 [node name="HealthComponent" parent="." instance=ExtResource("8_lc40x")]
+max_health = 12
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("9_bfge5")]
 health_component = NodePath("../HealthComponent")
@@ -155,6 +162,7 @@ color = Color(0.211214, 0.59829, 1, 1)
 texture = ExtResource("11_rm1nk")
 texture_scale = 0.12
 
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
 [connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]

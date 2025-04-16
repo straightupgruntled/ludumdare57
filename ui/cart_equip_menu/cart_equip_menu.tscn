@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://l2kx06e30f18" path="res://ui/cart_equip_menu/cart_equipment_cursor.tscn" id="1_3x5tw"]
 [ext_resource type="Script" uid="uid://bpqqtws6lbw63" path="res://ui/cart_equip_menu/cart_equip_menu.gd" id="1_flp63"]
-[ext_resource type="Resource" uid="uid://ckmqqcot2f1v7" path="res://resources/minecart_equipment/collectable_magnet.tres" id="3_2k8qt"]
+[ext_resource type="Resource" uid="uid://ckmqqcot2f1v7" path="res://resources/cart_equip_item/collectable_magnet.tres" id="3_2k8qt"]
 [ext_resource type="Texture2D" uid="uid://bil2vy6t48a0k" path="res://assets/sprites/cart_vector.png" id="3_dtrq8"]
 [ext_resource type="PackedScene" uid="uid://dpn6w60w1hcv2" path="res://ui/cart_equip_menu/cart_equipment_snap_point_ui.tscn" id="3_flp63"]
 [ext_resource type="PackedScene" uid="uid://5kouea3b6nk1" path="res://game_objects/particles/small_poof_paticles_ui.tscn" id="4_wr36f"]
-[ext_resource type="Resource" uid="uid://bkyjnemvbm4ks" path="res://resources/minecart_equipment/bounce_shield.tres" id="5_8f1ma"]
+[ext_resource type="Resource" uid="uid://bkyjnemvbm4ks" path="res://resources/cart_equip_item/bounce_shield.tres" id="5_8f1ma"]
 
 [node name="CartEquipMenu" type="Control"]
 process_mode = 3

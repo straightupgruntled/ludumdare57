@@ -1,28 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://duiec5a52wuld"]
+[gd_scene load_steps=13 format=3 uid="uid://duiec5a52wuld"]
 
 [ext_resource type="Script" uid="uid://do1xum3g1xlqk" path="res://ui/death_screen/death_screen.gd" id="1_4iqn7"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_6f7yy"]
 [ext_resource type="Texture2D" uid="uid://byydnw46urebg" path="res://assets/sprites/death_circle_mask.png" id="1_t6qdb"]
+[ext_resource type="Resource" uid="uid://i2pbevpalfty" path="res://resources/dialogue_message/death_1.tres" id="2_jpji7"]
 [ext_resource type="Texture2D" uid="uid://c0vkrgj15x8m1" path="res://assets/sprites/void.png" id="2_lmqk2"]
+[ext_resource type="Resource" uid="uid://bqmljgqe0u012" path="res://resources/dialogue_message/death_2.tres" id="3_2da1i"]
+[ext_resource type="Resource" uid="uid://jefnwrw8mowd" path="res://resources/dialogue_message/death_3.tres" id="4_yvlic"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="7_yvlic"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_t6qdb"]
-font = ExtResource("1_6f7yy")
-font_size = 146
+font = ExtResource("7_yvlic")
+font_size = 200
 font_color = Color(1, 0, 0, 1)
-outline_size = 25
 outline_color = Color(0, 0, 0, 1)
-shadow_size = 61
-shadow_color = Color(0, 0, 0, 0.847059)
-shadow_offset = Vector2(1, 4.705)
+shadow_size = 5
+shadow_color = Color(0.423184, 2.22605e-06, 1.27546e-06, 1)
+shadow_offset = Vector2(0, 12.205)
 
-[sub_resource type="LabelSettings" id="LabelSettings_4iqn7"]
-font = ExtResource("1_6f7yy")
+[sub_resource type="LabelSettings" id="LabelSettings_jpji7"]
+font = ExtResource("7_yvlic")
 font_size = 100
-outline_size = 25
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 61
-shadow_color = Color(0, 0, 0, 0.847059)
-shadow_offset = Vector2(1, 4.705)
+shadow_size = 2
+shadow_color = Color(0.458405, 0.458405, 0.458405, 1)
+shadow_offset = Vector2(0, 8.16)
 
 [sub_resource type="Animation" id="Animation_jdr65"]
 length = 0.001
@@ -71,6 +71,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_4iqn7")
+death_1 = ExtResource("2_jpji7")
+death_2 = ExtResource("3_2da1i")
+death_3 = ExtResource("4_yvlic")
 
 [node name="Cover2" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 0.262745)
@@ -110,16 +113,17 @@ mouse_filter = 2
 texture = ExtResource("1_t6qdb")
 
 [node name="YouDiedText" type="Label" parent="."]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -275.0
-offset_top = -402.0
-offset_right = 275.0
-offset_bottom = -226.0
+offset_left = -338.0
+offset_top = -376.0
+offset_right = 338.0
+offset_bottom = -175.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "YOU DIED"
@@ -127,23 +131,26 @@ label_settings = SubResource("LabelSettings_t6qdb")
 horizontal_alignment = 1
 
 [node name="FloorsClearedText" type="Label" parent="."]
+visibility_layer = 2
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -287.0
-offset_top = 234.0
-offset_right = 287.0
-offset_bottom = 410.0
+anchor_bottom = 1.0
+offset_left = -308.5
+offset_top = -329.0
+offset_right = 308.5
+offset_bottom = -228.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 text = "Floors Cleared: 0"
-label_settings = SubResource("LabelSettings_4iqn7")
+label_settings = SubResource("LabelSettings_jpji7")
 horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_3o0xi")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

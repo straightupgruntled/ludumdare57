@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://il0pu15ajnat" path="res://ui/hyper_boost_panel/hyper_boost_slot.gd" id="1_caa03"]
 [ext_resource type="Texture2D" uid="uid://bien8r30vspp8" path="res://assets/sprites/hyper_boost_button.png" id="1_t3h2f"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="2_caa03"]
 [ext_resource type="Texture2D" uid="uid://ba3a4rwgjqoyf" path="res://assets/sprites/hyper_boost_button_use.png" id="3_13tr8"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="4_13tr8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_13tr8"]
-font = ExtResource("2_caa03")
-font_size = 24
+font = ExtResource("4_13tr8")
+font_size = 32
 outline_size = 12
 outline_color = Color(0, 0, 0, 1)
 

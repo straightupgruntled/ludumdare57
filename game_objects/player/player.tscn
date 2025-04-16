@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://byw5rlu277t3r"]
+[gd_scene load_steps=31 format=3 uid="uid://byw5rlu277t3r"]
 
 [ext_resource type="Script" uid="uid://w1jiak1yxuhu" path="res://game_objects/player/player.gd" id="1_jcgnw"]
 [ext_resource type="Texture2D" uid="uid://dwyyeg8rcbdoc" path="res://assets/sprites/player.png" id="1_l3qw1"]
@@ -6,8 +6,12 @@
 [ext_resource type="Shader" uid="uid://bg3m4bftlrp3n" path="res://resources/shader/hitflash.gdshader" id="3_0msq5"]
 [ext_resource type="PackedScene" uid="uid://bjb6uehdnxdvv" path="res://game_objects/particles/small_poof_particles.tscn" id="3_2xxf6"]
 [ext_resource type="PackedScene" uid="uid://b0dvamfsywjvu" path="res://game_objects/equipment/bullet_shield/bullet_shield.tscn" id="4_f4exj"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="4_p4l60"]
+[ext_resource type="Resource" uid="uid://cbvn5n5tnknv0" path="res://resources/dialogue_message/player_hurt_1.tres" id="5_on823"]
 [ext_resource type="PackedScene" uid="uid://dovkunoq4hlre" path="res://components/height_controller/height_controller.tscn" id="6_b08t1"]
+[ext_resource type="Resource" uid="uid://cpovu8n71go53" path="res://resources/dialogue_message/player_hurt_2.tres" id="6_d5r2k"]
 [ext_resource type="Texture2D" uid="uid://uexpvrexfmw2" path="res://assets/sprites/player_dead.png" id="6_qh24s"]
+[ext_resource type="Resource" uid="uid://br8o7d6gpim21" path="res://resources/dialogue_message/player_hurt_3.tres" id="7_ip10g"]
 [ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="7_kt652"]
 [ext_resource type="Texture2D" uid="uid://dgj8ayp17534l" path="res://assets/sprites/flashlight_cone_mask.png" id="7_qh24s"]
 [ext_resource type="Script" uid="uid://cacmw8a416j6f" path="res://components/health/health_component.gd" id="8_kke0l"]
@@ -69,7 +73,6 @@ _data = {
 radius = 15.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt652"]
-radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gnf7o"]
 radius = 17.0
@@ -81,7 +84,7 @@ motion_mode = 1
 script = ExtResource("1_jcgnw")
 pickaxe_scene = ExtResource("2_b08t1")
 poof_particle_scene = ExtResource("3_2xxf6")
-title_menu_file = "uid://crxmwxwyc10ot"
+hurt_dialogue_options = Array[ExtResource("4_p4l60")]([ExtResource("5_on823"), ExtResource("6_d5r2k"), ExtResource("7_ip10g")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jcgnw")
@@ -90,10 +93,21 @@ shape = SubResource("CircleShape2D_jcgnw")
 
 [node name="DeadSprite" type="Sprite2D" parent="Visuals"]
 visible = false
+z_index = 10
+z_as_relative = false
 texture_filter = 6
 material = SubResource("ShaderMaterial_2xxf6")
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("6_qh24s")
+
+[node name="CircleLight" type="PointLight2D" parent="Visuals/DeadSprite"]
+z_index = 11
+z_as_relative = false
+rotation = -1.57079
+scale = Vector2(2.85714, 2.85714)
+color = Color(0.816918, 0.786484, 0.760285, 1)
+texture = ExtResource("8_qh24s")
+texture_scale = 0.12
 
 [node name="BodySprite" type="Sprite2D" parent="Visuals"]
 texture_filter = 6
@@ -102,6 +116,8 @@ scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_l3qw1")
 
 [node name="CircleLight" type="PointLight2D" parent="Visuals/BodySprite"]
+z_index = 11
+z_as_relative = false
 rotation = -1.57079
 scale = Vector2(2.85714, 2.85714)
 color = Color(0.816918, 0.786484, 0.760285, 1)
@@ -195,11 +211,17 @@ bus = &"SFX"
 [node name="AudioListener2D" type="AudioListener2D" parent="SFX"]
 current = true
 
+[node name="DeathResetTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 3.5
+
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_gained" from="HealthComponent" to="." method="_on_health_component_health_gained"]
 [connection signal="health_lost" from="HealthComponent" to="." method="_on_health_component_health_lost"]
 [connection signal="falling_started" from="HeightController" to="." method="_on_height_controller_falling_started"]
 [connection signal="fell_into_pit" from="HeightController" to="." method="_on_height_controller_fell_into_pit"]
 [connection signal="grounded_started" from="HeightController" to="." method="landed_on_ground"]
+[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
 [connection signal="body_entered" from="ObjectDetector" to="." method="_on_object_detector_body_entered"]
 [connection signal="body_exited" from="ObjectDetector" to="." method="_on_object_detector_body_exited"]
+[connection signal="timeout" from="DeathResetTimer" to="." method="_on_death_reset_timer_timeout"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://cite221rtcn6e"]
+
+[ext_resource type="Script" uid="uid://dgkinr8ui4yg4" path="res://game_objects/shop_items/consumable_collectable/consumable_collectable.gd" id="1_bi5cg"]
+[ext_resource type="Resource" uid="uid://btke1sl7pe8fj" path="res://resources/consumable_item/extra_pickaxe.tres" id="2_bi5cg"]
+[ext_resource type="Script" uid="uid://b1anpr22kv2r3" path="res://resources/consumable_item/consumable_item.gd" id="3_vtnvw"]
+[ext_resource type="Resource" uid="uid://b2xrdyhgqvsyb" path="res://resources/consumable_item/regain_heart.tres" id="4_wlr6w"]
+[ext_resource type="AudioStream" uid="uid://duyuane6xweek" path="res://assets/audio/sfx/cash-register-sound-fx.mp3" id="5_wlr6w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rbu4q"]
+radius = 12.0416
+
+[node name="ConsumableCollectable2" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_bi5cg")
+consumable_item_choices = Array[ExtResource("3_vtnvw")]([ExtResource("2_bi5cg"), ExtResource("4_wlr6w")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1.18878)
+scale = Vector2(0.841331, 0.841331)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rbu4q")
+disabled = true
+
+[node name="BuySFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_wlr6w")
+volume_db = 5.0
+bus = &"SFX"

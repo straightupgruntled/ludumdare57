@@ -4,14 +4,14 @@
 [ext_resource type="Script" uid="uid://betjf5yvtkklq" path="res://ui/hud/hud.gd" id="1_w75iv"]
 [ext_resource type="PackedScene" uid="uid://xcpmulq5ajis" path="res://ui/pickaxe_ui/pick_ui.tscn" id="2_w75iv"]
 [ext_resource type="PackedScene" uid="uid://duiec5a52wuld" path="res://ui/death_screen/death_screen.tscn" id="3_imuuq"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="5_gfles"]
 [ext_resource type="Texture2D" uid="uid://dudbx1uh0ytoi" path="res://assets/sprites/diamond.png" id="5_imuuq"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="6_kwc50"]
 [ext_resource type="Texture2D" uid="uid://cpmm1m5e6u0w4" path="res://assets/sprites/gear.png" id="6_o2lis"]
 [ext_resource type="PackedScene" uid="uid://dwpj00fhvt8q4" path="res://ui/hyper_boost_panel/hyper_boost_panel.tscn" id="8_gfles"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kwc50"]
-font = ExtResource("6_kwc50")
-font_size = 40
+font = ExtResource("5_gfles")
+font_size = 46
 outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
@@ -46,10 +46,10 @@ texture = ExtResource("5_imuuq")
 
 [node name="DiamondsCollected" type="Label" parent="DiamondCounter"]
 layout_mode = 0
-offset_left = -39.0
-offset_top = 4.0
+offset_left = -125.0
+offset_top = 3.0
 offset_right = 1.0
-offset_bottom = 52.0
+offset_bottom = 51.0
 text = "0"
 label_settings = SubResource("LabelSettings_kwc50")
 horizontal_alignment = 2
@@ -64,12 +64,12 @@ offset_bottom = 107.0
 
 [node name="Sprite2D" type="Sprite2D" parent="GearCounter"]
 position = Vector2(30, 28)
-scale = Vector2(0.42, 0.42)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_o2lis")
 
 [node name="GearsCollected" type="Label" parent="GearCounter"]
 layout_mode = 0
-offset_left = -39.0
+offset_left = -124.0
 offset_top = 4.0
 offset_right = 1.0
 offset_bottom = 52.0
@@ -78,5 +78,6 @@ label_settings = SubResource("LabelSettings_kwc50")
 horizontal_alignment = 2
 
 [node name="HyperBoostPanel" parent="." instance=ExtResource("8_gfles")]
+visible = false
 
 [node name="DeathScreen" parent="." instance=ExtResource("3_imuuq")]

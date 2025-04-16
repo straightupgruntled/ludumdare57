@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://cng6ufp1dpi8p"]
+
+[ext_resource type="AudioStream" uid="uid://cb1b0645wvmvg" path="res://assets/audio/dialogue/entering_arena_tube.wav" id="1_aspxo"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="1_ncnkb"]
+
+[resource]
+script = ExtResource("1_ncnkb")
+dialogue_audio_stream = ExtResource("1_aspxo")
+textline_split_times = Array[float]([2.1, 4.26, 6.28])
+text_lines = Array[String](["Now entering Arena Tube.", "Good luck contestant, we're all watching", "Even when you think we aren't."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

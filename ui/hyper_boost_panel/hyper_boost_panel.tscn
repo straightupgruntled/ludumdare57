@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwpj00fhvt8q4"]
+[gd_scene load_steps=4 format=3 uid="uid://dwpj00fhvt8q4"]
 
 [ext_resource type="Script" uid="uid://dn1q8rtabfp0l" path="res://ui/hyper_boost_panel/hyper_boost_panel.gd" id="1_85w54"]
 [ext_resource type="PackedScene" uid="uid://bgohslr01ltcd" path="res://ui/hyper_boost_panel/hyper_boost_slot.tscn" id="1_v8bnv"]
-[ext_resource type="Resource" uid="uid://bhdqtpr8o1m3l" path="res://resources/hyper_boost/bullet_clear_boost.tres" id="2_8wfil"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wfil"]
 bg_color = Color(0, 0.269625, 0.415241, 1)
@@ -50,7 +49,6 @@ alignment = 1
 
 [node name="HyperBoostSlot" parent="Slots" instance=ExtResource("1_v8bnv")]
 layout_mode = 2
-hyper_boost = ExtResource("2_8wfil")
 
 [node name="HyperBoostSlot2" parent="Slots" instance=ExtResource("1_v8bnv")]
 layout_mode = 2

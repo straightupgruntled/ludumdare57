@@ -1,9 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://b44yjbpcqyw4o"]
 
 [ext_resource type="Script" uid="uid://dsg317iuccli1" path="res://ui/pause_menu/pause_menu.gd" id="1_jbgdu"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_mnjdh"]
 [ext_resource type="Texture2D" uid="uid://dn4wuaj0fschr" path="res://assets/sprites/dark_mist.png" id="2_le02u"]
 [ext_resource type="Script" uid="uid://bxoj321qvg0vx" path="res://ui/ui_menu/ui_menu.gd" id="3_b4b0p"]
+[ext_resource type="FontFile" uid="uid://dlhn3i23oowws" path="res://assets/fonts/GmarketSansBold.otf" id="5_c3jo5"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="5_uraes"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le02u"]
 bg_color = Color(0.1488, 0.25368, 0.48, 0.890196)
@@ -19,37 +20,48 @@ corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 corner_detail = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4b0p"]
-bg_color = Color(0.462754, 0.502272, 0.651568, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uraes"]
+bg_color = Color(0.438395, 0.619334, 0.800771, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3jo5"]
-bg_color = Color(0.462754, 0.502272, 0.651568, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uraes"]
-bg_color = Color(8.42288e-07, 0.613003, 0.273512, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+bg_color = Color(0.438395, 0.619334, 0.800771, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ihaig"]
 bg_color = Color(0.187589, 0.210819, 0.302461, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="LabelSettings" id="LabelSettings_b4b0p"]
-font = ExtResource("1_mnjdh")
-font_size = 80
+font = ExtResource("5_uraes")
+font_size = 62
 outline_size = 14
 outline_color = Color(0, 0, 0, 1)
 
@@ -64,14 +76,14 @@ grow_end = 20.0
 thickness = 6
 
 [sub_resource type="LabelSettings" id="LabelSettings_le02u"]
-font = ExtResource("1_mnjdh")
-font_size = 64
+font = ExtResource("5_uraes")
+font_size = 48
 outline_size = 14
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c3jo5"]
-font = ExtResource("1_mnjdh")
-font_size = 52
+font = ExtResource("5_uraes")
+font_size = 62
 outline_size = 14
 outline_color = Color(0, 0, 0, 1)
 
@@ -136,69 +148,69 @@ alignment = 1
 script = ExtResource("3_b4b0p")
 
 [node name="ResumeButton" type="Button" parent="Panel2/MenuOptions"]
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_mnjdh")
-theme_override_font_sizes/font_size = 80
-theme_override_styles/focus = SubResource("StyleBoxFlat_b4b0p")
+theme_override_fonts/font = ExtResource("5_uraes")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c3jo5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ihaig")
 action_mode = 0
-text = "Resume RUN"
+text = "RESUME RUN"
 
 [node name="GraphicsButton" type="Button" parent="Panel2/MenuOptions"]
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_mnjdh")
-theme_override_font_sizes/font_size = 80
-theme_override_styles/focus = SubResource("StyleBoxFlat_b4b0p")
+theme_override_fonts/font = ExtResource("5_uraes")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c3jo5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ihaig")
 action_mode = 0
 text = "GRAPHICS"
 
 [node name="SoundButton" type="Button" parent="Panel2/MenuOptions"]
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_mnjdh")
-theme_override_font_sizes/font_size = 80
-theme_override_styles/focus = SubResource("StyleBoxFlat_b4b0p")
+theme_override_fonts/font = ExtResource("5_uraes")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c3jo5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ihaig")
 action_mode = 0
 text = "SOUND"
 
 [node name="ControlsButton" type="Button" parent="Panel2/MenuOptions"]
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_mnjdh")
-theme_override_font_sizes/font_size = 80
-theme_override_styles/focus = SubResource("StyleBoxFlat_b4b0p")
+theme_override_fonts/font = ExtResource("5_uraes")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c3jo5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ihaig")
 action_mode = 0
-text = "Controls"
+text = "CONTROLS"
 
 [node name="ExitButton" type="Button" parent="Panel2/MenuOptions"]
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_mnjdh")
-theme_override_font_sizes/font_size = 80
-theme_override_styles/focus = SubResource("StyleBoxFlat_b4b0p")
+theme_override_fonts/font = ExtResource("5_uraes")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c3jo5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uraes")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ihaig")
 action_mode = 0
-text = "Exit RUN"
+text = "EXIT RUN"
 
 [node name="SoundSettings" type="VBoxContainer" parent="Panel2"]
 visible = false
@@ -217,6 +229,7 @@ script = ExtResource("3_b4b0p")
 
 [node name="Label" type="Label" parent="Panel2/SoundSettings"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "MASTER"
 label_settings = SubResource("LabelSettings_b4b0p")
 horizontal_alignment = 1
@@ -237,6 +250,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_b4b0p")
 
 [node name="Label2" type="Label" parent="Panel2/SoundSettings"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "MUSIC"
 label_settings = SubResource("LabelSettings_le02u")
 horizontal_alignment = 1
@@ -257,6 +271,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_b4b0p")
 
 [node name="Label3" type="Label" parent="Panel2/SoundSettings"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "SFX"
 label_settings = SubResource("LabelSettings_le02u")
 horizontal_alignment = 1
@@ -283,7 +298,7 @@ offset_right = -157.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 42
 script = ExtResource("3_b4b0p")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel2/GraphicsSettings"]
@@ -292,10 +307,12 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Panel2/GraphicsSettings/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "FULLSCREEN"
 label_settings = SubResource("LabelSettings_c3jo5")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="FullscreenCheckbox" type="CheckBox" parent="Panel2/GraphicsSettings/HBoxContainer"]
 layout_mode = 2
@@ -308,10 +325,12 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Panel2/GraphicsSettings/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "Camera Rotation"
 label_settings = SubResource("LabelSettings_c3jo5")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="CameraRotationCheckbox" type="CheckBox" parent="Panel2/GraphicsSettings/HBoxContainer2"]
 layout_mode = 2
@@ -324,10 +343,12 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Panel2/GraphicsSettings/HBoxContainer3"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "Aim Following"
 label_settings = SubResource("LabelSettings_c3jo5")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="AimFollowingCheckbox" type="CheckBox" parent="Panel2/GraphicsSettings/HBoxContainer3"]
 layout_mode = 2
@@ -340,10 +361,12 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Panel2/GraphicsSettings/HBoxContainer4"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
 text = "Screenshake"
 label_settings = SubResource("LabelSettings_c3jo5")
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="ScreenshakeCheckbox" type="CheckBox" parent="Panel2/GraphicsSettings/HBoxContainer4"]
 layout_mode = 2
@@ -359,14 +382,13 @@ offset_top = 45.0
 offset_bottom = -858.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0.102048, 0.149557, 0.434384, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.000941543, 0.0503029, 0.135485, 1)
 theme_override_constants/outline_size = 20
-theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_y = 5
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_outline_size = 40
-theme_override_fonts/normal_font = ExtResource("1_mnjdh")
-theme_override_font_sizes/normal_font_size = 124
+theme_override_fonts/normal_font = ExtResource("5_uraes")
+theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
 text = "[shake rate=6 level=30 connected=0]SETTINGS[/shake]"
 fit_content = true

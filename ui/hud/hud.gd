@@ -16,6 +16,8 @@ func _ready():
 		player.health_updated.connect(player_health_bar.update_health)
 		player.pick_count_updated.connect(pick_ui.update_pick_count)
 		player.died.connect(death_screen.trigger_game_over)
+		if not hyper_boost_panel.is_node_ready():
+			await hyper_boost_panel.ready
 		hyper_boost_panel.player = player
 
 

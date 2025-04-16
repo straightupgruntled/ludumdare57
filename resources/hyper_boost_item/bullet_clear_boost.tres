@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="HyperBoost" load_steps=4 format=3 uid="uid://bhdqtpr8o1m3l"]
+
+[ext_resource type="Texture2D" uid="uid://dmiwhtt1dakgx" path="res://assets/sprites/bullet_clear_icon.png" id="1_hd3cx"]
+[ext_resource type="PackedScene" uid="uid://du4fp3p5ra6ql" path="res://game_objects/hyper_boosts/bullet_clear_boost.tscn" id="1_otqlv"]
+[ext_resource type="Script" uid="uid://d35fau7205bs6" path="res://resources/hyper_boost_item/hyper_boost_item.gd" id="2_otqlv"]
+
+[resource]
+script = ExtResource("2_otqlv")
+boost_name = "Bullet Clear"
+icon = ExtResource("1_hd3cx")
+boost_scene = ExtResource("1_otqlv")
+metadata/_custom_type_script = "uid://d35fau7205bs6"

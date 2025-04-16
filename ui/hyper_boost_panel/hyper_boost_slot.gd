@@ -1,13 +1,13 @@
 @tool
-class_name HyperBoostSlot
+class_name HyperBoostItemSlot
 extends Control
 
-signal boost_used(hyper_boost : HyperBoost)
+signal boost_used(hyper_boost : HyperBoostItem)
 
 const BASE_EVENT_NAME = "hyper_boost_"
 
 @export var slot_number : int = 1 : set = _set_slot_number
-@export var hyper_boost : HyperBoost : set = _set_hyper_boost
+@export var hyper_boost : HyperBoostItem : set = _set_hyper_boost
 
 @onready var backing = $Backing
 @onready var backing_used = $BackingUsed
@@ -45,7 +45,7 @@ func _set_slot_number(value : int) -> void:
 		backing.scale = Vector2.ONE * 1.43
 
 
-func _set_hyper_boost(value : HyperBoost) -> void:
+func _set_hyper_boost(value : HyperBoostItem) -> void:
 	hyper_boost = value
 	if not is_node_ready():
 		await ready

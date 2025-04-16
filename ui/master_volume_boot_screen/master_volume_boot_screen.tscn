@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqsxxge02143w"]
 
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_eryn4"]
 [ext_resource type="Script" uid="uid://dsnpigg7yqv15" path="res://ui/master_volume_boot_screen/master_volume_boot_screen.gd" id="1_rsmrb"]
+[ext_resource type="FontFile" uid="uid://dlhn3i23oowws" path="res://assets/fonts/GmarketSansBold.otf" id="3_oibca"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_oibca"]
 thickness = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_oibca"]
-font = ExtResource("1_eryn4")
-font_size = 60
+font = ExtResource("3_oibca")
+font_size = 50
 outline_size = 35
 outline_color = Color(0.0941176, 0.192157, 0.345098, 1)
 shadow_size = 65
@@ -56,7 +56,6 @@ step = 0.05
 value = 0.7
 
 [node name="Hint" type="Label" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +65,7 @@ offset_bottom = 144.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(960, 245)
-text = "Enter to CONTINUE"
+text = "Prompt"
 label_settings = SubResource("LabelSettings_oibca")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -76,8 +75,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 360.0
-offset_bottom = -543.0
+offset_top = 396.0
+offset_bottom = -530.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0.102048, 0.149557, 0.434384, 1)
@@ -86,8 +85,8 @@ theme_override_constants/outline_size = 20
 theme_override_constants/shadow_offset_y = 10
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_outline_size = 40
-theme_override_fonts/normal_font = ExtResource("1_eryn4")
-theme_override_font_sizes/normal_font_size = 100
+theme_override_fonts/normal_font = ExtResource("3_oibca")
+theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
 text = "[shake rate=6 level=30 connected=0]Master Volume[/shake]"
 fit_content = true

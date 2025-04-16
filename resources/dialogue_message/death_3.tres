@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://jefnwrw8mowd"]
+
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="1_sh0hy"]
+[ext_resource type="AudioStream" uid="uid://cr5ulc7l5o451" path="res://assets/audio/dialogue/death_3.wav" id="1_y6q3d"]
+
+[resource]
+script = ExtResource("1_sh0hy")
+dialogue_audio_stream = ExtResource("1_y6q3d")
+textline_split_times = Array[float]([1.66, 3.44, 4.5, 6.95])
+text_lines = Array[String](["That's a wrap folks!", "Another glorious failure.", "Don't worry though!", "We'll reboot what's left of you shortly."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

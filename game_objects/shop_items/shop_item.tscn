@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvt3y3r4ank4i"]
+
+[ext_resource type="Script" uid="uid://cpe60fecg76t6" path="res://game_objects/shop_items/shop_item.gd" id="1_e3vx2"]
+[ext_resource type="Texture2D" uid="uid://cu0hw1quv6jfq" path="res://assets/sprites/heart_item.png" id="3_hmn3i"]
+[ext_resource type="Texture2D" uid="uid://djw2kh4se2c46" path="res://assets/sprites/light_mask.png" id="5_aldvo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rbu4q"]
+radius = 35.0143
+
+[node name="ShopItem" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_e3vx2")
+item_name = null
+diamond_cost = null
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("3_hmn3i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rbu4q")
+
+[node name="ActiveLight" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = ExtResource("5_aldvo")
+texture_scale = 0.22

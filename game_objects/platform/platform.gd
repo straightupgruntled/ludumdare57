@@ -17,7 +17,9 @@ enum State {
 @export var player : Player
 @export var cart : Cart
 @export var object_root : Node2D
+@export var descent_dialogue : DialogueMessage
 
+static var has_descended : bool = false
 var is_cart_near : bool = false
 var target_light_color : Color
 
@@ -28,7 +30,7 @@ var target_light_color : Color
 @onready var weight_light = $WeightLight
 @onready var railing_sprite = $RailingSprite
 @onready var weight_timer = $WeightTimer
-@onready var continue_interactable = $ContinueInteractable
+@onready var descent_area = $DescentArea
 @onready var animation_player = $AnimationPlayer
 
 #SFX#
@@ -37,6 +39,7 @@ var target_light_color : Color
 
 
 func _ready():
+	has_descended = false
 	if current_state == State.ENTERING:
 		start_entrance()
 	elif current_state == State.LOCKED_INTO_ARENA:
@@ -80,10 +83,7 @@ func lock_in_to_arena() -> void:
 	current_state = State.LOCKED_INTO_ARENA
 	player.reparent.call_deferred(object_root)
 	cart.reparent.call_deferred(object_root)
-	player.unfreeze()
-	cart.unfreeze()
-	z_index = -1
-	player.flashlight.show()
+	z_index = -2
 	animation_player.stop()
 	animation_player.play("RESET")
 	lock_poof.emitting = true
@@ -93,8 +93,14 @@ func lock_in_to_arena() -> void:
 	entrance_complete.emit()
 	follow_camera.target_node = player
 	if diamond_requirement == 0:
-		continue_interactable.active = true
+		descent_area.active = true
 	await get_tree().process_frame
+	cart.unfreeze()
+	if !cart.player_ref:
+		player.unfreeze()
+	else:
+		cart.player_grab_cart(cart.player_ref)
+	player.hurtbox.active = true
 	check_descent_conditions()
 	weight_light.color = target_light_color
 	weight_light.energy = 1.0
@@ -103,16 +109,17 @@ func lock_in_to_arena() -> void:
 func check_descent_conditions() -> void:
 	if is_cart_near and cart.diamonds_collected >= diamond_requirement:
 		target_light_color = Color.GREEN
-		continue_interactable.active = true
+		descent_area.active = true
 	else:
 		target_light_color = Color.RED
-		continue_interactable.active = false
+		descent_area.active = false
 
 
 func start_exit() -> void:
-	continue_interactable.active = false
+	descent_area.active = false
 	current_state = State.EXITING
 	player.freeze()
+	player.hurtbox.active = false
 	cart.freeze()
 	player.reparent.call_deferred(sprite)
 	cart.reparent.call_deferred(sprite)
@@ -124,6 +131,9 @@ func start_exit() -> void:
 	weight_light.energy = 0.0
 	descent_sfx.play()
 	descent_started.emit()
+	if !has_descended:
+		DialogueSystem.play_dialogue_message(descent_dialogue)
+		has_descended = true
 
 
 func finish_exit() -> void:
@@ -157,6 +167,7 @@ func _on_interactable_interaction_triggered(interactor):
 
 func _set_diamond_requirement(value : int) -> void:
 	diamond_requirement = value
+	Global.diamond_requirement = diamond_requirement
 	if not is_node_ready():
 		await ready
 	diamond_count_label.text = str(diamond_requirement)

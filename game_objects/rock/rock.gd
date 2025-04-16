@@ -31,7 +31,7 @@ func create_diamond() -> void:
 func _on_health_component_died():
 	hide()
 	set_collision_layer_value(4, false)
-	for i in randi_range(4, 10):
+	for i in randi_range(3, 5):
 		await get_tree().create_timer(0.025).timeout
 		create_diamond()
 	self.queue_free()

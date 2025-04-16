@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://cbvn5n5tnknv0"]
+
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="1_668ri"]
+[ext_resource type="AudioStream" uid="uid://k4nromtk7mea" path="res://assets/audio/dialogue/player_hurt_1.wav" id="1_p0gcj"]
+
+[resource]
+script = ExtResource("1_668ri")
+dialogue_audio_stream = ExtResource("1_p0gcj")
+textline_split_times = Array[float]([0.87, 2.55, 3.84])
+text_lines = Array[String](["Oof!", "That's gotta leave a mark.", "On your ratings."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

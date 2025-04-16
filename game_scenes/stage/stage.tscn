@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://qnouoriqwjth"]
+[gd_scene load_steps=23 format=3 uid="uid://qnouoriqwjth"]
 
 [ext_resource type="Script" uid="uid://wmhox7kdhwss" path="res://game_scenes/stage/stage.gd" id="1_4i1ok"]
 [ext_resource type="Script" uid="uid://bm5wjjjx8nhox" path="res://resources/arena_collection/arena_collection.gd" id="2_1rswj"]
 [ext_resource type="Resource" uid="uid://bie8x8jtgsamv" path="res://resources/arena_collection/difficulty_1_arenas.tres" id="3_bwcge"]
+[ext_resource type="Resource" uid="uid://cfg32fgego3yb" path="res://resources/arena_collection/hub_room_collection.tres" id="3_f4o6f"]
 [ext_resource type="Resource" uid="uid://fyjpl8460b2p" path="res://resources/arena_collection/shops.tres" id="4_bwcge"]
 [ext_resource type="Texture2D" uid="uid://c0vkrgj15x8m1" path="res://assets/sprites/void.png" id="5_ikspt"]
 [ext_resource type="PackedScene" uid="uid://byw5rlu277t3r" path="res://game_objects/player/player.tscn" id="6_1rswj"]
@@ -10,10 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://ebote4etxu2p" path="res://game_objects/cart/cart.tscn" id="7_7rrsk"]
 [ext_resource type="Texture2D" uid="uid://dn4wuaj0fschr" path="res://assets/sprites/dark_mist.png" id="8_f4o6f"]
 [ext_resource type="PackedScene" uid="uid://btexll737i6xw" path="res://ui/hud/hud.tscn" id="9_7rrsk"]
-[ext_resource type="Shader" path="res://resources/shader/vignette_overlay.gdshader" id="10_cpjv5"]
+[ext_resource type="Shader" uid="uid://btt0un2r4gbpi" path="res://resources/shader/vignette_overlay.gdshader" id="10_cpjv5"]
 [ext_resource type="PackedScene" uid="uid://b44yjbpcqyw4o" path="res://ui/pause_menu/pause_menu.tscn" id="11_g5rtv"]
 [ext_resource type="PackedScene" uid="uid://b0wx7xiwitxfr" path="res://ui/cart_equip_menu/cart_equip_menu.tscn" id="12_a2dh6"]
 [ext_resource type="PackedScene" uid="uid://dh26s84gf6jst" path="res://game_objects/platform/platform.tscn" id="12_ikspt"]
+[ext_resource type="PackedScene" uid="uid://b0ix13127olce" path="res://ui/area_introducer/arena_introducer.tscn" id="14_f4o6f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5rtv"]
 shader = ExtResource("10_cpjv5")
@@ -89,15 +91,16 @@ tonemap_exposure = 0.9
 tonemap_white = 2.0
 glow_enabled = true
 adjustment_enabled = true
-adjustment_brightness = 1.6
+adjustment_brightness = 1.2
 adjustment_contrast = 1.02
 adjustment_saturation = 1.05
 
-[node name="Stage" type="Node2D" node_paths=PackedStringArray("platform")]
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("platform", "player")]
 script = ExtResource("1_4i1ok")
-arena_collections = Array[ExtResource("2_1rswj")]([ExtResource("3_bwcge"), ExtResource("4_bwcge")])
-current_level = null
-platform = NodePath("NewPlatform")
+win_scene_file = "uid://c7oon056pu151"
+arena_choice_collections = Array[ExtResource("2_1rswj")]([ExtResource("3_f4o6f"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("4_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("4_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge")])
+platform = NodePath("Objects/Platform")
+player = NodePath("Objects/Platform/Player")
 
 [node name="BackParallax" type="ParallaxBackground" parent="."]
 layer = -2
@@ -131,7 +134,7 @@ texture_repeat = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_f4o6f")
 region_enabled = true
-region_rect = Rect2(0, 0, 4000, 4000)
+region_rect = Rect2(0, 0, 2500, 2500)
 
 [node name="VoidLayer3" type="ParallaxLayer" parent="FrontParallax"]
 modulate = Color(0.167382, 0.255685, 0.37794, 1)
@@ -147,30 +150,32 @@ texture_repeat = 2
 scale = Vector2(4, 4)
 texture = ExtResource("8_f4o6f")
 region_enabled = true
-region_rect = Rect2(0, 0, 4000, 4000)
+region_rect = Rect2(0, 0, 2500, 2500)
 
 [node name="ArenaHolder" type="Node2D" parent="."]
 
-[node name="FollowCamera" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("6_w1vsg")]
-target_node = NodePath("../NewPlatform")
-
-[node name="NewPlatform" parent="." node_paths=PackedStringArray("follow_camera", "player", "cart", "object_root") instance=ExtResource("12_ikspt")]
-follow_camera = NodePath("../FollowCamera")
-player = NodePath("Player")
-cart = NodePath("Cart")
-object_root = NodePath("../Objects")
-
-[node name="Player" parent="NewPlatform" node_paths=PackedStringArray("follow_camera") instance=ExtResource("6_1rswj")]
-position = Vector2(0, 41)
-follow_camera = NodePath("../../FollowCamera")
-
-[node name="Cart" parent="NewPlatform" instance=ExtResource("7_7rrsk")]
-position = Vector2(-6, -21)
-
 [node name="Objects" type="Node2D" parent="."]
 
+[node name="Platform" parent="Objects" node_paths=PackedStringArray("follow_camera", "player", "cart", "object_root") instance=ExtResource("12_ikspt")]
+current_state = 1
+follow_camera = NodePath("../../FollowCamera")
+player = NodePath("Player")
+cart = NodePath("Cart")
+object_root = NodePath("..")
+
+[node name="Player" parent="Objects/Platform" node_paths=PackedStringArray("follow_camera") instance=ExtResource("6_1rswj")]
+position = Vector2(0, -179)
+follow_camera = NodePath("../../../FollowCamera")
+
+[node name="Cart" parent="Objects/Platform" instance=ExtResource("7_7rrsk")]
+position = Vector2(-6, 17)
+rotation = 1.57079
+
+[node name="FollowCamera" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("6_w1vsg")]
+target_node = NodePath("../Objects/Platform")
+
 [node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("9_7rrsk")]
-player = NodePath("../NewPlatform/Player")
+player = NodePath("../Objects/Platform/Player")
 
 [node name="VignetteOverlay" type="ColorRect" parent="HUD"]
 z_index = -2
@@ -180,6 +185,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ArenaIntroducer" parent="HUD" instance=ExtResource("14_f4o6f")]
 
 [node name="ScreenTransition" type="CanvasLayer" parent="."]
 layer = 3
@@ -205,7 +212,7 @@ layer = 128
 
 [node name="CartEquipMenu" parent="Menus" node_paths=PackedStringArray("cart") instance=ExtResource("12_a2dh6")]
 visible = false
-cart = NodePath("../../NewPlatform/Cart")
+cart = NodePath("../../Objects/Platform/Cart")
 
 [node name="PauseMenu" parent="Menus" instance=ExtResource("11_g5rtv")]
 visible = false
@@ -213,5 +220,7 @@ visible = false
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_g5rtv")
 
-[connection signal="descent_ended" from="NewPlatform" to="." method="_on_platform_descent_ended"]
-[connection signal="descent_started" from="NewPlatform" to="." method="_on_platform_descent_started"]
+[connection signal="descent_ended" from="Objects/Platform" to="." method="_on_platform_descent_ended"]
+[connection signal="descent_started" from="Objects/Platform" to="." method="_on_platform_descent_started"]
+[connection signal="entrance_complete" from="Objects/Platform" to="." method="_on_platform_entrance_complete"]
+[connection signal="died" from="Objects/Platform/Player" to="." method="_on_player_died"]

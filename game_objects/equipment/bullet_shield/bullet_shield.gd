@@ -5,6 +5,9 @@ extends Area2D
 @export var active : bool : set = _set_active
 
 @onready var collision_shape = $CollisionShape2D
+@onready var collision_shape_2 = $CollisionShape2D2
+@onready var collision_shape_3 = $CollisionShape2D3
+
 
 #SFX#
 @onready var deflect_sfx = $DeflectSFX
@@ -18,6 +21,8 @@ func _set_active(value : bool) -> void:
 		await ready
 	visible = active
 	collision_shape.set_deferred("disabled", !active)
+	collision_shape_2.set_deferred("disabled", !active)
+	collision_shape_3.set_deferred("disabled", !active)
 
 
 func _on_body_entered(body):

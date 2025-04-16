@@ -1,0 +1,80 @@
+[gd_scene load_steps=13 format=3 uid="uid://crveh3jmf2vnf"]
+
+[ext_resource type="Script" uid="uid://6t6xp4tgmoy0" path="res://game_objects/shop_items/shop_gatcha_ball/shop_gatcha_ball.gd" id="1_l5jd3"]
+[ext_resource type="Texture2D" uid="uid://cuur5o218i3xn" path="res://assets/sprites/shop_gatcha_ball.png" id="1_qfqwi"]
+[ext_resource type="PackedScene" uid="uid://cite221rtcn6e" path="res://game_objects/shop_items/consumable_collectable/consumable_collectable.tscn" id="2_fe7yx"]
+[ext_resource type="PackedScene" uid="uid://bjb6uehdnxdvv" path="res://game_objects/particles/small_poof_particles.tscn" id="2_hlkvb"]
+[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="3_0vkbg"]
+[ext_resource type="PackedScene" uid="uid://bml3yeg44x54g" path="res://components/combat/hurtbox.tscn" id="4_0vkbg"]
+[ext_resource type="Resource" uid="uid://c1qcbb41m01ye" path="res://resources/dialogue_message/full_health_heart_purchase.tres" id="4_qa62d"]
+[ext_resource type="PackedScene" uid="uid://dj2xsgwh5x21t" path="res://components/health/health_component.tscn" id="5_m18k8"]
+[ext_resource type="Texture2D" uid="uid://cpmm1m5e6u0w4" path="res://assets/sprites/gear.png" id="6_mf1j2"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="8_qa62d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nmt4m"]
+radius = 32.1403
+
+[sub_resource type="LabelSettings" id="LabelSettings_0vkbg"]
+font = ExtResource("8_qa62d")
+font_size = 18
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ShopGatchaBall" type="StaticBody2D"]
+z_index = 1
+z_as_relative = false
+collision_layer = 10
+collision_mask = 4
+script = ExtResource("1_l5jd3")
+shop_item_scene = ExtResource("2_fe7yx")
+poof_particle_scene = ExtResource("2_hlkvb")
+first_heart_full_health_dialogue = ExtResource("4_qa62d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nmt4m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.47451)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_qfqwi")
+
+[node name="DiamondIcon" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(0.203922, 0.584314, 0.909804, 1)
+z_index = 1
+position = Vector2(0, -64)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_0vkbg")
+
+[node name="GearIcon" type="Sprite2D" parent="Sprite2D"]
+visible = false
+modulate = Color(0.582456, 0.559421, 0.552717, 1)
+z_index = 1
+position = Vector2(0, -68)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_mf1j2")
+
+[node name="CostLabel" type="Label" parent="."]
+z_index = 1
+offset_left = -31.0
+offset_top = -65.0
+offset_right = 31.0
+offset_bottom = -3.0
+pivot_offset = Vector2(31, 31)
+text = "20"
+label_settings = SubResource("LabelSettings_0vkbg")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_0vkbg")]
+health_component = NodePath("../HealthComponent")
+cooldown_time = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_nmt4m")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_m18k8")]
+max_health = 9
+
+[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

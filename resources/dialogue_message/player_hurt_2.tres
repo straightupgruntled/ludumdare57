@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://cpovu8n71go53"]
+
+[ext_resource type="AudioStream" uid="uid://bby3arcowefde" path="res://assets/audio/dialogue/player_hurt_2.wav" id="1_o8u7l"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="2_xee6j"]
+
+[resource]
+script = ExtResource("2_xee6j")
+dialogue_audio_stream = ExtResource("1_o8u7l")
+textline_split_times = Array[float]([0.87, 3.0, 4.77])
+text_lines = Array[String](["Yikes!", "That's what we call viewer engagement.", "Try dodging next time."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

@@ -33,7 +33,7 @@ scale_min = 0.5
 scale_curve = SubResource("CurveTexture_wiqxo")
 color_ramp = SubResource("GradientTexture1D_wiqxo")
 
-[node name="PoofParticles" type="GPUParticles2D"]
+[node name="PoofParticles" type="GPUParticles2D" groups=["clearable"]]
 z_index = 1
 z_as_relative = false
 emitting = false

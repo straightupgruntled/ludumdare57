@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://i2pbevpalfty"]
+
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="1_ets31"]
+[ext_resource type="AudioStream" uid="uid://bh1ahrelimian" path="res://assets/audio/dialogue/death_1.wav" id="1_jw47e"]
+
+[resource]
+script = ExtResource("1_ets31")
+dialogue_audio_stream = ExtResource("1_jw47e")
+textline_split_times = Array[float]([4.0, 5.0, 8.5, 10.3, 11.56])
+text_lines = Array[String](["Ooh, a tragic finale for a promising act.", "But don't worry!", "Your footage tested very well with focus groups.", "Try not to die next time.", "It's expensive."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

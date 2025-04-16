@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ConsumableItem" load_steps=3 format=3 uid="uid://b2xrdyhgqvsyb"]
+
+[ext_resource type="Script" uid="uid://b1anpr22kv2r3" path="res://resources/consumable_item/consumable_item.gd" id="1_5f6hd"]
+[ext_resource type="Texture2D" uid="uid://cu0hw1quv6jfq" path="res://assets/sprites/heart_item.png" id="1_daa6a"]
+
+[resource]
+script = ExtResource("1_5f6hd")
+item_name = "Regain Heart"
+id = 1
+icon = ExtResource("1_daa6a")
+metadata/_custom_type_script = "uid://b1anpr22kv2r3"

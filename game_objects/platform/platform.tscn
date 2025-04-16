@@ -1,15 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://dh26s84gf6jst"]
+[gd_scene load_steps=25 format=3 uid="uid://dh26s84gf6jst"]
 
 [ext_resource type="Script" uid="uid://s08gkugvolfw" path="res://game_objects/platform/platform.gd" id="1_drrpw"]
+[ext_resource type="Resource" uid="uid://cng6ufp1dpi8p" path="res://resources/dialogue_message/descent_start.tres" id="2_3y87h"]
 [ext_resource type="Texture2D" uid="uid://ctwtnx4hd147c" path="res://assets/sprites/poof_particles/large_poof.png" id="2_7opwt"]
 [ext_resource type="Texture2D" uid="uid://bwskas4e1vwhy" path="res://assets/sprites/platform_rails.png" id="3_chp4i"]
 [ext_resource type="Texture2D" uid="uid://dsiqrr24glxl7" path="res://assets/sprites/cash_in_platform.png" id="4_67jl3"]
 [ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="5_a6o58"]
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="6_5t6gq"]
-[ext_resource type="PackedScene" uid="uid://dxb7o428afhsd" path="res://components/interaction/interactable.tscn" id="7_45oeq"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="7_ha384"]
 [ext_resource type="Texture2D" uid="uid://msbs4mt3bj7y" path="res://assets/sprites/square_light_mask.png" id="8_i4i7n"]
 [ext_resource type="AudioStream" uid="uid://bc1gtn1pf5kj3" path="res://assets/audio/sfx/platform_moving.wav" id="9_oiqoi"]
 [ext_resource type="AudioStream" uid="uid://e32gkjpfh82b" path="res://assets/audio/sfx/platform_lockin.wav" id="10_r3h1p"]
+[ext_resource type="PackedScene" uid="uid://dwsefcxydbe5b" path="res://game_objects/platform/descent_area.tscn" id="12_ha384"]
 
 [sub_resource type="Gradient" id="Gradient_pk7ak"]
 offsets = PackedFloat32Array(0, 0.567376, 1)
@@ -43,24 +44,21 @@ scale_curve = SubResource("CurveTexture_kb5ji")
 color_ramp = SubResource("GradientTexture1D_3y87h")
 
 [sub_resource type="LabelSettings" id="LabelSettings_h3ia6"]
-font = ExtResource("6_5t6gq")
-font_size = 38
+font = ExtResource("7_ha384")
+font_size = 42
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pind4"]
-line_spacing = -9.995
-font = ExtResource("6_5t6gq")
-font_size = 20
+line_spacing = -10.155
+font = ExtResource("7_ha384")
+font_size = 24
 font_color = Color(0.583604, 0.783366, 0.954084, 1)
 outline_size = 8
 outline_color = Color(0.0230229, 0.21201, 0.324986, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lljtu"]
 size = Vector2(192, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pind4"]
-size = Vector2(124, 124)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chp4i"]
 size = Vector2(80, 80)
@@ -104,10 +102,14 @@ _data = {
 &"rumble": SubResource("Animation_pk7ak")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pind4"]
+size = Vector2(124, 124)
+
 [node name="Platform" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_drrpw")
+descent_dialogue = ExtResource("2_3y87h")
 
 [node name="LockPoof" type="GPUParticles2D" parent="."]
 emitting = false
@@ -153,14 +155,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -53.0
-offset_top = -4.0
-offset_right = 53.0
-offset_bottom = 62.0
+offset_left = -72.5
+offset_top = -7.0
+offset_right = 72.5
+offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Minimum
-Requirement"
+text = "MINIMUM
+QUOTA"
 label_settings = SubResource("LabelSettings_pind4")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -168,17 +170,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lljtu")
-
-[node name="ContinueInteractable" parent="." instance=ExtResource("7_45oeq")]
-position = Vector2(0, -115)
-message = "CONTINUE DESCENT?"
-active = false
-descent_interactor = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueInteractable"]
-position = Vector2(0, 115)
-shape = SubResource("RectangleShape2D_pind4")
-debug_color = Color(0.208499, 0.640215, 0, 0.42)
 
 [node name="CartDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -213,7 +204,17 @@ libraries = {
 &"": SubResource("AnimationLibrary_3y87h")
 }
 
-[connection signal="interaction_triggered" from="ContinueInteractable" to="." method="_on_interactable_interaction_triggered"]
+[node name="DescentArea" parent="." instance=ExtResource("12_ha384")]
+position = Vector2(0, -122)
+message = "NEXT FLOOR"
+active = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DescentArea"]
+position = Vector2(0, 122)
+shape = SubResource("RectangleShape2D_pind4")
+debug_color = Color(0.208499, 0.640215, 0, 0.42)
+
 [connection signal="body_entered" from="CartDetector" to="." method="_on_object_detector_body_entered"]
 [connection signal="body_exited" from="CartDetector" to="." method="_on_object_detector_body_exited"]
 [connection signal="timeout" from="WeightTimer" to="." method="attempt_descent"]
+[connection signal="triggered" from="DescentArea" to="." method="start_exit"]

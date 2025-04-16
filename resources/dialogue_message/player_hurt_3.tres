@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueMessage" load_steps=3 format=3 uid="uid://br8o7d6gpim21"]
+
+[ext_resource type="AudioStream" uid="uid://bc77jmeesbb1b" path="res://assets/audio/dialogue/player_hurt_3.wav" id="1_aclgg"]
+[ext_resource type="Script" uid="uid://bps6b8im1f0ni" path="res://resources/dialogue_message/dialogue_message.gd" id="2_hec1g"]
+
+[resource]
+script = ExtResource("2_hec1g")
+dialogue_audio_stream = ExtResource("1_aclgg")
+textline_split_times = Array[float]([1.75, 4.07, 5.8])
+text_lines = Array[String](["Oooooh... direct hit!", "That's gotta cost you some dignity.", "And a few organs."])
+metadata/_custom_type_script = "uid://bps6b8im1f0ni"

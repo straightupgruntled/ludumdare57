@@ -10,6 +10,7 @@ var near_cart : Cart
 var near_player : Player
 var target_rotation : float = 0.0
 var dangerous : bool = false
+var shots_available : int = 3
 
 @onready var gun = $Sprite2D/Gun
 @onready var animation_player = $AnimationPlayer
@@ -17,6 +18,7 @@ var dangerous : bool = false
 @onready var health_component = $HealthComponent
 @onready var active_light = $ActiveLight
 @onready var bullet_marker = $Sprite2D/Gun/BulletMarker
+@onready var wait_timer = $WaitTimer
 @onready var shoot_timer = $ShootTimer
 
 #SFX#
@@ -25,39 +27,13 @@ var dangerous : bool = false
 
 func _ready():
 	scale = Vector2.ZERO
-	_on_shoot_timer_timeout()
+	wait_timer.start()
+	active_light.hide()
 
 
 func _physics_process(delta):
 	scale = scale.lerp(Vector2.ONE, .025)
 	gun.rotation = lerp_angle(gun.rotation, target_rotation, 0.25)
-
-
-func _on_shoot_timer_timeout():
-	if near_player:
-		active_light.show()
-		target_rotation = (near_player.global_position - global_position).angle() + randf_range(-PI/6, -PI/12)
-		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
-		aim_sfx.play()
-		for i in 4:
-			await get_tree().create_timer(.2).timeout
-			shoot()
-			target_rotation += PI/10
-			aim_sfx.pitch_scale = randf_range(1.0, 1.3)
-			aim_sfx.play()
-	elif near_cart:
-		active_light.show()
-		target_rotation = (near_cart.global_position - global_position).angle() + randf_range(-PI/6, -PI/12)
-		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
-		aim_sfx.play()
-		for i in 3:
-			await get_tree().create_timer(.2).timeout
-			shoot()
-			target_rotation += PI/10
-			aim_sfx.pitch_scale = randf_range(1.0, 1.3)
-			aim_sfx.play()
-	else:
-		active_light.hide()
 
 
 func shoot() -> void:
@@ -71,8 +47,7 @@ func start_danger() -> void:
 	if !dangerous:
 		dangerous = true
 		danger_marker.trigger()
-		shoot_timer.wait_time = 1.5
-		
+		wait_timer.wait_time = 0.25
 
 
 func take_damage(amount : int = 1) -> void:
@@ -123,3 +98,34 @@ func _on_object_detector_body_exited(body):
 		near_cart = null
 	elif body == near_player:
 		near_player = null
+
+
+func _on_wait_timer_timeout():
+	if near_player:
+		active_light.show()
+		target_rotation = (near_player.global_position - global_position).angle() + randf_range(-PI/5, -PI/12)
+		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+		aim_sfx.play()
+		shoot_timer.start()
+	elif near_cart:
+		active_light.show()
+		target_rotation = (near_cart.global_position - global_position).angle() + randf_range(-PI/5, -PI/12)
+		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+		aim_sfx.play()
+		shoot_timer.start()
+	else:
+		active_light.hide()
+		wait_timer.start()
+
+
+func _on_shoot_timer_timeout():
+	if shots_available > 0:
+		shoot()
+		target_rotation += PI/12
+		aim_sfx.pitch_scale = randf_range(1.0, 1.3)
+		aim_sfx.play()
+		shots_available -= 1
+		shoot_timer.start()
+	else:
+		wait_timer.start()
+		shots_available = 3

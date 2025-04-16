@@ -1,6 +1,5 @@
-[gd_scene load_steps=21 format=3 uid="uid://crxmwxwyc10ot"]
+[gd_scene load_steps=23 format=3 uid="uid://crxmwxwyc10ot"]
 
-[ext_resource type="FontFile" uid="uid://camp454xsy0m5" path="res://assets/fonts/chinese rocks rg.otf" id="1_4kwlo"]
 [ext_resource type="Script" uid="uid://svud5lxk3yj2" path="res://ui/title_screen/title_screen.gd" id="1_ffat2"]
 [ext_resource type="Texture2D" uid="uid://cq7rwhupstfts" path="res://assets/sprites/cave_background.png" id="2_kp51c"]
 [ext_resource type="Texture2D" uid="uid://dudbx1uh0ytoi" path="res://assets/sprites/diamond.png" id="2_rhiq2"]
@@ -8,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://c75unrqe0hfs7" path="res://assets/sprites/title_cart_and_player.png" id="4_2er51"]
 [ext_resource type="Texture2D" uid="uid://b6o7n0ybdvihb" path="res://assets/sprites/ludum_dare_logo.png" id="5_ca08b"]
 [ext_resource type="Texture2D" uid="uid://dkhf78kqmbky3" path="res://assets/sprites/white_vignette_overlay.png" id="5_dk1uc"]
-[ext_resource type="Shader" path="res://resources/shader/screen_overlay.gdshader" id="10_gwpbi"]
+[ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="6_533ah"]
+[ext_resource type="Shader" uid="uid://blvjlr33i0gs8" path="res://resources/shader/shine.gdshader" id="6_c8lgs"]
+[ext_resource type="Shader" uid="uid://br6x21thfo7gb" path="res://resources/shader/screen_overlay.gdshader" id="10_gwpbi"]
 [ext_resource type="Script" uid="uid://bxoj321qvg0vx" path="res://ui/ui_menu/ui_menu.gd" id="11_c8lgs"]
 [ext_resource type="PackedScene" uid="uid://b44yjbpcqyw4o" path="res://ui/pause_menu/pause_menu.tscn" id="11_dk1uc"]
 
@@ -36,24 +37,34 @@ scale_min = 0.75
 scale_max = 2.25
 scale_curve = SubResource("CurveTexture_lgnx5")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_533ah"]
+shader = ExtResource("6_c8lgs")
+shader_parameter/shine_color = Color(0.0784314, 0.788235, 0.960784, 0.313726)
+shader_parameter/line_width = 0.2
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 0.5
+shader_parameter/wait_cycles = 0.6
+
 [sub_resource type="LabelSettings" id="LabelSettings_ffat2"]
-font = ExtResource("1_4kwlo")
-font_size = 240
-outline_size = 45
-outline_color = Color(0.0948004, 0.191602, 0.346263, 1)
-shadow_size = 96
-shadow_color = Color(0, 0, 0, 0.847059)
-shadow_offset = Vector2(0, 8)
+line_spacing = -81.855
+font = ExtResource("6_533ah")
+font_size = 224
+font_color = Color(3.46541e-06, 0.871355, 0.902394, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+shadow_color = Color(0.0165685, 1.56425e-07, 0.18412, 1)
+shadow_offset = Vector2(0, 15.59)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dk1uc"]
-font = ExtResource("1_4kwlo")
+font = ExtResource("6_533ah")
 font_size = 42
-font_color = Color(0.980968, 0.562436, 0.186719, 1)
-outline_size = 10
+font_color = Color(0.963781, 0.579212, 0, 1)
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
-shadow_size = 20
+shadow_size = 10
 shadow_color = Color(0, 0, 0, 0.847059)
-shadow_offset = Vector2(0, 5)
+shadow_offset = Vector2(0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dk1uc"]
 shader = ExtResource("10_gwpbi")
@@ -107,7 +118,7 @@ offset = Vector2(0, -300)
 
 [node name="CartPlayerSprite" type="Sprite2D" parent="Background/BackgroundSprite"]
 z_index = 1
-position = Vector2(-15, 216)
+position = Vector2(-592, 220)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_2er51")
 offset = Vector2(0, -120)
@@ -120,9 +131,10 @@ texture = ExtResource("2_rhiq2")
 lifetime = 3.0
 preprocess = 3.0
 fixed_fps = 60
+visibility_rect = Rect2(-500, -500, 1000, 1000)
 process_material = SubResource("ParticleProcessMaterial_kp51c")
 
-[node name="Cover" type="ColorRect" parent="Background"]
+[node name="BlueCover" type="ColorRect" parent="Background"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -130,7 +142,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.045, 0, 0.27, 0.752941)
 
-[node name="ColorRect3" type="TextureRect" parent="Background/Cover"]
+[node name="LightGradientLayer" type="TextureRect" parent="Background/BlueCover"]
 modulate = Color(0, 0.488, 0.61, 0.788235)
 layout_mode = 1
 anchors_preset = 15
@@ -141,36 +153,42 @@ grow_vertical = 2
 texture = ExtResource("5_dk1uc")
 
 [node name="Title" type="Label" parent="."]
+material = SubResource("ShaderMaterial_533ah")
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -587.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -416.0
+offset_top = -421.0
+offset_right = 416.0
+offset_bottom = -54.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(960, 245)
-text = "DIAMOND DIVERS"
+pivot_offset = Vector2(416, 200)
+text = "DIAMOND
+DEATHDROP"
 label_settings = SubResource("LabelSettings_ffat2")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LDLogo" type="Sprite2D" parent="."]
-position = Vector2(1753, 947)
-scale = Vector2(1.4, 1.4)
+position = Vector2(1808, 995)
 texture = ExtResource("5_ca08b")
 
-[node name="Title2" type="Label" parent="LDLogo"]
+[node name="PostJamTag" type="Label" parent="LDLogo"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -95.0
-offset_top = 48.5715
+offset_top = 45.0
 offset_right = -23.0
-offset_bottom = -6.42851
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.71, 0.71)
-text = "Post Jam Edition"
+text = "POST JAM EDITION"
 label_settings = SubResource("LabelSettings_dk1uc")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -184,7 +202,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="VignetteOverlay" type="ColorRect" parent="."]
+z_index = 999
+z_as_relative = false
 material = SubResource("ShaderMaterial_dk1uc")
 layout_mode = 1
 anchors_preset = 15
@@ -193,6 +213,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="MenuOptions" type="VBoxContainer" parent="."]
 process_mode = 1
@@ -202,10 +223,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -211.5
-offset_top = -113.0
-offset_right = 211.5
-offset_bottom = 247.0
+offset_left = -193.5
+offset_top = 69.0
+offset_right = 193.5
+offset_bottom = 328.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
@@ -215,9 +236,10 @@ is_open = true
 
 [node name="StartButton" type="Button" parent="MenuOptions"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_4kwlo")
-theme_override_font_sizes/font_size = 80
+theme_override_fonts/font = ExtResource("6_533ah")
+theme_override_font_sizes/font_size = 52
 theme_override_styles/focus = SubResource("StyleBoxFlat_c8lgs")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c8lgs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_533ah")
@@ -227,9 +249,10 @@ text = "START GAME"
 
 [node name="SettingsButton" type="Button" parent="MenuOptions"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_4kwlo")
-theme_override_font_sizes/font_size = 80
+theme_override_fonts/font = ExtResource("6_533ah")
+theme_override_font_sizes/font_size = 52
 theme_override_styles/focus = SubResource("StyleBoxFlat_c8lgs")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c8lgs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_533ah")
@@ -239,9 +262,10 @@ text = "SETTINGS"
 
 [node name="ExitButton" type="Button" parent="MenuOptions"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = ExtResource("1_4kwlo")
-theme_override_font_sizes/font_size = 80
+theme_override_fonts/font = ExtResource("6_533ah")
+theme_override_font_sizes/font_size = 52
 theme_override_styles/focus = SubResource("StyleBoxFlat_c8lgs")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c8lgs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_533ah")
