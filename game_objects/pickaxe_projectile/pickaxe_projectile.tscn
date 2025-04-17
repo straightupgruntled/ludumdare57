@@ -17,6 +17,7 @@ collision_layer = 64
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_7dpqa")
+return_speed = 700.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7dpqa")
@@ -47,5 +48,11 @@ max_distance = 500.0
 attenuation = 2.21914
 bus = &"SFX"
 
+[node name="SendTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+one_shot = true
+
 [connection signal="hit_hurtbox" from="Hitbox" to="." method="return_to_player"]
 [connection signal="hit_hurtbox" from="Hitbox" to="." method="_on_hitbox_hit_hurtbox"]
+[connection signal="timeout" from="SendTimer" to="." method="_on_send_timer_timeout"]

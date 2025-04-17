@@ -7,5 +7,5 @@
 script = ExtResource("1_2u3sl")
 dialogue_audio_stream = ExtResource("1_crskx")
 textline_split_times = Array[float]([2.19, 4.09, 5.98, 8.25])
-text_lines = Array[String](["Congratulations contestant!", "You reached the quota.", "Progress to the next floor!", "OR RISK LOOSING MORE HEALTH"])
+text_lines = Array[String](["Congratulations contestant!", "You reached the quota.", "Progress to the next floor!", "[color=red][shake rate=15.0 level=10 connected=1]OR RISK LOOSING MORE HEALTH"])
 metadata/_custom_type_script = "uid://bps6b8im1f0ni"

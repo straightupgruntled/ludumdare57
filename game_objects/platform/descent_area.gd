@@ -26,7 +26,7 @@ func _input(event):
 
 func _process(delta):
 	global_rotation = 0.0
-	tooltip_label.modulate.a = lerpf(tooltip_label.modulate.a, target_modulate, Global.lerp_factor(18.0, delta))
+	tooltip_label.modulate.a = lerpf(tooltip_label.modulate.a, target_modulate, Global.lerp_factor(50.0, delta))
 	if player_ref and active:
 		show_interaction()
 	else:

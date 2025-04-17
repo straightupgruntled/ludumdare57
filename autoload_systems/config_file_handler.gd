@@ -12,6 +12,7 @@ func _ready():
 		config.set_value("Audio", "master_volume", 0.7)
 		config.set_value("Audio", "music_volume", 0.7)
 		config.set_value("Audio", "sfx_volume", 0.7)
+		config.set_value("Audio", "dialogue_volume", 0.7)
 		# Graphics Settings Setup #
 		config.set_value("Graphics", "fullscreen", false)
 		config.set_value("Graphics", "camera_rotation", true)
@@ -28,6 +29,7 @@ func _ready():
 	AudioServer.set_bus_volume_linear(0, audio_settings.master_volume)
 	AudioServer.set_bus_volume_linear(1, audio_settings.music_volume)
 	AudioServer.set_bus_volume_linear(2, audio_settings.sfx_volume)
+	AudioServer.set_bus_volume_linear(3, audio_settings.dialogue_volume)
 	var graphics_settings = load_graphics_settings()
 	Global.fullscreen = graphics_settings.fullscreen
 	Global.camera_rotation_active = graphics_settings.camera_rotation

@@ -29,8 +29,9 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "fade_out_scene":
 		if current_target_scene:
 			await get_tree().create_timer(.25).timeout
-			get_tree().paused = false
 			get_tree().change_scene_to_file(current_target_scene)
+			await get_tree().process_frame
+			get_tree().paused = false
 			animation_player.play("fade_into_scene")
 	elif anim_name == "fade_into_scene":
 		transition_complete.emit()

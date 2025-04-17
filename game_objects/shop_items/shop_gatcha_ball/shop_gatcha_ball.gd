@@ -30,9 +30,9 @@ func _ready():
 		get_parent().add_child.call_deferred(current_shop_item)
 		current_shop_item.global_position = global_position
 		if current_shop_item is CartEquipCollectable:
-			cost = randi_range(5, 9)
+			cost = randi_range(20, 35)
 		elif current_shop_item is ConsumableCollectable:
-			cost = randi_range(18, 28)
+			cost = randi_range(40, 60)
 
 
 func _process(delta):

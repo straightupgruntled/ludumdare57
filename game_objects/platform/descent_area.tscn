@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwsefcxydbe5b"]
+[gd_scene load_steps=5 format=3 uid="uid://dwsefcxydbe5b"]
 
 [ext_resource type="Script" uid="uid://co60g2au6b1ep" path="res://game_objects/platform/descent_area.gd" id="1_0lop1"]
 [ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="2_rmi4m"]
+[ext_resource type="Texture2D" uid="uid://msbs4mt3bj7y" path="res://assets/sprites/square_light_mask.png" id="3_rmi4m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5jgo2"]
 line_spacing = -8.0
@@ -22,6 +23,8 @@ script = ExtResource("1_0lop1")
 active = false
 
 [node name="TooltipLabel" type="Label" parent="."]
+light_mask = 2048
+visibility_layer = 2048
 z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,6 +41,13 @@ text = "E"
 label_settings = SubResource("LabelSettings_5jgo2")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 2048
+visibility_layer = 2048
+range_item_cull_mask = 2048
+texture = ExtResource("3_rmi4m")
+texture_scale = 3.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

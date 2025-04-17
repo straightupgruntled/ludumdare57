@@ -2,6 +2,7 @@ class_name Rock
 extends StaticBody2D
 
 @export var diamond_scene : PackedScene
+@export var diamond_count : int = 6
 
 @onready var animation_player = $AnimationPlayer
 @onready var health_component = $HealthComponent
@@ -31,7 +32,7 @@ func create_diamond() -> void:
 func _on_health_component_died():
 	hide()
 	set_collision_layer_value(4, false)
-	for i in randi_range(3, 5):
+	for i in diamond_count:
 		await get_tree().create_timer(0.025).timeout
 		create_diamond()
 	self.queue_free()

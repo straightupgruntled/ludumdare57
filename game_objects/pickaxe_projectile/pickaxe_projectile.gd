@@ -13,7 +13,11 @@ var returning : bool = false
 #SFX#
 @onready var bounce_sfx = $BounceSFX
 @onready var impact_sfx = $ImpactSFX
+@onready var send_timer = $SendTimer
 
+
+func _ready():
+	send_timer.start()
 
 
 func _physics_process(delta):
@@ -34,6 +38,8 @@ func _physics_process(delta):
 	
 	var collision = move_and_collide(velocity * delta)
 	if collision:
+		send_timer.stop()
+		send_timer.start()
 		bounce_count += 1
 		bounce_sfx.pitch_scale = randf_range(0.9, 1.1)
 		bounce_sfx.play()
@@ -56,3 +62,7 @@ func return_to_player() -> void:
 func _on_hitbox_hit_hurtbox():
 	impact_sfx.pitch_scale = randf_range(0.9, 1.1)
 	impact_sfx.play()
+
+
+func _on_send_timer_timeout():
+	return_to_player()

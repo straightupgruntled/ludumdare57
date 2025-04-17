@@ -7,5 +7,5 @@
 script = ExtResource("1_ncnkb")
 dialogue_audio_stream = ExtResource("1_aspxo")
 textline_split_times = Array[float]([2.1, 4.26, 6.28])
-text_lines = Array[String](["Now entering Arena Tube.", "Good luck contestant, we're all watching", "Even when you think we aren't."])
+text_lines = Array[String](["Now entering [color=red][wave]Arena Tube[/wave][/color].", "Good luck contestant, we're all watching", "[color=red][shake rate=15.0 level=10 connected=1]EVEN WHEN YOU THINK WE AREN'T"])
 metadata/_custom_type_script = "uid://bps6b8im1f0ni"

@@ -15,6 +15,8 @@ signal menu_closed
 @onready var master_slider = $Panel2/SoundSettings/MasterSlider
 @onready var music_slider = $Panel2/SoundSettings/MusicSlider
 @onready var sfx_slider = $Panel2/SoundSettings/SFXSlider
+@onready var dialogue_slider = $Panel2/SoundSettings/DialogueSlider
+
 
 @onready var graphics_settings_menu = $Panel2/GraphicsSettings
 @onready var fullscreen_checkbox = $Panel2/GraphicsSettings/HBoxContainer/FullscreenCheckbox
@@ -35,6 +37,8 @@ func _ready():
 	music_slider.value = AudioServer.get_bus_volume_linear(1)
 	AudioServer.set_bus_volume_linear(2, audio_settings.sfx_volume)
 	sfx_slider.value = AudioServer.get_bus_volume_linear(2)
+	AudioServer.set_bus_volume_linear(3, audio_settings.dialogue_volume)
+	dialogue_slider.value = AudioServer.get_bus_volume_linear(3)
 	
 	graphics_settings = ConfigFileHandler.load_graphics_settings()
 	fullscreen_checkbox.button_pressed = graphics_settings.fullscreen
@@ -126,6 +130,12 @@ func _on_sfx_slider_value_changed(value):
 	var target_bus = AudioServer.get_bus_index("SFX")
 	AudioServer.set_bus_volume_linear(target_bus, value)
 	ConfigFileHandler.save_audio_setting("sfx_volume", value)
+
+
+func _on_dialogue_slider_value_changed(value):
+	var target_bus = AudioServer.get_bus_index("Dialogue")
+	AudioServer.set_bus_volume_linear(target_bus, value)
+	ConfigFileHandler.save_audio_setting("dialogue_volume", value)
 
 
 func _on_exit_button_pressed():

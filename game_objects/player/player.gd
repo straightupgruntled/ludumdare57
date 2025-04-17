@@ -7,12 +7,12 @@ signal pick_count_updated(amount : int, max_amount : int)
 
 enum State {
 	CAN_MOVE,
+	PUSHING_CART,
 	DEAD,
 	FROZEN
 }
 @export var current_state : State = State.CAN_MOVE
 @export var top_speed : float = 200.0
-@export var can_move : bool = true
 @export var can_shoot : bool = true
 @export var follow_camera : FollowCamera
 @export var picks_to_throw : int = 2
@@ -94,13 +94,15 @@ func _physics_process(delta):
 				mouse_aim()
 			elif InputMode.is_gamepad():
 				controller_aim()
+		State.PUSHING_CART:
+			velocity = velocity.lerp(Vector2.ZERO, .35)
 		State.DEAD:
 			velocity = Vector2.ZERO
 			global_position = global_position.lerp(follow_camera.global_position, .15)
 			rotation = lerp_angle(rotation, PI/2, .15)
 			visuals.scale = visuals.scale.lerp(Vector2(2.5, 2.5), .15)
 		State.FROZEN:
-			velocity = velocity.lerp(Vector2.ZERO, .4)
+			velocity = velocity.lerp(Vector2.ZERO, .5)
 	
 	move_and_slide()
 	for i in range(get_slide_collision_count()):
@@ -123,6 +125,11 @@ func set_state(new_state : State) -> void:
 				await get_tree().physics_frame
 			height_controller.can_fall = true
 			interactor.active = true
+		State.PUSHING_CART:
+			set_collision_mask_value(4, false)
+			set_collision_mask_value(1, false)
+			height_controller.can_fall = false
+			interactor.active = false
 		State.DEAD:
 			velocity = Vector2.ZERO
 			z_index = 999
@@ -170,10 +177,10 @@ func jump() -> void:
 
 
 func landed_on_ground() -> void:
-	interactor.active = true
 	stomp_hitbox.active = true
-	if can_move:
+	if current_state == State.CAN_MOVE:
 		hurtbox.active = true
+		interactor.active = true
 	follow_camera.apply_shake()
 	create_poof()
 	land_sfx.pitch_scale = randf_range(0.9, 1.4)
@@ -182,20 +189,22 @@ func landed_on_ground() -> void:
 		for object in object_detector.get_overlapping_bodies():
 			if object is Cart:
 				push_cart(object)
-			if object.has_method("react"):
-				object.react()
 		jump()
 	else:
 		set_collision_mask_value(4, true)
-	await get_tree().create_timer(.25).timeout
-	stomp_hitbox.active = false
+	for i in 5:
+		await get_tree().physics_frame
+	if is_instance_valid(stomp_hitbox):
+		stomp_hitbox.active = false
 
 
 func push_cart(cart : Cart) -> void:
-	var knock_dir : Vector2 = (cart.global_position - global_position).normalized()
 	var look_dir : Vector2 = Vector2(cos(rotation), sin(rotation)).normalized()
-	var final_vector = (((look_dir * 2.0) + knock_dir)/2.0).normalized()
-	cart.push(final_vector * 250.0)
+	cart.push(look_dir)
+
+
+func object_stomp_interactions() -> void:
+	pass
 
 
 func throw_pickaxe() -> void:
@@ -220,6 +229,12 @@ func return_pickaxe(pickaxe : PickaxeProjectile) -> void:
 	pick_catch_sfx.pitch_scale = randf_range(0.9, 1.1)
 	pick_catch_sfx.play()
 	pickaxe.queue_free()
+
+
+func start_pushing_cart() -> void:
+	if not is_node_ready():
+		await ready
+	set_state(State.PUSHING_CART)
 
 
 func freeze() -> void:

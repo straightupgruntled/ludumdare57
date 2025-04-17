@@ -8,4 +8,5 @@ extends Arena
 
 func _ready():
 	super()
-	DialogueSystem.play_dialogue_message(first_time_dialogue)
+	if !Engine.is_editor_hint():
+		DialogueSystem.play_dialogue_message(first_time_dialogue)

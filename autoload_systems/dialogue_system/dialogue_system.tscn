@@ -1,36 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://6qaeyn3gtnsq"]
+[gd_scene load_steps=4 format=3 uid="uid://6qaeyn3gtnsq"]
 
 [ext_resource type="Script" uid="uid://5b788pjy2nks" path="res://autoload_systems/dialogue_system/dialogue_system.gd" id="1_mbbqi"]
 [ext_resource type="AudioStream" uid="uid://bb25m7n8v2pcn" path="res://assets/audio/dialogue/full_health_heart_purchase.wav" id="2_mbbqi"]
 [ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="2_ptwaf"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ptwaf"]
-font = ExtResource("2_ptwaf")
-font_size = 48
-outline_color = Color(0, 0, 0, 1)
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(2, 3)
-
 [node name="DialogueSystem" type="CanvasLayer"]
 layer = 128
 script = ExtResource("1_mbbqi")
 
-[node name="TextDialogue" type="Label" parent="."]
+[node name="TextDialogue" type="RichTextLabel" parent="."]
 visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -1076.0
-offset_bottom = -984.0
+offset_bottom = -937.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0.162066, 0.162066, 0.162066, 1)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/normal_font = ExtResource("2_ptwaf")
+theme_override_font_sizes/normal_font_size = 42
+bbcode_enabled = true
 text = "Ah, home sweet holding cell."
-label_settings = SubResource("LabelSettings_ptwaf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AudioDialoguePlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_mbbqi")
-volume_db = 2.0
-bus = &"SFX"
+volume_db = 4.0
+bus = &"Dialogue"

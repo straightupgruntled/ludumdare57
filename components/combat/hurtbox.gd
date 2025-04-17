@@ -1,6 +1,7 @@
 class_name Hurtbox
 extends Area2D
 
+signal hit_taken
 signal damage_taken(amount : int)
 
 enum OwnerType {
@@ -35,6 +36,7 @@ func recieve_damage(amount : int) -> void:
 	if invinsible:
 		return
 	damage_taken.emit(amount)
+	hit_taken.emit()
 	if cooldown_time > 0.0:
 		invinsible = true
 		set_process(true)

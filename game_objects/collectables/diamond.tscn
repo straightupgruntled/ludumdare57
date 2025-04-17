@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dovkunoq4hlre" path="res://components/height_controller/height_controller.tscn" id="3_njh0b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8pg2g"]
+radius = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgmka"]
 resource_local_to_scene = true
@@ -103,3 +104,8 @@ shape = SubResource("CircleShape2D_8pg2g")
 libraries = {
 &"": SubResource("AnimationLibrary_vulfx")
 }
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

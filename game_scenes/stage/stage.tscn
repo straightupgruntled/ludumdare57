@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://qnouoriqwjth"]
+[gd_scene load_steps=24 format=3 uid="uid://qnouoriqwjth"]
 
 [ext_resource type="Script" uid="uid://wmhox7kdhwss" path="res://game_scenes/stage/stage.gd" id="1_4i1ok"]
 [ext_resource type="Script" uid="uid://bm5wjjjx8nhox" path="res://resources/arena_collection/arena_collection.gd" id="2_1rswj"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b0wx7xiwitxfr" path="res://ui/cart_equip_menu/cart_equip_menu.tscn" id="12_a2dh6"]
 [ext_resource type="PackedScene" uid="uid://dh26s84gf6jst" path="res://game_objects/platform/platform.tscn" id="12_ikspt"]
 [ext_resource type="PackedScene" uid="uid://b0ix13127olce" path="res://ui/area_introducer/arena_introducer.tscn" id="14_f4o6f"]
+[ext_resource type="Texture2D" uid="uid://dkhf78kqmbky3" path="res://assets/sprites/white_vignette_overlay.png" id="15_lnkyj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5rtv"]
 shader = ExtResource("10_cpjv5")
@@ -98,7 +99,7 @@ adjustment_saturation = 1.05
 [node name="Stage" type="Node2D" node_paths=PackedStringArray("platform", "player")]
 script = ExtResource("1_4i1ok")
 win_scene_file = "uid://c7oon056pu151"
-arena_choice_collections = Array[ExtResource("2_1rswj")]([ExtResource("3_f4o6f"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("4_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("4_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge")])
+arena_choice_collections = Array[ExtResource("2_1rswj")]([ExtResource("3_f4o6f"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("4_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("3_bwcge"), ExtResource("4_bwcge"), ExtResource("3_bwcge")])
 platform = NodePath("Objects/Platform")
 player = NodePath("Objects/Platform/Player")
 
@@ -164,7 +165,7 @@ cart = NodePath("Cart")
 object_root = NodePath("..")
 
 [node name="Player" parent="Objects/Platform" node_paths=PackedStringArray("follow_camera") instance=ExtResource("6_1rswj")]
-position = Vector2(0, -179)
+position = Vector2(0, -40)
 follow_camera = NodePath("../../../FollowCamera")
 
 [node name="Cart" parent="Objects/Platform" instance=ExtResource("7_7rrsk")]
@@ -187,6 +188,24 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ArenaIntroducer" parent="HUD" instance=ExtResource("14_f4o6f")]
+
+[node name="LightGradientLayer" type="TextureRect" parent="HUD"]
+modulate = Color(0, 0.45098, 0.764706, 0.105882)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1246.0
+offset_top = -706.0
+offset_right = 674.0
+offset_bottom = 374.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("15_lnkyj")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="ScreenTransition" type="CanvasLayer" parent="."]
 layer = 3

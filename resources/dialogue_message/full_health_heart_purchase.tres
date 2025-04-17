@@ -7,5 +7,5 @@
 script = ExtResource("2_rktwn")
 dialogue_audio_stream = ExtResource("1_w3l5f")
 textline_split_times = Array[float]([1.82, 3.02, 4.76])
-text_lines = Array[String](["You chose to buy a heart", "With full health", "What a fantastic idea..."])
+text_lines = Array[String](["You chose to buy a heart", "With full health", "[color=red][shake rate=15.0 level=10 connected=1]What a fantastic idea..."])
 metadata/_custom_type_script = "uid://bps6b8im1f0ni"

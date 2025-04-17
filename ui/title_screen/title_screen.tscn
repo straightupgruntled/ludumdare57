@@ -1,10 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://crxmwxwyc10ot"]
+[gd_scene load_steps=26 format=3 uid="uid://crxmwxwyc10ot"]
 
 [ext_resource type="Script" uid="uid://svud5lxk3yj2" path="res://ui/title_screen/title_screen.gd" id="1_ffat2"]
 [ext_resource type="Texture2D" uid="uid://cq7rwhupstfts" path="res://assets/sprites/cave_background.png" id="2_kp51c"]
-[ext_resource type="Texture2D" uid="uid://dudbx1uh0ytoi" path="res://assets/sprites/diamond.png" id="2_rhiq2"]
 [ext_resource type="PackedScene" uid="uid://bh5tfquq6tow0" path="res://ui/intro_overlay/intro_overlay.tscn" id="3_72buf"]
 [ext_resource type="Texture2D" uid="uid://c75unrqe0hfs7" path="res://assets/sprites/title_cart_and_player.png" id="4_2er51"]
+[ext_resource type="Texture2D" uid="uid://dyuq5wkcjyh2c" path="res://assets/sprites/diamond_icon.png" id="4_c8lgs"]
 [ext_resource type="Texture2D" uid="uid://b6o7n0ybdvihb" path="res://assets/sprites/ludum_dare_logo.png" id="5_ca08b"]
 [ext_resource type="Texture2D" uid="uid://dkhf78kqmbky3" path="res://assets/sprites/white_vignette_overlay.png" id="5_dk1uc"]
 [ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="6_533ah"]
@@ -12,6 +12,14 @@
 [ext_resource type="Shader" uid="uid://br6x21thfo7gb" path="res://resources/shader/screen_overlay.gdshader" id="10_gwpbi"]
 [ext_resource type="Script" uid="uid://bxoj321qvg0vx" path="res://ui/ui_menu/ui_menu.gd" id="11_c8lgs"]
 [ext_resource type="PackedScene" uid="uid://b44yjbpcqyw4o" path="res://ui/pause_menu/pause_menu.tscn" id="11_dk1uc"]
+[ext_resource type="AudioStream" uid="uid://ngc67y1g84ek" path="res://assets/audio/sfx/intro_logo.wav" id="13_533ah"]
+
+[sub_resource type="Gradient" id="Gradient_c8lgs"]
+offsets = PackedFloat32Array(0.733577, 1)
+colors = PackedColorArray(0.821789, 0.821789, 0.821789, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_533ah"]
+gradient = SubResource("Gradient_c8lgs")
 
 [sub_resource type="Curve" id="Curve_ca08b"]
 _data = [Vector2(0, 0.359551), 0.0, 0.0, 0, 0, Vector2(0.491018, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.404494), -3.48475, 0.0, 0, 0]
@@ -33,9 +41,10 @@ initial_velocity_max = 100.0
 angular_velocity_min = -400.0
 angular_velocity_max = -100.0
 gravity = Vector3(0, 300, 0)
-scale_min = 0.75
-scale_max = 2.25
+scale_min = 1.5
+scale_max = 2.5
 scale_curve = SubResource("CurveTexture_lgnx5")
+color_ramp = SubResource("GradientTexture1D_533ah")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_533ah"]
 shader = ExtResource("6_c8lgs")
@@ -77,6 +86,10 @@ shader_parameter/fade = 0.7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8lgs"]
 bg_color = Color(0.462754, 0.502272, 0.651568, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -91,6 +104,11 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dk1uc"]
 bg_color = Color(0.187589, 0.210819, 0.302461, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -118,18 +136,18 @@ offset = Vector2(0, -300)
 
 [node name="CartPlayerSprite" type="Sprite2D" parent="Background/BackgroundSprite"]
 z_index = 1
-position = Vector2(-592, 220)
+position = Vector2(-639, 220)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_2er51")
 offset = Vector2(0, -120)
 
 [node name="DiamondParticles" type="GPUParticles2D" parent="Background"]
-modulate = Color(0.47, 0.47, 0.47, 1)
-position = Vector2(986, -82)
-amount = 500
-texture = ExtResource("2_rhiq2")
-lifetime = 3.0
-preprocess = 3.0
+modulate = Color(0, 0.36891, 0.448634, 1)
+position = Vector2(986, -30)
+amount = 300
+texture = ExtResource("4_c8lgs")
+lifetime = 2.5
+preprocess = 2.5
 fixed_fps = 60
 visibility_rect = Rect2(-500, -500, 1000, 1000)
 process_material = SubResource("ParticleProcessMaterial_kp51c")
@@ -140,17 +158,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.045, 0, 0.27, 0.752941)
+color = Color(0.603862, 0.117056, 0.583465, 0.529412)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="LightGradientLayer" type="TextureRect" parent="Background/BlueCover"]
-modulate = Color(0, 0.488, 0.61, 0.788235)
+modulate = Color(0.0877103, 0.368314, 0.972573, 1)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1246.0
+offset_top = -706.0
+offset_right = 674.0
+offset_bottom = 374.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.3, 1.3)
 texture = ExtResource("5_dk1uc")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="."]
 material = SubResource("ShaderMaterial_533ah")
@@ -161,9 +190,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -416.0
-offset_top = -421.0
+offset_top = -430.0
 offset_right = 416.0
-offset_bottom = -54.0
+offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(416, 200)
@@ -174,7 +203,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LDLogo" type="Sprite2D" parent="."]
-position = Vector2(1808, 995)
+position = Vector2(1779, 973)
+scale = Vector2(1.25, 1.25)
 texture = ExtResource("5_ca08b")
 
 [node name="PostJamTag" type="Label" parent="LDLogo"]
@@ -193,16 +223,7 @@ label_settings = SubResource("LabelSettings_dk1uc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="IntroOverlay" parent="." instance=ExtResource("3_72buf")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VignetteOverlay" type="ColorRect" parent="."]
+[node name="ChromaticAbVignette" type="ColorRect" parent="."]
 z_index = 999
 z_as_relative = false
 material = SubResource("ShaderMaterial_dk1uc")
@@ -223,9 +244,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -193.5
-offset_top = 69.0
-offset_right = 193.5
+offset_left = -193.0
+offset_top = 43.0
+offset_right = 194.0
 offset_bottom = 328.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -290,10 +311,25 @@ text = "EXIT SETTINGS"
 [node name="ExitButton" parent="PauseMenu/Panel2/MenuOptions" index="4"]
 visible = false
 
-[connection signal="finished" from="IntroOverlay" to="." method="_on_intro_overlay_finished"]
+[node name="IntroOverlay" parent="." instance=ExtResource("3_72buf")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGameSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_533ah")
+volume_db = 1.4
+pitch_scale = 1.25
+bus = &"SFX"
+
 [connection signal="pressed" from="MenuOptions/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MenuOptions/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MenuOptions/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="menu_closed" from="PauseMenu" to="." method="_on_pause_menu_menu_closed"]
+[connection signal="finished" from="IntroOverlay" to="." method="_on_intro_overlay_finished"]
 
 [editable path="PauseMenu"]

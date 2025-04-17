@@ -163,7 +163,6 @@ shape = SubResource("CircleShape2D_qh24s")
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_kt652")]
 type = 1
 health_component = NodePath("../HealthComponent")
-cooldown_time = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_kt652")

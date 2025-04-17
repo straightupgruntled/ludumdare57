@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://l2kx06e30f18"]
 
-[ext_resource type="Texture2D" uid="uid://ctwtnx4hd147c" path="res://assets/sprites/poof_particles/large_poof.png" id="1_68m0k"]
 [ext_resource type="Texture2D" uid="uid://bh3g5oip08sqf" path="res://assets/sprites/magnet.png" id="1_r5e31"]
 [ext_resource type="Script" uid="uid://ca2wj0sa6ky8e" path="res://ui/cart_equip_menu/cart_equipment_cursor.gd" id="2_yr2bs"]
+[ext_resource type="Texture2D" uid="uid://cdlenw5vpnsql" path="res://assets/sprites/grab_hand.png" id="3_68m0k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_68m0k"]
-radius = 27.1662
+radius = 13.1529
 
 [node name="CartEquipmentCursor" type="Node2D"]
 process_mode = 3
@@ -20,10 +20,9 @@ rotation = -1.5708
 texture = ExtResource("1_r5e31")
 offset = Vector2(15, 0)
 
-[node name="CursorSprite" type="Sprite2D" parent="."]
-process_mode = 3
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_68m0k")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_68m0k")
 
 [node name="SnapPointDetector" type="Area2D" parent="."]
 process_mode = 3
@@ -34,6 +33,3 @@ priority = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SnapPointDetector"]
 process_mode = 3
 shape = SubResource("CircleShape2D_68m0k")
-
-[connection signal="area_entered" from="SnapPointDetector" to="." method="_on_snap_point_detector_area_entered"]
-[connection signal="area_exited" from="SnapPointDetector" to="." method="_on_snap_point_detector_area_exited"]

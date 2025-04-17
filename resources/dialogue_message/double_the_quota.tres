@@ -7,5 +7,5 @@
 script = ExtResource("1_8qca7")
 dialogue_audio_stream = ExtResource("1_0v5n7")
 textline_split_times = Array[float]([2.22, 3.9, 5.38, 8.0])
-text_lines = Array[String](["Wow, double the quota.", "You're not just surviving...", "YOU'RE HOARDING!", "Someone's gunning for employee of the month."])
+text_lines = Array[String](["Wow, double the quota.", "You're not just surviving...", "[color=red][shake rate=15.0 level=10 connected=1]YOU'RE HOARDING!", "Someone's gunning for employee of the month."])
 metadata/_custom_type_script = "uid://bps6b8im1f0ni"

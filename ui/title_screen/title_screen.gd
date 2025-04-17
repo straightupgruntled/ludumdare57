@@ -16,10 +16,12 @@ var entering : bool = false
 @onready var menu_options = $MenuOptions
 @onready var start_button = $MenuOptions/StartButton
 @onready var settings_button = $MenuOptions/SettingsButton
+@onready var start_game_sfx = $StartGameSFX
 
 
 func _ready():
 	HubRoom.first_time = true
+	DialogueSystem.stop_dialogue()
 	TransitionManager.music_pitch = 0.85
 	EventBus.intro_finished.connect(intro_completed)
 	if Global.intro_completed:
@@ -35,7 +37,7 @@ func _process(delta):
 	title.scale = Vector2.ONE * (1.0 + sin(time * 4.0) * 0.02)
 	title.rotation_degrees = sin((time + PI) * 2.0)
 	cart_player_sprite.rotation_degrees = 1.5 * sin(time * 2.5)
-	cart_player_sprite.scale = Vector2.ONE * (1.0 + sin(time * 4.0) * 0.02)
+	cart_player_sprite.scale = Vector2.ONE * (0.8 + sin(time * 4.0) * 0.02)
 	if entering:
 		title.modulate.a = lerpf(title.modulate.a, 0.0, delta * 16.0)
 		cover.modulate.a = lerpf(cover.modulate.a, 0.0, delta * 1.0)
@@ -50,6 +52,7 @@ func intro_completed() -> void:
 
 func start_game() -> void:
 	if can_start:
+		start_game_sfx.play()
 		menu_options.is_open = false
 		entering = true
 		can_start = false

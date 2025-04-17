@@ -130,7 +130,6 @@ texture = ExtResource("3_chp4i")
 texture = ExtResource("4_67jl3")
 
 [node name="FixedPivot" type="Node2D" parent="Sprite2D"]
-position = Vector2(-1, -1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D/FixedPivot"]
 modulate = Color(0, 0.682586, 0.821081, 1)
@@ -205,12 +204,12 @@ libraries = {
 }
 
 [node name="DescentArea" parent="." instance=ExtResource("12_ha384")]
-position = Vector2(0, -122)
+position = Vector2(0, -124)
 message = "NEXT FLOOR"
 active = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DescentArea"]
-position = Vector2(0, 122)
+position = Vector2(0, 124)
 shape = SubResource("RectangleShape2D_pind4")
 debug_color = Color(0.208499, 0.640215, 0, 0.42)
 

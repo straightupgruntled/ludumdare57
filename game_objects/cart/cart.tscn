@@ -15,15 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://da3hdft6hj6k7" path="res://game_objects/cart/cart_attachment_anchor/cart_attachment_anchor.tscn" id="10_5o22y"]
 [ext_resource type="AudioStream" uid="uid://borcdj7afme1y" path="res://assets/audio/sfx/diamond_sparkle.wav" id="14_if3xm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp576"]
-size = Vector2(62, 42)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cp576"]
-height = 62.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_q7qcd"]
-radius = 9.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6aag"]
 size = Vector2(52, 53)
 
@@ -112,34 +103,26 @@ _data = {
 &"hurt": SubResource("Animation_q7qcd")
 }
 
-[node name="Cart" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp576"]
+size = Vector2(62, 42)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cp576"]
+height = 62.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q7qcd"]
+radius = 9.0
+
+[node name="Cart" type="CharacterBody2D" node_paths=PackedStringArray("collision_shapes")]
 collision_layer = 10
 collision_mask = 9
 motion_mode = 1
 wall_min_slide_angle = 0.785398
 script = ExtResource("1_4at20")
+collision_shapes = [NodePath("CollisionShape2D"), NodePath("CollisionShape2D2"), NodePath("CollisionShape2D3")]
 top_speed = 210.0
 double_quota_dialogue = ExtResource("2_jwoyr")
 quota_reached_dialogue = ExtResource("3_a4s4l")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 0)
-shape = SubResource("RectangleShape2D_cp576")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(8, -21)
-rotation = -1.57079
-shape = SubResource("CapsuleShape2D_cp576")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(8, 21)
-rotation = -1.57079
-shape = SubResource("CapsuleShape2D_cp576")
-
-[node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2(-51, 0)
-shape = SubResource("CircleShape2D_q7qcd")
-disabled = true
+full_speed_modifier = 0.6
 
 [node name="Hurtbox" parent="." instance=ExtResource("6_88ld3")]
 position = Vector2(8, 0)
@@ -169,7 +152,7 @@ position = Vector2(-2.74955, -0.00274357)
 shape = SubResource("RectangleShape2D_be307")
 
 [node name="Interactable" parent="." instance=ExtResource("7_n6aag")]
-position = Vector2(-14, 0)
+position = Vector2(-29, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
 shape = SubResource("CircleShape2D_n6aag")
@@ -280,6 +263,25 @@ blend_mode = 2
 range_item_cull_mask = 4
 texture = ExtResource("8_0vyv0")
 texture_scale = 0.39
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_cp576")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(8, -21)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_cp576")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(8, 21)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_cp576")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-51, 0)
+shape = SubResource("CircleShape2D_q7qcd")
+disabled = true
 
 [node name="CollectSparkle" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_if3xm")

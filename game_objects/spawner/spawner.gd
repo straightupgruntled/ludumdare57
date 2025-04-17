@@ -1,11 +1,13 @@
 class_name Spawner
 extends Area2D
 
+@export var spawn_on_start : bool = false
 @export var spawn_root : Node2D
 @export var object_scene : PackedScene
 @export var spawn_delay : float = 5.0 : set = _set_spawn_delay
 @export var entity_cap : int = 5
 @export var active : bool = true
+
 @onready var spawn_timer = $SpawnTimer
 
 @onready var ground_collider = $GroundCollider
@@ -21,6 +23,9 @@ func _ready():
 	spawn_timer.wait_time = spawn_delay
 	spawn_timer.start()
 	hide()
+	if spawn_on_start:
+		await get_tree().process_frame
+		_on_spawn_timer_timeout()
 
 
 func attempt_to_spawn() -> void:

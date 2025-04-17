@@ -11,7 +11,7 @@ var current_arena_scene : PackedScene
 var current_arena : Arena
 var floor_step_counter : int = 0
 var floors_cleared : int = 0
-var total_requirement : int = 10
+var total_requirement : int = 20
 
 @onready var arena_holder = $ArenaHolder
 @onready var animation_player = $ScreenTransition/AnimationPlayer
@@ -33,12 +33,14 @@ func _input(event):
 	if event.is_action_pressed("reroll_arena"):
 		platform.player.freeze()
 		platform.cart.freeze()
+		await get_tree().physics_frame
 		load_next_arena()
 		platform.player.unfreeze()
 		platform.cart.unfreeze()
 	if event.is_action_pressed("skip_level"):
 		platform.player.freeze()
 		platform.cart.freeze()
+		await get_tree().physics_frame
 		_on_platform_descent_ended()
 		platform.player.global_position = Vector2(0, 48)
 		platform.cart.global_position = Vector2.ZERO
@@ -74,7 +76,8 @@ func load_next_arena() -> void:
 
 
 func _on_platform_descent_ended():
-	total_requirement += 5
+	if floor_step_counter >= 1:
+		total_requirement += 5
 	floor_step_counter += 1
 	if current_level < arena_choice_collections.size() - 1:
 		current_level += 1

@@ -19,6 +19,11 @@ func _ready():
 		item_equipped.connect(cart.give_equipment)
 
 
+func _input(event):
+	if event.is_action_pressed("test"):
+		show_menu(item_equipment_1)
+
+
 func show_menu(equipment_item : CartEquipItem) -> void:
 	cart_equipment_cursor.cart_equipment = equipment_item
 	cart_equipment_cursor.show()
@@ -32,18 +37,6 @@ func hide_menu() -> void:
 	visible = false
 	get_tree().paused = visible
 	PhysicsServer2D.set_active(true)
-
-
-#func _input(event):
-	#if event.is_action_pressed("cart_equipment_menu"):
-		#visible = !visible
-		#cart_equipment_cursor.active = visible
-		#get_tree().paused = visible
-		#PhysicsServer2D.set_active(true)
-	#if event.is_action_pressed("item_1"):
-		#cart_equipment_cursor.cart_equipment = item_equipment_1
-	#if event.is_action_pressed("item_2"):
-		#cart_equipment_cursor.cart_equipment = item_equipment_2
 
 
 func _on_cart_equipment_cursor_place_equipment(equipment_item, snap_point):

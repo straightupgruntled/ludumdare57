@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://cxa61q2gnvge2" path="res://assets/fonts/MotionControl-Bold.otf" id="5_uraes"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le02u"]
-bg_color = Color(0.1488, 0.25368, 0.48, 0.890196)
+bg_color = Color(0.14902, 0.254902, 0.478431, 1)
 border_width_left = 12
 border_width_top = 12
 border_width_right = 12
@@ -105,10 +105,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.796078)
+color = Color(0, 0, 0.172549, 0.352941)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.14902)
+modulate = Color(1, 1, 1, 0.243137)
 layout_mode = 0
 offset_right = 960.0
 offset_bottom = 540.0
@@ -123,9 +123,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -408.5
+offset_left = -377.5
 offset_top = -489.5
-offset_right = 408.5
+offset_right = 377.5
 offset_bottom = 489.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -286,6 +286,27 @@ max_value = 1.0
 step = 0.05
 value = 0.7
 
+[node name="HSeparator3" type="HSeparator" parent="Panel2/SoundSettings"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_b4b0p")
+
+[node name="Label4" type="Label" parent="Panel2/SoundSettings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_c3jo5")
+text = "DIALOGUE"
+label_settings = SubResource("LabelSettings_le02u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogueSlider" type="HSlider" parent="Panel2/SoundSettings"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/slider = SubResource("StyleBoxLine_le02u")
+max_value = 1.0
+step = 0.05
+value = 0.7
+
 [node name="GraphicsSettings" type="VBoxContainer" parent="Panel2"]
 visible = false
 layout_mode = 1
@@ -403,6 +424,7 @@ vertical_alignment = 1
 [connection signal="value_changed" from="Panel2/SoundSettings/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="Panel2/SoundSettings/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Panel2/SoundSettings/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Panel2/SoundSettings/DialogueSlider" to="." method="_on_dialogue_slider_value_changed"]
 [connection signal="toggled" from="Panel2/GraphicsSettings/HBoxContainer/FullscreenCheckbox" to="." method="_on_fullscreen_checkbox_toggled"]
 [connection signal="toggled" from="Panel2/GraphicsSettings/HBoxContainer2/CameraRotationCheckbox" to="." method="_on_camera_rotation_checkbox_toggled"]
 [connection signal="toggled" from="Panel2/GraphicsSettings/HBoxContainer3/AimFollowingCheckbox" to="." method="_on_aim_following_checkbox_toggled"]

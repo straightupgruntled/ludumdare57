@@ -20,10 +20,11 @@ func play_dialogue_message(dialogue_message : DialogueMessage) -> void:
 
 
 func stop_dialogue() -> void:
-	audio_dialogue_player.stop()
-	text_dialogue.hide()
-	current_dialogue_message = null
-	finished.emit()
+	if audio_dialogue_player.is_playing():
+		audio_dialogue_player.stop()
+		text_dialogue.hide()
+		current_dialogue_message = null
+		finished.emit()
 
 
 func is_playing() -> bool:

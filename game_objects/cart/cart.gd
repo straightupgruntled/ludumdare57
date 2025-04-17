@@ -6,6 +6,7 @@ enum MoveMode {
 	PLAYER_PUSH,
 	FROZEN
 }
+@export var collision_shapes : Array[CollisionShape2D]
 @export var current_move_mode : MoveMode = MoveMode.FREE
 @export var top_speed : float = 250.0
 @export var diamonds_collected : int = 0 : set = _set_diamonds_collected
@@ -23,6 +24,7 @@ var turn_speed : float = 0.0
 var move_speed : float = top_speed
 var move_backwards : bool = false
 var is_hoarding : bool = false
+var target_rotation : float = 0.0
 
 @onready var visuals = $Visuals
 @onready var sprite = $Visuals/Sprite2D
@@ -74,23 +76,14 @@ func _physics_process(delta):
 				move_backwards = true
 				if velocity.length() > 50.0:
 					pulse(1.35)
-			if velocity.length_squared() > 0.0:
-				var dir : Vector2
-				var target_rotation : float
-				if !move_backwards:
-					dir = velocity.normalized()
-					target_rotation = dir.angle()
-					rotation = lerp_angle(rotation, target_rotation, .25)
-				else:
-					dir = -velocity.normalized()
-					target_rotation = dir.angle()
-					rotation = lerp_angle(rotation, target_rotation, .05)
+			rotation = lerp_angle(rotation, target_rotation, .15)
 		MoveMode.PLAYER_PUSH:
 			if player_ref.current_state == Player.State.DEAD:
 				release_player()
 				return
 			player_ref.global_position = player_ref.global_position.lerp(player_collision.global_position, .7)
 			player_ref.rotation = lerp_angle(player_ref.rotation, (global_position - player_ref.global_position).angle(), .3)
+			target_rotation = rotation
 			var item_count = diamonds_collected + gears_collected
 			var speed_modif = clamp(remap(item_count, 0, max_item_count, 1.0, full_speed_modifier), full_speed_modifier, 1.0)
 			if InputMode.is_gamepad():
@@ -127,7 +120,8 @@ func set_current_move_mode(new_move_move : MoveMode) -> void:
 
 func push(force_vector : Vector2) -> void:
 	move_backwards = false
-	velocity = force_vector
+	velocity = force_vector * 200.0
+	target_rotation = velocity.angle()
 	pulse()
 
 
@@ -171,6 +165,8 @@ func freeze() -> void:
 	interactable.active = false
 	current_move_mode = MoveMode.FROZEN
 	is_hoarding = false
+	for col_shape in collision_shapes:
+		col_shape.set_deferred("disabled", true)
 
 
 func unfreeze() -> void:
@@ -178,13 +174,14 @@ func unfreeze() -> void:
 	hurtbox.active = true
 	interactable.active = true
 	current_move_mode = MoveMode.FREE
+	for col_shape in collision_shapes:
+		col_shape.set_deferred("disabled", false)
 
 
 func release_player() -> void:
 	player_collision.set_deferred("disabled", true)
 	if player_ref:
 		player_ref.unfreeze()
-		player_ref.interactor.active = true
 		player_ref.follow_camera.target_node = player_ref
 		player_ref = null
 	set_current_move_mode(MoveMode.FREE)
@@ -209,14 +206,15 @@ func _on_collectable_detector_body_entered(body):
 	body.queue_free()
 
 func _on_interactable_interaction_triggered(interactor : Interactor):
-	if interactor.owner_body is Player:
-		player_grab_cart(interactor.owner_body)
+	var body = interactor.owner_body
+	if body is Player:
+		player_grab_cart(body)
 
 
 func player_grab_cart(player : Player) -> void:
 	player_ref = player
 	player_collision.set_deferred("disabled", false)
-	player_ref.freeze()
+	player_ref.start_pushing_cart()
 	player_ref.follow_camera.target_node = self
 	player_can_release = false
 	set_current_move_mode(MoveMode.PLAYER_PUSH)
